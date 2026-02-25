@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Boxicons -->
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- My CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+
+  <title>Wishlist</title>
+</head>
+
+<body>
+
+
+  <!-- SIDEBAR -->
+  <section id="sidebar">
+    <a href="index.html" class="brand">
+      <i class='bx bxs-smile'></i>
+      <span class="text">Event</span>
+    </a>
+    <ul class="side-menu top">
+      <li>
+        <a href="index.html">
+          <i class='bx bxs-dashboard'></i>
+          <span class="text">My Tickets</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="wishlist.html">
+          <i class='bx bxs-heart'></i>
+          <span class="text">Wishlist</span>
+        </a>
+      </li>
+      <li>
+        <a href="Mailinglist.html">
+          <i class='bx bxs-envelope'></i>
+          <span class="text">Mailing List</span>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+          <i class='bx bxs-user-account'></i>
+          <span class="text">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-help-circle'></i>
+          <span class="text">Support</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="side-menu logout">
+      <li>
+        <a href="#" class="logout">
+          <i class='bx bx-log-out-circle'></i>
+          <span class="text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <!-- SIDEBAR -->
+
+
+  <!-- CONTENT -->
+  <section id="content">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <i class='bx bx-menu'></i>
+      <a href="#" class="profile">
+        <img src="img/people.png">
+      </a>
+    </nav>
+    <!-- NAVBAR -->
+
+    <!-- MAIN -->
+    <main>
+      <!-- start breadcrumb -->
+      <div class="head-title" style="margin-bottom: 20px;">
+        <div class="left">
+          <ul class="breadcrumb" style="margin-bottom: 20px;">
+            <li>
+              <a class="active" href="#">Home</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+              <a href="#">Wishlist</a>
+            </li>
+          </ul>
+          <h1>Wishlist</h1>
+          <p>Save events to Wishlist if you're interested but choose not to buy tickets yet. You can go back any time
+            and purchase tickets while the sale lasts. </p>
+        </div>
+      </div>
+      <!-- end breadcrumb -->
+      <!-- head-search -->
+      <div class="wishlist-search-container">
+        <div class="wishlist-filter">
+          <select name="category">
+            <option value="" disabled selected>Event Category</option>
+            <option value="all">All</option>
+            <option value="sports">Sports</option>
+            <option value="beauty">Beauty</option>
+          </select>
+
+          <select required>
+            <option value="" disabled selected>Sort By</option>
+            <option value="name-asc">Name(A-Z)</option>
+            <option value="name-desc">Name(Z-A)</option>
+          </select>
+        </div>
+        <div class="wishlist-search">
+          <input type="text" placeholder="Search">
+        </div>
+      </div>
+
+      <!-- Events -->
+      <div class="container-events">
+        <div class="events">
+          <div class="product card-event">
+            <img src="img/sales1.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales2.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales3.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales4.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales1.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales2.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales3.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales4.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+          <div class="product card-event">
+            <img src="img/sales1.jpeg" alt="">
+            <div class="des">
+              <p class="date">23.02.2024</p>
+              <h5 class="product-name">Music Event</h5>
+              <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+                to Türkiye for various purposes.</p>
+              <div class="price">
+                <span>450 <span class="currency">EGP</span></span>
+                <div><i class="fas fa-heart"></i></div>
+              </div>
+              <div class="social-media">
+                <p>Share this event:</p>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="actions">
+                <a href="#">More Info</a>
+                <a href="#" class="delete"><i class="fas fa-trash"></i></a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination" id="pagination"></div>
+    </main>
+    <!-- MAIN -->
+  </section>
+  <!-- CONTENT -->
+
+  <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,3597 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Event Website</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/login.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <!-- swiper css -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="css/swiper-bundle.min.css"
+        />
+        <style>
+        
+            /* carousel */
+            .carousel {
+                height: 100vh;
+                /* margin-top: -50px; */
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .carousel .list .item {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                inset: 0 0 0 0;
+            }
+
+            .item .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.2);
+                z-index: 0;
+            }
+
+            .carousel .list .item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .carousel .list .item .content {
+                position: absolute;
+                top: 20%;
+                width: 1140px;
+                max-width: 80%;
+                left: 50%;
+                transform: translateX(-50%);
+                padding-right: 30%;
+                box-sizing: border-box;
+                color: #fff;
+                text-shadow: 0 5px 10px transparent;
+            }
+
+            .carousel .list .item .author {
+                font-weight: bold;
+                letter-spacing: 10px;
+            }
+
+            .carousel .list .item .title,
+            .carousel .list .item .topic {
+                font-size: 4em;
+                font-weight: bold;
+                line-height: 1.1em;
+                margin-bottom: 5px;
+            }
+
+            .carousel .list .item .topic {
+                color: #f1683a;
+            }
+
+            .carousel .list .item .buttons {
+                /* display: grid;
+      grid-template-columns: repeat(2, 130px);
+      grid-template-rows: 40px; */
+                /* gap: 5px; */
+                margin-top: 25px;
+            }
+
+            .carousel .list .item .buttons a {
+                border: none;
+                background-color: #d3682e;
+                color: #fff;
+                font-family: Poppins;
+                font-weight: 500;
+                cursor: pointer;
+                z-index: 999;
+                border-radius: 10px;
+                padding: 12px 25px;
+            }
+
+            .carousel .list .item .buttons button:nth-child(2) {
+                background-color: transparent;
+                border: 1px solid #fff;
+                color: #eee;
+                border-radius: 10px;
+            }
+
+            /* thumbail */
+            .thumbnail {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                width: max-content;
+                z-index: 9;
+                display: flex;
+                gap: 20px;
+            }
+
+            .thumbnail .item {
+                width: 150px;
+                height: 200px;
+                flex-shrink: 0;
+                position: relative;
+            }
+
+            .thumbnail .item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 20px;
+            }
+
+            .thumbnail .item .content {
+                color: #fff;
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+            }
+
+            .thumbnail .item .content .title {
+                font-weight: 500;
+            }
+
+            .thumbnail .item .content .description {
+                font-weight: 300;
+            }
+
+            .carousel .list .item:nth-child(1) .content .des {
+                font-size: 20px !important;
+                text-align: justify;
+            }
+
+            /* arrows */
+            .arrows {
+                position: absolute;
+                bottom: 10%;
+                left: 30%;
+                transform: translateX(-50%);
+                z-index: 9;
+                display: flex;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .arrows button {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: #f1683a;
+                border: none;
+                color: #fff;
+                font-family: monospace;
+                font-size: 20px;
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                cursor: pointer;
+            }
+
+            .arrows button:hover {
+                background-color: #fff;
+                color: #000;
+            }
+
+            .arrows button i {
+                font-size: 22px;
+            }
+
+            /* animation */
+            .carousel .list .item:nth-child(1) {
+                z-index: 1;
+            }
+
+            /* animation text in first item */
+
+            .carousel .list .item:nth-child(1) .content .author,
+            .carousel .list .item:nth-child(1) .content .title,
+            .carousel .list .item:nth-child(1) .content .topic,
+            .carousel .list .item:nth-child(1) .content .des,
+            .carousel .list .item:nth-child(1) .content .buttons {
+                transform: translateY(50px);
+                filter: blur(20px);
+                opacity: 0;
+                animation: showContent 0.5s 0.5s linear 1 forwards;
+            }
+
+            @keyframes showContent {
+                to {
+                    transform: translateY(0px);
+                    filter: blur(0px);
+                    opacity: 1;
+                }
+            }
+
+            .carousel .list .item:nth-child(1) .content .title {
+                animation-delay: 0.5s !important;
+            }
+
+            .carousel .list .item:nth-child(1) .content .topic {
+                animation-delay: 0.5s !important;
+            }
+
+            .carousel .list .item:nth-child(1) .content .des {
+                animation-delay: 0.6s !important;
+                font-size: 16px;
+            }
+
+            .carousel .list .item:nth-child(1) .content .buttons {
+                animation-delay: 0.5s !important;
+            }
+
+            /* create animation when next click */
+            .carousel.next .list .item:nth-child(1) img {
+                width: 150px;
+                height: 200px;
+                position: absolute;
+                bottom: 50px;
+                left: 50%;
+                border-radius: 30px;
+                animation: showImage 0.5s linear 1 forwards;
+            }
+
+            @keyframes showImage {
+                to {
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0;
+                }
+            }
+
+            .carousel.next .thumbnail .item:nth-last-child(1) {
+                overflow: hidden;
+                animation: showThumbnail 0.5s linear 1 forwards;
+            }
+
+            .carousel.prev .list .item img {
+                z-index: 100;
+            }
+
+            @keyframes showThumbnail {
+                from {
+                    width: 0;
+                    opacity: 0;
+                }
+            }
+
+            .carousel.next .thumbnail {
+                animation: effectNext 0.5s linear 1 forwards;
+            }
+
+            @keyframes effectNext {
+                from {
+                    transform: translateX(150px);
+                }
+            }
+
+            /* running time */
+
+            .carousel .time {
+                position: absolute;
+                z-index: 9;
+                width: 0%;
+                height: 5px;
+                background-color: #f1683a;
+                left: 0;
+                top: 0;
+            }
+
+            .carousel.next .time,
+            .carousel.prev .time {
+                animation: runningTime 0.5s linear 1 forwards;
+            }
+
+            @keyframes runningTime {
+                from {
+                    width: 100%;
+                }
+
+                to {
+                    width: 0;
+                }
+            }
+
+            /* prev click */
+
+            .carousel.prev .list .item:nth-child(2) {
+                z-index: 2;
+            }
+
+            .carousel.prev .list .item:nth-child(2) img {
+                animation: outFrame 0.5s linear 1 forwards;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+            @keyframes outFrame {
+                to {
+                    width: 150px;
+                    height: 220px;
+                    bottom: 50px;
+                    left: 50%;
+                    border-radius: 20px;
+                }
+            }
+
+            .carousel.prev .thumbnail .item:nth-child(1) {
+                overflow: hidden;
+                opacity: 0;
+                animation: showThumbnail 0.5s linear 1 forwards;
+            }
+
+            .carousel.next .arrows a,
+            .carousel.prev .arrows a {
+                pointer-events: none;
+            }
+
+            .carousel.prev .list .item:nth-child(2) .content .author,
+            .carousel.prev .list .item:nth-child(2) .content .title,
+            .carousel.prev .list .item:nth-child(2) .content .topic,
+            .carousel.prev .list .item:nth-child(2) .content .des,
+            .carousel.prev .list .item:nth-child(2) .content .buttons {
+                animation: contentOut 0.5s linear 1 forwards !important;
+            }
+
+            @keyframes contentOut {
+                to {
+                    transform: translateY(-150px);
+                    filter: blur(20px);
+                    opacity: 0;
+                }
+            }
+
+            @media screen and (max-width: 678px) {
+                .carousel .list .item .content {
+                    padding-right: 0;
+                }
+
+                .carousel {
+                    height: 75vh;
+                }
+
+                .carousel .list .item .content {
+                    top: 13%;
+                    max-width: 90%;
+                }
+
+                .thumbnail .item {
+                    height: 175px;
+                }
+
+                .carousel .list .item .title,
+                .carousel .list .item .topic {
+                    font-size: 3em;
+                    margin-bottom: 0px;
+                }
+
+                .carousel .list .item:nth-child(1) .content .des {
+                    font-size: 17px !important;
+                }
+            }
+
+            @media screen and (max-width: 385px) {
+                .carousel {
+                    height: 85vh;
+                }
+
+                .carousel .list .item .content {
+                    top: 8%;
+                }
+
+                .carousel .list .item .title,
+                .carousel .list .item .topic {
+                    font-size: 2.5em;
+                }
+            }
+
+            /* new slider */
+        </style>
+    </head>
+
+    <body>
+        <!-- header start -->
+        <header class="event-header">
+            <div class="event-container">
+                <!-- top navigation -->
+                <nav
+                    class="event-top-nav"
+                    role="navigation"
+                    aria-label="Top navigation"
+                >
+                    <a
+                        href="#"
+                        class="event-logo"
+                        aria-label="AllEvents homepage"
+                    >
+                        <img
+                            src="./img/logos/logo.png"
+                            alt="AllEvents Logo"
+                            class="event-logo-icon"
+                        />
+                    </a>
+                    <!-- search container -->
+                    <div class="event-search-container">
+                        <div class="wrapper">
+                            <!-- search box -->
+                            <div class="search_box">
+                                <!-- location field -->
+                                <div class="location_field">
+                                    <div class="default_option">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Location
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            New York
+                                        </li>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            London
+                                        </li>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            Tokyo
+                                        </li>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            Sydney
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- date field -->
+                                <div class="date_field">
+                                    <input type="date" class="date_input" />
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                                <!-- search field -->
+                                <div class="search_field">
+                                    <input
+                                        type="text"
+                                        class="input"
+                                        placeholder="Search events..."
+                                        id="eventSearchInput"
+                                    />
+                                    <i class="fas fa-search"></i>
+                                    <div
+                                        class="search-results-dropdown"
+                                        id="searchResultsDropdown"
+                                    >
+                                        <div
+                                            class="search-results-list"
+                                            id="searchResultsList"
+                                        >
+                                            <!-- Dynamic search results will appear here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- user actions -->
+                    <div class="event-user-actions">
+                        <!-- create event button -->
+                        <div class="event-dropdown">
+                            <a
+                                href="#"
+                                class="event-create-btn"
+                                aria-label="Create event options"
+                                aria-expanded="false"
+                            >
+                                <i class="fas fa-plus"></i>
+                                Create Event
+                            </a>
+                        </div>
+
+                        <!-- login button -->
+                        <div class="event-dropdown">
+                            <a
+                                href="#"
+                                class="event-create-btn"
+                                aria-label="Create event options"
+                                aria-expanded="false"
+                            >
+                                <i class="fas fa-user"></i>
+                                Login
+                            </a>
+                        </div>
+
+                        <!-- user profile -->
+                        <div class="event-user-profile" id="eventUserProfile">
+                            <div
+                                class="d-flex align-items-center justify-content-center gap-1"
+                            >
+                                <div
+                                    class="event-user-avatar"
+                                    id="eventUserAvatar"
+                                >
+                                    AM
+                                </div>
+                                <span class="event-user-name" id="eventUserName"
+                                    >Ahmed</span
+                                >
+                                <i
+                                    class="fas fa-chevron-down"
+                                    aria-label="User menu"
+                                    aria-expanded="false"
+                                ></i>
+                            </div>
+                            <div class="event-user-dropdown" role="menu">
+                                <div class="event-profile-section">
+                                    <h4>Main Profile</h4>
+                                    <div class="event-profile-info">
+                                        <div
+                                            class="event-profile-avatar"
+                                            id="eventProfileAvatar"
+                                        >
+                                            AM
+                                        </div>
+                                        <div class="event-profile-details">
+                                            <h5 id="eventProfileName">
+                                                Ahmed Mahmoud
+                                            </h5>
+                                            <span id="eventProfileEvents"
+                                                >0 events attended</span
+                                            >
+                                            <i
+                                                class="fas fa-chevron-right"
+                                                style="
+                                                    float: right;
+                                                    margin-top: 2px;
+                                                "
+                                            ></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="viewBookingHistory"
+                                    role="menuitem"
+                                    ><i class="fas fa-history"></i> Booking
+                                    history</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="viewInbox"
+                                    role="menuitem"
+                                    ><i class="fas fa-inbox"></i> Inbox</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="viewInterestedEvents"
+                                    role="menuitem"
+                                    ><i class="fas fa-heart"></i> Interested
+                                    events</a
+                                >
+                                <div
+                                    class="event-app-promo"
+                                    data-action="getEventApp"
+                                    role="button"
+                                >
+                                    <div>
+                                        <i class="fas fa-mobile-alt"></i> Get
+                                        Event Discovery App
+                                    </div>
+                                    <span class="event-new-badge">New</span>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="needHelp"
+                                    role="menuitem"
+                                    ><i class="fas fa-question-circle"></i> Need
+                                    help?</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="accountSettings"
+                                    role="menuitem"
+                                    ><i class="fas fa-cog"></i> Account
+                                    settings</a
+                                >
+                                <div
+                                    style="
+                                        border-top: 1px solid rgba(0, 0, 0, 0.1);
+                                        margin: 5px 0;
+                                    "
+                                ></div>
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="signOut"
+                                    style="color: #e53e3e"
+                                    role="menuitem"
+                                >
+                                    <i class="fas fa-sign-out-alt"></i> Log out
+                                </a>
+                            </div>
+                        </div>
+
+                        <button
+                            class="event-mobile-menu-btn"
+                            data-action="toggleEventMobileMenu"
+                            aria-label="Toggle mobile menu"
+                            aria-expanded="false"
+                        >
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </nav>
+
+                <!-- main navigation -->
+                <nav
+                    class="event-main-nav"
+                    id="eventMainNav"
+                    role="navigation"
+                    aria-label="Main navigation"
+                >
+                    <!-- all category -->
+                    <ul class="event-nav-list">
+                        <!-- item category -->
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link event-active"
+                                data-category="all"
+                                role="menuitem"
+                                >ALL</a
+                            >
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="entertainment"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                ENTERTAINMENT
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('concerts')"
+                                    role="menuitem"
+                                    ><i class="fas fa-music"></i> Concerts</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('comedy')"
+                                    role="menuitem"
+                                    ><i class="fas fa-laugh"></i> Comedy
+                                    Shows</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('movies')"
+                                    role="menuitem"
+                                    ><i class="fas fa-film"></i> Movies</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('theater')"
+                                    role="menuitem"
+                                    ><i class="fas fa-theater-masks"></i>
+                                    Theater</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="learning"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                LEARNING
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('workshops')"
+                                    role="menuitem"
+                                    ><i class="fas fa-chalkboard-teacher"></i>
+                                    Workshops</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('seminars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-briefcase"></i>
+                                    Seminars</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('webinars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-laptop"></i> Webinars</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="sports"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                SPORTS
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('football')"
+                                    role="menuitem"
+                                    ><i class="fas fa-futbol"></i> Football</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('running')"
+                                    role="menuitem"
+                                    ><i class="fas fa-running"></i> Running</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('fitness')"
+                                    role="menuitem"
+                                    ><i class="fas fa-dumbbell"></i> Fitness</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="food"
+                                >FOOD & DRINK</a
+                            >
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="learning"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                More Categories
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('workshops')"
+                                    role="menuitem"
+                                    ><i class="fas fa-chalkboard-teacher"></i>
+                                    Workshops</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('seminars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-briefcase"></i>
+                                    Seminars</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('webinars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-laptop"></i> Webinars</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="sports"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                SPORTS
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('football')"
+                                    role="menuitem"
+                                    ><i class="fas fa-futbol"></i> Football</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('running')"
+                                    role="menuitem"
+                                    ><i class="fas fa-running"></i> Running</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('fitness')"
+                                    role="menuitem"
+                                    ><i class="fas fa-dumbbell"></i> Fitness</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="food"
+                                >FOOD & DRINK</a
+                            >
+                        </li>
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="food"
+                                >FOOD & DRINK</a
+                            >
+                        </li>
+                        <li class="event-nav-item event-create-btn-mobile">
+                            <a href="#" class="event-nav-link">
+                                <i class="fas fa-plus pe-2"></i> Create Event
+                            </a>
+                        </li>
+                        <li class="event-nav-item event-create-btn-mobile">
+                            <a href="#" class="event-nav-link">
+                                <i class="fas fa-sign-in-alt pe-2"></i> Sign in
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <!-- end header -->
+
+        <!-- start slider section -->
+        <section class="carousel">
+            <!-- list item -->
+            <div class="list">
+                <div class="item">
+                    <div class="overlay"></div>
+                    <img src="img/slide-3.jpg" />
+                    <div class="content">
+                        <div class="author">Music</div>
+                        <div class="title">DESIGN SLIDER</div>
+                        <div class="topic">Music</div>
+                        <div class="des">
+                            <!-- lorem 50 -->
+                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                            elit. Ut sequi, rem magnam nesciunt minima placeat,
+                            itaque eum neque officiis unde, eaque optio ratione
+                            aliquid assumenda facere ab et quasi ducimus aut
+                            doloribus non numquam. Explicabo, laboriosam nisi
+                            reprehenderit tempora at laborum natus unde. Ut,
+                            exercitationem eum aperiam illo illum laudantium?
+                        </div>
+                        <div class="buttons">
+                            <a href="#">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="overlay"></div>
+                    <img src="img/slide-2.jpg" />
+                    <div class="content">
+                        <div class="author">Sports</div>
+                        <div class="title">DESIGN SLIDER</div>
+                        <div class="topic">Culture</div>
+                        <div class="des">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                            elit. Ut sequi, rem magnam nesciunt minima placeat,
+                            itaque eum neque officiis unde, eaque optio ratione
+                            aliquid assumenda facere ab et quasi ducimus aut
+                            doloribus non numquam. Explicabo, laboriosam nisi
+                            reprehenderit tempora at laborum natus unde. Ut,
+                            exercitationem eum aperiam illo illum laudantium?
+                        </div>
+                        <div class="buttons">
+                            <a href="#">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="overlay"></div>
+                    <img src="img/sports.jpeg" />
+                    <div class="content">
+                        <div class="author">Beauty</div>
+                        <div class="title">DESIGN SLIDER</div>
+                        <div class="topic">Sports</div>
+                        <div class="des">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                            elit. Ut sequi, rem magnam nesciunt minima placeat,
+                            itaque eum neque officiis unde, eaque optio ratione
+                            aliquid assumenda facere ab et quasi ducimus aut
+                            doloribus non numquam. Explicabo, laboriosam nisi
+                            reprehenderit tempora at laborum natus unde. Ut,
+                            exercitationem eum aperiam illo illum laudantium?
+                        </div>
+                        <div class="buttons">
+                            <a href="#">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="overlay"></div>
+                    <img src="img/slide-4.jpg" />
+                    <div class="content">
+                        <div class="author">Culture</div>
+                        <div class="title">DESIGN SLIDER</div>
+                        <div class="topic">Culture</div>
+                        <div class="des">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                            elit. Ut sequi, rem magnam nesciunt minima placeat,
+                            itaque eum neque officiis unde, eaque optio ratione
+                            aliquid assumenda facere ab et quasi ducimus aut
+                            doloribus non numquam. Explicabo, laboriosam nisi
+                            reprehenderit tempora at laborum natus unde. Ut,
+                            exercitationem eum aperiam illo illum laudantium?
+                        </div>
+                        <div class="buttons">
+                            <a href="#">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- list thumnail -->
+            <div class="thumbnail">
+                <div class="item">
+                    <img src="img/slide-3.jpg" />
+                    <div class="content">
+                        <div class="title">Name Slider</div>
+                        <div class="description">Description</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="img/slide-2.jpg" />
+                    <div class="content">
+                        <div class="title">Name Slider</div>
+                        <div class="description">Description</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="img/sports.jpeg" />
+                    <div class="content">
+                        <div class="title">Name Slider</div>
+                        <div class="description">Description</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="img/slide-4.jpg" />
+                    <div class="content">
+                        <div class="title">Name Slider</div>
+                        <div class="description">Description</div>
+                    </div>
+                </div>
+            </div>
+            <!-- next prev -->
+
+            <div class="arrows">
+                <button id="prev" aria-label="Previous">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+                <button id="next" aria-label="Next">
+                    <i class="fa-solid fa-angle-right"></i>
+                </button>
+            </div>
+            <!-- time running -->
+            <div class="time"></div>
+        </section>
+        <!-- end slider section -->
+
+        <!-- trusted companies -->
+        <section class="trusted-section">
+            <div class="title-product">
+                <h2>OUR <span class="accent"> PARTNERS</span></h2>
+            </div>
+            <div class="container">
+                <div class="logo-container">
+                    <!-- Original logos -->
+                    <div class="logo-item">
+                        <img src="img/logos/logo1.jpg" alt="Google" />
+                    </div>
+                    <div class="logo-item">
+                        <img src="img/logos/logo2.jpg" alt="Facebook" />
+                    </div>
+                    <div class="logo-item">
+                        <img src="img/logos/logo3.jpg" alt="Apple App Store" />
+                    </div>
+                    <div class="logo-item">
+                        <img src="img/logos/logo4.png" alt="Google Play" />
+                    </div>
+
+                    <!-- Duplicated logos for seamless scroll -->
+                    <div class="logo-item">
+                        <img src="img/logos/logo1.jpg" alt="Google" />
+                    </div>
+                    <div class="logo-item">
+                        <img src="img/logos/logo2.jpg" alt="Facebook" />
+                    </div>
+                    <div class="logo-item">
+                        <img src="img/logos/logo3.jpg" alt="Apple App Store" />
+                    </div>
+                    <div class="logo-item">
+                        <img src="img/logos/logo4.png" alt="Google Play" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- trusted companies -->
+
+        <!-- start category section -->
+        <!-- <section class="category">
+            <h1 class="text-center">Our Category</h1>
+            <div class="row-container d-flex flex-wrap my-5 mx-auto">
+                <a
+                    href="All_Event.html"
+                    class="col-lg-4 col-md-12 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-music fa-2x"></i>
+                            <h5 class="card-title mt-3">Music</h5>
+                            <p class="card-text">
+                                Afrobit, Alternative, Art Music, Bitbox Blues,
+                                Classic, Country, Disco, Drum & Bass, etc.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-spa fa-2x"></i>
+                            <h5 class="card-title mt-3">Beauty</h5>
+                            <p class="card-text">Makeup, SPA, Perfumery</p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-briefcase fa-2x"></i>
+                            <h5 class="card-title mt-3">Business</h5>
+                            <p class="card-text">Startup, Networking, etc.</p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-laugh fa-2x"></i>
+                            <h5 class="card-title mt-3">Comedy</h5>
+                            <p class="card-text">Comedy, Stand Up, etc.</p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-landmark fa-2x"></i>
+                            <h5 class="card-title mt-3">Culture</h5>
+                            <p class="card-text">Art, Broadway, Circus, etc.</p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-4 col-md-12 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-hiking fa-2x"></i>
+                            <h5 class="card-title mt-3">Experience</h5>
+                            <p class="card-text">
+                                Dolphinariu, Food, Drink, River Cruises, Theme
+                                Park, Paintball, Rope Park, Skydiving, etc.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-music fa-2x"></i>
+                            <h5 class="card-title mt-3">Dance</h5>
+                            <p class="card-text">Ballet, Dancing</p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-graduation-cap fa-2x"></i>
+                            <h5 class="card-title mt-3">Education</h5>
+                            <p class="card-text">
+                                Conferences, Education, etc.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-heartbeat fa-2x"></i>
+                            <h5 class="card-title mt-3">Health</h5>
+                            <p class="card-text">
+                                Medical Events, Fitness, etc.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <a
+                    href="All_Event.html"
+                    class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
+                >
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <i class="fas fa-trophy fa-2x"></i>
+                            <h5 class="card-title mt-3">Sports</h5>
+                            <p class="card-text">
+                                Soul, Aerobics, Athletics, etc.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center mt-4 mb-4">
+                <button class="btn btn-success">View All Events</button>
+            </div>
+        </section> -->
+        <!-- end category section -->
+
+        <!-- Start New Category Section -->
+        <section class="categories-container-event">
+            <h1 class="text-center">Our Category</h1>
+            <div class="categories-list-event">
+                <!-- Example Category Items -->
+                <a href="/category/1" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group.svg"
+                                alt="Technology"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Technology</div>
+                    </div>
+                </a>
+
+                <a href="group.html" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/World.svg"
+                                alt="Business"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Business</div>
+                    </div>
+                </a>
+
+                <a href="/category/3" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/education.svg"
+                                alt="Design"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Design</div>
+                    </div>
+                </a>
+
+                <a href="/category/4" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group (1).svg"
+                                alt="Marketing"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Marketing</div>
+                    </div>
+                </a>
+
+                <a href="/category/5" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group (2).svg"
+                                alt="Education"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Education</div>
+                    </div>
+                </a>
+
+                <a href="/category/6" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group (3).svg"
+                                alt="Health"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Health</div>
+                    </div>
+                </a>
+
+                <a href="/category/7" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group (4).svg"
+                                alt="Finance"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Finance</div>
+                    </div>
+                </a>
+
+                <a href="/category/8" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group (5).svg"
+                                alt="Sports"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Sports</div>
+                    </div>
+                </a>
+
+                <a href="/category/9" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group (6).svg"
+                                alt="Travel"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Travel</div>
+                    </div>
+                </a>
+
+                <a href="/category/10" class="category-link-event">
+                    <div class="category-item-event">
+                        <div class="category-icon-event">
+                            <img
+                                src="img/category/Group.svg"
+                                alt="Food"
+                                class="category-image-event"
+                            />
+                        </div>
+                        <div class="category-name-event">Food</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <!-- end New Category Section -->
+        <!-- Exclusive Events Section -->
+        <section class="events-container-exclusive">
+            <div class="header-exclusive">
+                <h1>Exclusive Events</h1>
+                <p>Discover amazing events happening around you</p>
+            </div>
+
+            <div
+                class="events-container-exclusive"
+                id="eventsContainer-exclusive"
+            >
+                <!-- Event 1 -->
+                <div class="event-card-exclusive">
+                    <a href="#" class="event-image-exclusive">
+                        <img src="test.webp" alt="Tech Conference 2024" />
+                        <div class="event-category-exclusive">
+                            <i class="fa-solid fa-laptop-code"></i> Technology
+                        </div>
+                        <button
+                            class="event-like-exclusive"
+                            onclick="toggleLike(this)"
+                        >
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <div class="event-date-exclusive">
+                            <i class="fa-regular fa-calendar-days"></i> Dec 15,
+                            2024
+                        </div>
+                    </a>
+                    <div class="event-content-exclusive">
+                        <div>
+                            <h3 class="event-title-exclusive">
+                                <i class="fa-solid fa-bolt"></i> Tech Conference
+                                2024
+                            </h3>
+                            <div class="event-location-exclusive">
+                                <i class="fa-solid fa-location-dot"></i> San
+                                Francisco, CA
+                            </div>
+                            <p class="event-description-exclusive">
+                                <i class="fa-solid fa-align-left"></i> Join us
+                                for the biggest tech conference of the year
+                                featuring keynote speakers, workshops, and
+                                networking opportunities. Experience
+                                cutting-edge technology demonstrations and
+                                connect with industry leaders.
+                            </p>
+                            <div class="event-organizer-exclusive">
+                                <i class="fa-solid fa-user-tie"></i> myevent
+                            </div>
+                        </div>
+                        <div class="event-meta-exclusive">
+                            <div class="event-time-container-exclusive">
+                                <span class="event-time-exclusive">
+                                    <i class="fa-regular fa-clock"></i> 9:00 AM
+                                    - 5:00 PM
+                                </span>
+                            </div>
+                            <div class="event-actions-exclusive">
+                                <span class="event-price-exclusive">
+                                    <i class="fa-solid fa-ticket"></i> 9,500 EG
+                                </span>
+                                <a
+                                    href="#"
+                                    class="event-view-details-exclusive"
+                                >
+                                    <i class="fa-solid fa-eye"></i> View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event 2 -->
+                <div class="event-card-exclusive">
+                    <a href="#" class="event-image-exclusive">
+                        <img src="test.webp" alt="Tech Conference 2024" />
+                        <div class="event-category-exclusive">
+                            <i class="fa-solid fa-laptop-code"></i> Technology
+                        </div>
+                        <button
+                            class="event-like-exclusive"
+                            onclick="toggleLike(this)"
+                        >
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <div class="event-date-exclusive">
+                            <i class="fa-regular fa-calendar-days"></i> Dec 15,
+                            2024
+                        </div>
+                    </a>
+                    <div class="event-content-exclusive">
+                        <div>
+                            <h3 class="event-title-exclusive">
+                                <i class="fa-solid fa-bolt"></i> Tech Conference
+                                2024
+                            </h3>
+                            <div class="event-location-exclusive">
+                                <i class="fa-solid fa-location-dot"></i> San
+                                Francisco, CA
+                            </div>
+                            <p class="event-description-exclusive">
+                                <i class="fa-solid fa-align-left"></i> Join us
+                                for the biggest tech conference of the year
+                                featuring keynote speakers, workshops, and
+                                networking opportunities. Experience
+                                cutting-edge technology demonstrations and
+                                connect with industry leaders.
+                            </p>
+                            <div class="event-organizer-exclusive">
+                                <i class="fa-solid fa-user-tie"></i> myevent
+                            </div>
+                        </div>
+                        <div class="event-meta-exclusive">
+                            <div class="event-time-container-exclusive">
+                                <span class="event-time-exclusive">
+                                    <i class="fa-regular fa-clock"></i> 9:00 AM
+                                    - 5:00 PM
+                                </span>
+                            </div>
+                            <div class="event-actions-exclusive">
+                                <span class="event-price-exclusive">
+                                    <i class="fa-solid fa-ticket"></i> 9,500 EG
+                                </span>
+                                <a
+                                    href="#"
+                                    class="event-view-details-exclusive"
+                                >
+                                    <i class="fa-solid fa-eye"></i> View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Event 2 -->
+            </div>
+
+            <!-- slider controls -->
+            <div class="slider-controls-exclusive">
+                <button
+                    class="slider-btn-exclusive"
+                    id="prevBtn-exclusive"
+                    aria-label="Previous Event"
+                >
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button
+                    class="slider-btn-exclusive"
+                    id="nextBtn-exclusive"
+                    aria-label="Next Event"
+                >
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+        <!-- end Exclusive Events Section -->
+        <!-- start Events section -->
+        <section class="CustomEvents pt-3">
+            <h1 class="text-center">Top Events</h1>
+            <div class="swiper-events container-events">
+                <!-- Swiper Container -->
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <!-- Event 1 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <a href="event_details_update.html">
+                                    <img
+                                        src="img/sales1.jpeg"
+                                        alt="Event Image"
+                                    />
+                                </a>
+                                <a href="#" class="like-button">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">Education</p>
+                                    <p class="price">100 EG</p>
+                                    <p class="hosted">Polygon software</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Event 2 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <a href="event_details_update.html">
+                                    <img
+                                        src="img/sales2.jpeg"
+                                        alt="Event Image"
+                                    />
+                                </a>
+                                <a href="#" class="like-button">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Event 3 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <a href="#"
+                                    ><img
+                                        src="img/sales3.jpeg"
+                                        alt="Event Image"
+                                /></a>
+                                <a href="#" class="like-button">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Event 4 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <a href="#"
+                                    ><img
+                                        src="img/sales4.jpeg"
+                                        alt="Event Image"
+                                /></a>
+                                <a href="#" class="like-button">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event 4 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <a href="#"
+                                    ><img
+                                        src="img/sales1.jpeg"
+                                        alt="Event Image"
+                                /></a>
+                                <a href="#" class="like-button">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event 4 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <a href="#"
+                                    ><img
+                                        src="img/sales2.jpeg"
+                                        alt="Event Image"
+                                /></a>
+                                <a href="#" class="like-button">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event 4 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <img src="img/sales3.jpeg" alt="Event Image" />
+                                <a href="#" class="like-button">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event 4 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <img src="img/sales4.jpeg" alt="Event Image" />
+                                <a href="#" class="like-button">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event 4 -->
+                        <div class="swiper-slide">
+                            <div class="new-event-card">
+                                <img src="img/sales4.jpeg" alt="Event Image" />
+                                <a href="#" class="like-button">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <div class="event-content">
+                                    <p class="date">23.02.2024</p>
+                                    <a
+                                        href="event_details_update.html"
+                                        target="_blank"
+                                    >
+                                        <h5>Cairo Leaders Conference</h5>
+                                    </a>
+                                    <p class="city">Cairo</p>
+                                    <p class="categoey">
+                                        Music ,
+                                        <span class="sub"> Training </span>
+                                    </p>
+                                    <p class="price">Free</p>
+                                    <p class="hosted">My Event</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            <div class="text-center mt-4 mb-4 pt-3">
+                <button class="btn btn-success">View More</button>
+            </div>
+        </section>
+        <!-- end Events section -->
+
+        <!-- start section Subscribe -->
+        <section id="subscribe" class="section-p1 section-ml">
+            <div class="newstext">
+                <h4>Subscribe to our newsletter!</h4>
+                <p>
+                    Get E-mail updates our latest shop and
+                    <span>special offers.</span>
+                </p>
+            </div>
+            <div class="form">
+                <input type="text" placeholder="Your email address" />
+                <button class="btn-Noramal">Sign Up</button>
+            </div>
+        </section>
+        <!-- end section Subscribe -->
+
+        <!-- start New Event section -->
+        <section class="Events pt-3">
+            <h1>New Events</h1>
+            <p>Show New Events</p>
+            <!-- Events -->
+            <div class="custom-container container-new-events">
+                <div class="product card-event">
+                    <a href="event_details.html">
+                        <img
+                            src="img/sales3.jpeg"
+                            alt=""
+                            style="height: 200px"
+                        />
+                        <div class="des">
+                            <p class="date">23.02.2024</p>
+                            <h5 class="product-name">Music Event</h5>
+                            <p>
+                                It is important for foreign citizens to check
+                                the visa regime applied in our country before
+                                traveling to Türkiye for various purposes.
+                            </p>
+                            <div class="price">
+                                <span class="text-dark"
+                                    >450 <span class="currency">EGP</span></span
+                                >
+                            </div>
+                            <a href="#" class="heart-icon">
+                                <i class="fa-regular fa-heart"></i>
+                            </a>
+                        </div>
+                    </a>
+                </div>
+                <div class="product card-event">
+                    <a href="event_details.html">
+                        <img
+                            src="img/sales2.jpeg"
+                            alt=""
+                            style="height: 200px"
+                        />
+                        <div class="des">
+                            <p class="date">23.02.2024</p>
+                            <h5 class="product-name">Music Event</h5>
+                            <p>
+                                It is important for foreign citizens to check
+                                the visa regime applied in our country before
+                                traveling to Türkiye for various purposes.
+                            </p>
+                            <div class="price">
+                                <span class="text-dark"
+                                    >450 <span class="currency">EGP</span></span
+                                >
+                                <div><i class="fa-regular fa-heart"></i></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="product card-event">
+                    <a href="event_details.html">
+                        <img
+                            src="img/sales1.jpeg"
+                            alt=""
+                            style="height: 200px"
+                        />
+                        <div class="des">
+                            <p class="date">23.02.2024</p>
+                            <h5 class="product-name">Music Event</h5>
+                            <p>
+                                It is important for foreign citizens to check
+                                the visa regime applied in our country before
+                                traveling to Türkiye for various purposes.
+                            </p>
+                            <div class="price">
+                                <span class="text-dark"
+                                    >450 <span class="currency">EGP</span></span
+                                >
+                                <div><i class="fa-regular fa-heart"></i></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="product card-event">
+                    <a href="event_details.html">
+                        <img
+                            src="img/sales4.jpeg"
+                            alt=""
+                            style="height: 200px"
+                        />
+                        <div class="des">
+                            <p class="date">23.02.2024</p>
+                            <h5 class="product-name">Music Event</h5>
+                            <p>
+                                It is important for foreign citizens to check
+                                the visa regime applied in our country before
+                                traveling to Türkiye for various purposes.
+                            </p>
+                            <div class="price">
+                                <span class="text-dark"
+                                    >450 <span class="currency">EGP</span></span
+                                >
+                                <div><i class="fa-regular fa-heart"></i></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mt-4 mb-4 pt-3">
+                <button class="btn btn-success">View More</button>
+            </div>
+        </section>
+        <!-- end New Event section -->
+
+        <!-- start Upcoming Event section -->
+        <section class="Events pt-3">
+            <h1>Upcoming Events</h1>
+            <p>Show New Events</p>
+            <div class="product-container">
+                <!-- New Event -->
+                <div class="product swiper-slide">
+                    <article class="card__article">
+                        <a href="event_details.html">
+                            <img
+                                src="img/card1.png"
+                                alt="image"
+                                class="card__img"
+                            />
+                        </a>
+                        <div class="card__data">
+                            <span class="card__description">23.02.2024</span>
+                            <h2 class="card__title">afrotech-fest</h2>
+                            <span class="card__description"
+                                >It is important for foreign citizens to check
+                                the visa regime.</span
+                            >
+                            <span
+                                class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7"
+                                >450 EGP</span
+                            >
+                        </div>
+                        <a href="#" class="heart-icon">
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+                    </article>
+                </div>
+                <!-- New Event -->
+                <div class="product swiper-slide">
+                    <article class="card__article">
+                        <a href="event_details.html"
+                            ><img
+                                src="img/card2.png"
+                                alt="image"
+                                class="card__img"
+                        /></a>
+                        <div class="card__data">
+                            <span class="card__description">23.02.2024</span>
+                            <h2 class="card__title">afrotech-fest</h2>
+                            <span class="card__description"
+                                >It is important for foreign citizens to check
+                                the visa regime .</span
+                            >
+                            <span
+                                class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7"
+                                >450 EGP</span
+                            >
+                        </div>
+                        <a href="#" class="heart-icon">
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+                    </article>
+                </div>
+                <!-- New Event -->
+                <div class="product swiper-slide">
+                    <article class="card__article">
+                        <a href="event_details.html"
+                            ><img
+                                src="img/card3.png"
+                                alt="image"
+                                class="card__img"
+                        /></a>
+                        <div class="card__data">
+                            <span class="card__description">23.02.2024</span>
+                            <h2 class="card__title">afrotech-fest</h2>
+                            <span class="card__description"
+                                >It is important for foreign citizens to check
+                                the visa regime .</span
+                            >
+                            <span
+                                class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7"
+                                >450 EGP</span
+                            >
+                        </div>
+                        <a href="#" class="heart-icon">
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+                    </article>
+                </div>
+                <!-- New Event -->
+                <div class="product swiper-slide">
+                    <article class="card__article">
+                        <a href="event_details.html"
+                            ><img
+                                src="img/card4.png"
+                                alt="image"
+                                class="card__img"
+                        /></a>
+                        <div class="card__data">
+                            <span class="card__description">23.02.2024</span>
+                            <h2 class="card__title">afrotech-fest</h2>
+                            <span class="card__description"
+                                >It is important for foreign citizens to check
+                                the visa regime .</span
+                            >
+                            <span
+                                class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7"
+                                >450 EGP</span
+                            >
+                        </div>
+                        <a href="#" class="heart-icon">
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+                    </article>
+                </div>
+            </div>
+            <div class="text-center mt-4 mb-4 pt-3">
+                <button class="btn btn-success">View More</button>
+            </div>
+        </section>
+        <!-- end Upcoming Event section -->
+
+        <!-- start elementor-section -->
+        <section
+            class="elementor-section"
+            data-aos="fade-up"
+            data-aos-anchor-placement="bottom-bottom"
+            data-aos-duration="1000"
+            data-aos-once="false"
+        >
+            <div class="elementor">
+                <div class="elmentor-data">
+                    <div class="elmentor-text">
+                        <i class="fa-solid fa-people-group"></i>
+                        <h1>50 <span class="plus">+</span></h1>
+                        <p>staff</p>
+                    </div>
+                </div>
+                <div class="elmentor-data">
+                    <div class="elmentor-text">
+                        <i class="fa-solid fa-city"></i>
+                        <h1>16 <span class="plus">+</span></h1>
+                        <p>Branches</p>
+                    </div>
+                </div>
+                <div class="elmentor-data">
+                    <div class="elmentor-text">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        <h1>6 <span class="plus">+</span></h1>
+                        <p>Years Of Experience</p>
+                    </div>
+                </div>
+                <div class="elmentor-data">
+                    <div class="elmentor-text">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <h1>150 <span class="plus">+</span></h1>
+                        <p>Events</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end elementor-section -->
+
+        <!-- section events-filter -->
+        <section class="New-card-event-results-section">
+          <div class="New-card-event-results-container">
+              <div class="header">
+                  <h2 class="title">All Events</h2>
+              </div>
+              <!-- Cards Container with Navigation -->
+              <div class="New-card-event-cards-container">
+                  <div class="New-card-event-cards-grid">
+                      <!-- Event Card 1 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                  alt="Tech Innovation Summit"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                          <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Tech Innovation Summit
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Technology
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Cairo</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Sept 15, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >299</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+
+                      <!-- Event Card 2 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center"
+                                  alt="Digital Marketing Masterclass"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                          <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Digital Marketing Masterclass
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Marketing
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Alexandria</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Sept 22, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >199</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+
+                      <!-- Event Card 3 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center"
+                                  alt="Data Science Workshop"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                                <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Data Science Workshop
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Data Analytics
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Giza</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Oct 5, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >399</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+
+                      <!-- Event Card 1 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                  alt="Tech Innovation Summit"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                                <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Tech Innovation Summit
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Technology
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                        ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Cairo</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Sept 15, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >299</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+                      <!-- Event Card 1 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                  alt="Tech Innovation Summit"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                                <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Tech Innovation Summit
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Technology
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                            ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Cairo</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                            ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Sept 15, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >299</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+
+                      <!-- Event Card 2 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center"
+                                  alt="Digital Marketing Masterclass"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                                <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Digital Marketing Masterclass
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Marketing
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                            ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Alexandria</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Sept 22, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >199</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+
+                      <!-- Event Card 3 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center"
+                                  alt="Data Science Workshop"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                              <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Data Science Workshop
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Data Analytics
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Giza</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Oct 5, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >399</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+
+                      <!-- Event Card 1 -->
+                      <div class="New-card-event-card">
+                          <a href="filteration_events.html">
+                              <img
+                                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                  alt="Tech Innovation Summit"
+                                  class="New-card-event-card-image"
+                              />
+                          </a>
+                          <div
+                              class="New-card-event-favorite-btn"
+                              aria-label="Add to favorites"
+                          >
+                              <i class="fa-regular fa-heart"></i>
+                          </div>
+                          <div class="New-card-event-card-content">
+                              <div class="New-card-event-card-header">
+                                  <h3 class="New-card-event-card-title">
+                                      Tech Innovation Summit
+                                  </h3>
+                                  <div class="New-card-event-card-category">
+                                      Technology
+                                  </div>
+                              </div>
+
+                              <p class="New-card-event-card-description">
+                                  Learn advanced digital marketing strategies,
+                                  social media optimization, and conversion
+                                  techniques from industry experts.
+                              </p>
+
+                              <div class="New-card-event-card-details">
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-location-dot"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Cairo</span
+                                      >
+                                  </div>
+                                  <div class="New-card-event-card-detail">
+                                      <span
+                                          class="New-card-event-card-detail-icon"
+                                          ><i class="fas fa-calendar-days"></i></span
+                                      >
+                                      <span
+                                          class="New-card-event-card-detail-value"
+                                          >Sept 15, 2025</span
+                                      >
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="New-card-event-card-footer">
+                              <div class="New-card-event-card-price">
+                                  <span
+                                      class="New-card-event-card-price-amount"
+                                      >299</span
+                                  >
+                                  <span
+                                      class="New-card-event-card-price-currency"
+                                      >EGP</span
+                                  >
+                              </div>
+                              <a href="#" class="New-card-event-details-btn"
+                                  >View Details</a
+                              >
+                          </div>
+                      </div>
+                  </div>
+                  <div class="button-card-event">
+                      <a
+                          href="filteration_events.html"
+                          class="New-card-event-details-btn"
+                      >
+                          <i class="fas fa-arrow-right"></i> Explore More </a
+                      >
+                  </div>
+              </div>
+          </div>
+      </section>
+        <!-- section events-filter -->
+
+        <!-- Start Footer section -->
+        <!-- Start Footer section -->
+        <footer class="footer-section">
+            <div class="footer-social-gallery">
+                <div class="container">
+                    <div class="social-gallery-header">
+                        <h2 class="social-gallery-title">
+                            Follow us
+                            <span class="instagram-handle">
+                                <a href="https://www.instagram.com">@myevnt</a>
+                            </span>
+                        </h2>
+                    </div>
+
+                    <div class="social-gallery-grid">
+                        <!-- Gallery Item 1 -->
+                        <a href="#" class="social-gallery-item">
+                            <img
+                                src="img/gallery1.webp"
+                                alt="Beauty post"
+                                class="social-post-image"
+                                loading="lazy"
+                            />
+                        </a>
+
+                        <!-- Gallery Item 2 -->
+                        <a href="#" class="social-gallery-item">
+                            <img
+                                src="img/gallery2.webp"
+                                alt="Beauty post"
+                                class="social-post-image"
+                                loading="lazy"
+                            />
+                        </a>
+
+                        <!-- Gallery Item 3 -->
+                        <a href="#" class="social-gallery-item">
+                            <img
+                                src="img/gallery3.webp"
+                                alt="Beauty post"
+                                class="social-post-image"
+                                loading="lazy"
+                            />
+                        </a>
+
+                        <!-- Gallery Item 4 -->
+                        <a href="#" class="social-gallery-item">
+                            <img
+                                src="img/gallery1.webp"
+                                alt="Beauty post"
+                                class="social-post-image"
+                                loading="lazy"
+                            />
+                        </a>
+
+                        <!-- Gallery Item 5 -->
+                        <a href="#" class="social-gallery-item">
+                            <img
+                                src="img/gallery2.webp"
+                                alt="Beauty post"
+                                class="social-post-image"
+                                loading="lazy"
+                            />
+                        </a>
+
+                        <!-- Gallery Item 6 -->
+                        <a href="#" class="social-gallery-item">
+                            <img
+                                src="img/gallery3.webp"
+                                alt="Beauty post"
+                                class="social-post-image"
+                                loading="lazy"
+                            />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <!-- <div class="footer-cta pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="cta-text">
+                                    <h4>Find us</h4>
+                                    <span
+                                        >1010 Avenue, sw 54321, chandigarh</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <span
+                                        ><a
+                                            style="color: #878787"
+                                            href="tel:+201033993202"
+                                            >+20 10 3399 3202</a
+                                        ></span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="far fa-envelope-open"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <span
+                                        ><a
+                                            style="color: #878787"
+                                            href="mailto:info@innoworx.site"
+                                            >mail@info.com
+                                        </a></span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="footer-content pt-3 pb-3">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                <div
+                                    class="footer-logo d-flex justify-content-between align-items-baseline flex-wrap"
+                                >
+                                    <!-- <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a> -->
+                                    <a href="home.html"
+                                        ><img
+                                            src="img/logos/logo-white.png"
+                                            alt="logo"
+                                    /></a>
+                                    <div class="footer-social-icon">
+                                        <a href="{{ $setting->facebook }}"
+                                            ><i
+                                                class="fab fa-facebook-f facebook-bg"
+                                            ></i
+                                        ></a>
+                                        <a href="{{ $setting->twitter }}"
+                                            ><i
+                                                class="fa-solid fa-xmark x-bg"
+                                            ></i
+                                        ></a>
+                                        <a href="{{ $setting->instagram }}"
+                                            ><i
+                                                class="fab fa-instagram instagram-bg"
+                                            ></i
+                                        ></a>
+                                    </div>
+                                </div>
+                                <div class="footer-text">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consec tetur
+                                        adipisicing elit, sed do eiusmod tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.
+                                    </p>
+                                </div>
+                                <!-- <div class="footer-social-icon">
+                  <span>Follow us</span>
+                  <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                  <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                  <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                </div> -->
+                                <div class="footer-social-icon">
+                                    <span class="mb-1">Download Our App</span>
+                                    <p class="text-white mb-1">
+                                        Now it's simple, fast, and easy to scan
+                                        tickets!
+                                    </p>
+                                    <a href="#"
+                                        ><img
+                                            class="logo-app"
+                                            src="img/logos/app-store.svg"
+                                            alt="app-store"
+                                    /></a>
+                                    <a href="#"
+                                        ><img
+                                            class="logo-app"
+                                            src="img/logos/google-play.svg"
+                                            alt="google-play"
+                                    /></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Event Types</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="#">Music</a></li>
+                                    <li><a href="#">Sports</a></li>
+                                    <li><a href="#">Culture</a></li>
+                                    <li><a href="#">Business</a></li>
+                                    <li><a href="#">View All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="#">My Profile</a></li>
+                                    <li><a href="#">FAQS</a></li>
+                                    <li><a href="#">Pricing</a></li>
+                                    <li><a href="#">Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Subscribe</h3>
+                                </div>
+                                <div class="footer-text mb-25">
+                                    <p>
+                                        Don't miss to subscribe to our new
+                                        feeds, kindly fill the form below.
+                                    </p>
+                                </div>
+                                <div class="subscribe-form">
+                                    <form action="#">
+                                        <input
+                                            type="text"
+                                            placeholder="Email Address"
+                                        />
+                                        <button>
+                                            <i
+                                                class="fab fa-telegram-plane"
+                                            ></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                            <div class="copyright-text">
+                                <p>
+                                    Copyright &copy; 2024, All Right Reserved
+                                    <a href="https://codepen.io/anupkumar92/"
+                                        >Event</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Terms</a></li>
+                                    <li><a href="#">Privacy</a></li>
+                                    <li><a href="#">Policy</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer section -->
+        <!-- end Footer section -->
+
+        <script src="js/bootstrap.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- start swiper -->
+        <script>
+            // Step 1: Get DOM elements
+            let nextDom = document.getElementById("next");
+            let prevDom = document.getElementById("prev");
+            let carouselDom = document.querySelector(".carousel");
+            let SliderDom = carouselDom.querySelector(".carousel .list");
+            let thumbnailBorderDom = document.querySelector(
+                ".carousel .thumbnail"
+            );
+            let thumbnailItemsDom =
+                thumbnailBorderDom.querySelectorAll(".item");
+            let timeDom = document.querySelector(".carousel .time");
+            let parallaxContainer = document.querySelector(
+                ".parallax-container"
+            );
+            let parallaxImage = document.getElementById("parallax-image");
+
+            thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+            let timeRunning = 1000;
+            let timeAutoNext = 20000;
+
+            // Step 2: Add event listeners for next and prev buttons
+            nextDom.onclick = function () {
+                showSlider("next");
+            };
+
+            prevDom.onclick = function () {
+                showSlider("prev");
+            };
+
+            // Step 3: Add event listeners for thumbnail items
+            thumbnailItemsDom.forEach((thumbnail, index) => {
+                thumbnail.addEventListener("click", () => {
+                    showSliderByIndex(index);
+                    showParallaxImage(index); // Display the clicked image in parallax
+                });
+            });
+
+            let runTimeOut;
+            let runNextAuto = setTimeout(() => {
+                nextDom.click();
+            }, timeAutoNext);
+
+            // Step 4: Function to show slider based on type (next/prev)
+            function showSlider(type) {
+                let SliderItemsDom = SliderDom.querySelectorAll(
+                    ".carousel .list .item"
+                );
+                let thumbnailItemsDom = document.querySelectorAll(
+                    ".carousel .thumbnail .item"
+                );
+
+                if (type === "next") {
+                    SliderDom.appendChild(SliderItemsDom[0]);
+                    thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+                    carouselDom.classList.add("next");
+                } else {
+                    SliderDom.prepend(
+                        SliderItemsDom[SliderItemsDom.length - 1]
+                    );
+                    thumbnailBorderDom.prepend(
+                        thumbnailItemsDom[thumbnailItemsDom.length - 1]
+                    );
+                    carouselDom.classList.add("prev");
+                }
+
+                clearTimeout(runTimeOut);
+                runTimeOut = setTimeout(() => {
+                    carouselDom.classList.remove("next");
+                    carouselDom.classList.remove("prev");
+                }, timeRunning);
+
+                clearTimeout(runNextAuto);
+                runNextAuto = setTimeout(() => {
+                    nextDom.click();
+                }, timeAutoNext);
+            }
+
+            // swiper events
+            document.addEventListener("DOMContentLoaded", function () {
+                var swiper = new Swiper(".mySwiper", {
+                    slidesPerView: 1, // Default for small screens
+                    spaceBetween: 20,
+                    loop: true,
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        576: { slidesPerView: 2 }, // 2 slides for screens ≥ 576px
+                        768: { slidesPerView: 2 }, // 3 slides for screens ≥ 768px
+                        992: { slidesPerView: 4 }, // 4 slides for screens ≥ 992px
+                    },
+                });
+            });
+        </script>
+        <!-- end swiper -->
+        <!-- start event system -->
+        <script>
+            // =====================================================
+            // EVENT SYSTEM - MOBILE OPTIMIZED
+            // =====================================================
+
+            // Mobile Menu Toggle
+            function toggleMobileMenu() {
+                const nav = document.getElementById("eventMainNav");
+                const btn = document.querySelector(".event-mobile-menu-btn");
+
+                if (nav && btn) {
+                    nav.classList.toggle("event-mobile-open");
+                    const isOpen = nav.classList.contains("event-mobile-open");
+                    btn.innerHTML = isOpen
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                    btn.setAttribute("aria-expanded", isOpen);
+                }
+            }
+
+            // Enhanced Search Function with Live Results
+            let searchTimeout;
+            const mockEvents = [
+                {
+                    id: 1,
+                    title: "Tech Conference 2024",
+                    image: "img/1.jpg",
+                    date: "2024-03-15",
+                    location: "New York",
+                    link: "event_details.html?id=1",
+                },
+                {
+                    id: 2,
+                    title: "Music Festival",
+                    image: "img/3.jpg",
+                    date: "2024-04-20",
+                    location: "London",
+                    link: "event_details.html?id=2",
+                },
+                {
+                    id: 3,
+                    title: "Business Summit",
+                    image: "img/11.webp",
+                    date: "2024-05-10",
+                    location: "Tokyo",
+                    link: "event_details.html?id=3",
+                },
+                {
+                    id: 4,
+                    title: "Design Workshop",
+                    image: "img/1.jpg",
+                    date: "2024-06-05",
+                    location: "Sydney",
+                    link: "event_details.html?id=4",
+                },
+                {
+                    id: 5,
+                    title: "Food & Culture Festival",
+                    image: "img/3.jpg",
+                    date: "2024-07-15",
+                    location: "Cairo",
+                    link: "event_details.html?id=5",
+                },
+            ];
+
+            function performLiveSearch(query) {
+                const dropdown = document.getElementById(
+                    "searchResultsDropdown"
+                );
+                const resultsList =
+                    document.getElementById("searchResultsList");
+
+                if (!query || query.length < 2) {
+                    dropdown.classList.remove("show");
+                    return;
+                }
+
+                // Filter events based on search query
+                const filteredEvents = mockEvents.filter(
+                    (event) =>
+                        event.title
+                            .toLowerCase()
+                            .includes(query.toLowerCase()) ||
+                        event.location
+                            .toLowerCase()
+                            .includes(query.toLowerCase())
+                );
+
+                // Clear previous results
+                resultsList.innerHTML = "";
+
+                if (filteredEvents.length === 0) {
+                    resultsList.innerHTML =
+                        '<div class="no-results">No events found for "' +
+                        query +
+                        '"</div>';
+                } else {
+                    // Show max 5 results
+                    const displayEvents = filteredEvents.slice(0, 5);
+
+                    displayEvents.forEach((event) => {
+                        const resultItem = document.createElement("a");
+                        resultItem.href = event.link;
+                        resultItem.className = "search-result-item";
+                        resultItem.innerHTML = `
+                        <img src="${event.image}" alt="${event.title}" class="search-result-image" onerror="this.src='img/1.jpg'">
+                        <div class="search-result-content">
+                            <h4 class="search-result-title">${event.title}</h4>
+                        </div>
+                    `;
+
+                        // Add click event to navigate to event details
+                        resultItem.addEventListener("click", function (e) {
+                            e.preventDefault();
+                            window.location.href = event.link;
+                        });
+
+                        resultsList.appendChild(resultItem);
+                    });
+                }
+
+                // Show dropdown
+                dropdown.classList.add("show");
+            }
+
+            // Enhanced Search Function
+            function performSearch() {
+                const searchInput = document.querySelector(
+                    ".search_field .input"
+                );
+                if (!searchInput) return;
+
+                const query = searchInput.value.trim();
+                const location = document
+                    .querySelector(".location_field .default_option")
+                    ?.textContent?.trim();
+                const date = document.querySelector(".date_input")?.value;
+
+                if (query.length < 2) {
+                    alert("Please enter at least 2 characters");
+                    searchInput.focus();
+                    return;
+                }
+
+                // Build search URL with parameters
+                let searchUrl = `All_Event.html?search=${encodeURIComponent(
+                    query
+                )}`;
+                if (location && location !== "Location" && location !== "") {
+                    searchUrl += `&location=${encodeURIComponent(location)}`;
+                }
+                if (date) {
+                    searchUrl += `&date=${encodeURIComponent(date)}`;
+                }
+
+                window.location.href = searchUrl;
+            }
+
+            // Category Navigation
+            function navigateToCategory(category) {
+                window.location.href = `All_Event.html?category=${encodeURIComponent(
+                    category
+                )}`;
+            }
+
+            // Sign In Actions
+            function handleSignIn() {
+                alert("Redirecting to Sign In page...");
+                // window.location.href = "signin.html";
+            }
+
+            function handleSignUp() {
+                alert("Redirecting to Sign Up page...");
+                // window.location.href = "signup.html";
+            }
+
+            function handleForgotPassword() {
+                alert("Redirecting to Forgot Password page...");
+                // window.location.href = "forgot-password.html";
+            }
+
+            // Clear inputs when page loads (for when user returns from event page)
+            function clearInputsOnReturn() {
+                // Clear search input
+                const searchInput = document.querySelector(
+                    ".search_field .input"
+                );
+                if (searchInput) {
+                    searchInput.value = "";
+                }
+
+                // Reset location to default
+                const locationDefault = document.querySelector(
+                    ".location_field .default_option"
+                );
+                if (locationDefault) {
+                    locationDefault.textContent = "Location";
+                }
+
+                // Reset date input
+                const dateInput = document.querySelector(".date_input");
+                if (dateInput) {
+                    dateInput.value = "";
+                }
+
+                // Close any open dropdowns
+                const searchDropdown = document.getElementById(
+                    "searchResultsDropdown"
+                );
+                if (searchDropdown) {
+                    searchDropdown.classList.remove("show");
+                }
+
+                const locationDropdown =
+                    document.querySelector(".location_field ul");
+                if (locationDropdown) {
+                    locationDropdown.classList.remove("active");
+                }
+            }
+
+            // Check if user came back from event page using browser history
+            window.addEventListener("pageshow", function (event) {
+                if (
+                    event.persisted ||
+                    (window.performance &&
+                        window.performance.navigation.type === 2)
+                ) {
+                    // User came back using browser back button
+                    clearInputsOnReturn();
+                }
+            });
+
+            // Document Ready
+            document.addEventListener("DOMContentLoaded", function () {
+                // Clear inputs on page load
+                clearInputsOnReturn();
+                // Mobile Menu Button
+                const mobileMenuBtn = document.querySelector(
+                    ".event-mobile-menu-btn"
+                );
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleMobileMenu();
+                    });
+                }
+
+                // Search Input - Enter Key and Focus
+                const searchInput = document.querySelector(
+                    ".search_field .input"
+                );
+                if (searchInput) {
+                    // Add live search on input
+                    searchInput.addEventListener("input", function (e) {
+                        const query = e.target.value.trim();
+
+                        // Clear previous timeout
+                        if (searchTimeout) {
+                            clearTimeout(searchTimeout);
+                        }
+
+                        // Add debounce to avoid too many searches
+                        searchTimeout = setTimeout(() => {
+                            performLiveSearch(query);
+                        }, 300);
+                    });
+
+                    searchInput.addEventListener("keypress", function (e) {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                            performSearch();
+                        }
+                    });
+
+                    // Auto-focus search on focus
+                    searchInput.addEventListener("focus", function () {
+                        this.select();
+                        // Show dropdown if there's already a query
+                        if (this.value.trim().length >= 2) {
+                            performLiveSearch(this.value.trim());
+                        }
+                    });
+
+                    // Hide dropdown when input loses focus (with delay)
+                    searchInput.addEventListener("blur", function () {
+                        setTimeout(() => {
+                            const dropdown = document.getElementById(
+                                "searchResultsDropdown"
+                            );
+                            if (dropdown) {
+                                dropdown.classList.remove("show");
+                            }
+                        }, 150);
+                    });
+                }
+
+                // Search Icon Click
+                const searchIcon = document.querySelector(
+                    ".search_field .fas.fa-search"
+                );
+                if (searchIcon) {
+                    searchIcon.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        performSearch();
+                    });
+                    searchIcon.style.cursor = "pointer";
+                }
+
+                // Clean onclick attributes and add data attributes
+                document
+                    .querySelectorAll('[onclick*="filterSubCategory"]')
+                    .forEach((element) => {
+                        const onclick = element.getAttribute("onclick");
+                        if (onclick) {
+                            const match = onclick.match(
+                                /filterSubCategory\('([^']+)'\)/
+                            );
+                            if (match && match[1]) {
+                                element.setAttribute(
+                                    "data-subcategory",
+                                    match[1]
+                                );
+                                element.removeAttribute("onclick");
+                            }
+                        }
+                    });
+
+                // Handle Category Clicks
+                document.addEventListener("click", function (e) {
+                    // Handle data-subcategory
+                    const subcategoryElement =
+                        e.target.closest("[data-subcategory]");
+                    if (subcategoryElement) {
+                        e.preventDefault();
+                        const subcategory =
+                            subcategoryElement.getAttribute("data-subcategory");
+                        navigateToCategory(subcategory);
+                        return;
+                    }
+
+                    // Handle data-category
+                    const categoryElement = e.target.closest("[data-category]");
+                    if (categoryElement) {
+                        e.preventDefault();
+                        const category =
+                            categoryElement.getAttribute("data-category");
+                        navigateToCategory(category);
+                        return;
+                    }
+
+                    // Handle data-action
+                    const actionElement = e.target.closest("[data-action]");
+                    if (actionElement) {
+                        e.preventDefault();
+                        const action =
+                            actionElement.getAttribute("data-action");
+
+                        switch (action) {
+                            case "signIn":
+                                handleSignIn();
+                                break;
+                            case "signUp":
+                                handleSignUp();
+                                break;
+                            case "forgotPassword":
+                                handleForgotPassword();
+                                break;
+                            case "toggleEventMobileMenu":
+                                toggleMobileMenu();
+                                break;
+                            default:
+                                console.log(`Action: ${action}`);
+                        }
+                        return;
+                    }
+                });
+
+                // Enhanced Dropdown Functionality - Fix for eventSignInSection
+                document
+                    .querySelectorAll(".event-dropdown, .event-user-profile")
+                    .forEach((dropdown) => {
+                        const trigger = dropdown.querySelector(
+                            ".event-signin-btn, .event-user-name, button, a"
+                        );
+
+                        if (trigger) {
+                            trigger.addEventListener("click", function (e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+
+                                // Close other dropdowns first
+                                document
+                                    .querySelectorAll(
+                                        ".event-dropdown, .event-user-profile"
+                                    )
+                                    .forEach((other) => {
+                                        if (other !== dropdown) {
+                                            other.classList.remove(
+                                                "event-open"
+                                            );
+                                            const otherTrigger =
+                                                other.querySelector(
+                                                    ".event-signin-btn, .event-user-name, button, a"
+                                                );
+                                            if (otherTrigger) {
+                                                otherTrigger.setAttribute(
+                                                    "aria-expanded",
+                                                    "false"
+                                                );
+                                            }
+                                        }
+                                    });
+
+                                // Toggle current dropdown
+                                const isOpen =
+                                    dropdown.classList.toggle("event-open");
+                                trigger.setAttribute("aria-expanded", isOpen);
+                            });
+                        }
+                    });
+
+                // Close dropdowns when clicking outside
+                document.addEventListener("click", function (e) {
+                    // Close search dropdown when clicking outside
+                    const searchDropdown = document.getElementById(
+                        "searchResultsDropdown"
+                    );
+                    const searchField = document.querySelector(".search_field");
+
+                    if (searchDropdown && searchField) {
+                        if (!searchField.contains(e.target)) {
+                            searchDropdown.classList.remove("show");
+                        }
+                    }
+
+                    // Close other dropdowns
+                    if (
+                        !e.target.closest(".event-dropdown") &&
+                        !e.target.closest(".event-user-profile")
+                    ) {
+                        document
+                            .querySelectorAll(
+                                ".event-dropdown, .event-user-profile"
+                            )
+                            .forEach((dropdown) => {
+                                dropdown.classList.remove("event-open");
+                                const trigger = dropdown.querySelector(
+                                    ".event-signin-btn, .event-user-name, button, a"
+                                );
+                                if (trigger) {
+                                    trigger.setAttribute(
+                                        "aria-expanded",
+                                        "false"
+                                    );
+                                }
+                            });
+                    }
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener("click", function (e) {
+                    const nav = document.getElementById("eventMainNav");
+                    const btn = document.querySelector(
+                        ".event-mobile-menu-btn"
+                    );
+
+                    if (nav && nav.classList.contains("event-mobile-open")) {
+                        if (
+                            !e.target.closest("#eventMainNav") &&
+                            !e.target.closest(".event-mobile-menu-btn")
+                        ) {
+                            nav.classList.remove("event-mobile-open");
+                            if (btn) {
+                                btn.innerHTML = '<i class="fas fa-bars"></i>';
+                                btn.setAttribute("aria-expanded", "false");
+                            }
+                        }
+                    }
+                });
+            });
+
+            // jQuery Ready
+            $(document).ready(function () {
+                // Location Dropdown
+                $(".location_field .default_option").click(function () {
+                    $(this).siblings("ul").toggleClass("active");
+                });
+
+                $(".location_field ul li").click(function () {
+                    const text = $(this).text();
+                    $(this)
+                        .parents(".location_field")
+                        .find(".default_option")
+                        .text(text);
+                    $(this).parents("ul").removeClass("active");
+                });
+
+                // Set today's date as default
+                const dateInput = document.querySelector(".date_input");
+                if (dateInput) {
+                    const today = new Date().toISOString().split("T")[0];
+                    dateInput.value = today;
+                }
+
+                // Prevent search dropdown from closing when clicking inside it
+                const searchDropdown = document.getElementById(
+                    "searchResultsDropdown"
+                );
+                if (searchDropdown) {
+                    searchDropdown.addEventListener("click", function (e) {
+                        e.stopPropagation();
+                    });
+                }
+
+                // Close Location Dropdown When Clicking Outside
+                $(document).click(function (e) {
+                    if (!$(e.target).closest(".location_field").length) {
+                        $(".location_field ul").removeClass("active");
+                    }
+                });
+
+                // Category Links in New Categories Section
+                $(".category-link-event").click(function (e) {
+                    e.preventDefault();
+                    const href = $(this).attr("href");
+                    if (href && href !== "#") {
+                        window.location.href = href;
+                    }
+                });
+
+                // Mobile optimizations
+                $(window).on("resize", function () {
+                    // Close all dropdowns on resize
+                    $(".event-dropdown, .event-user-profile").removeClass(
+                        "event-open"
+                    );
+                    $(".location_field ul").removeClass("active");
+                });
+            });
+        </script>
+    </body>
+</html>

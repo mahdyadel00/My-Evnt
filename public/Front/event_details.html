@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Details Event </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!-- swiper css -->
+  <link rel="stylesheet" type="text/css" href="css/swiper-bundle.min.css" />
+  <style>
+    .share-links p {
+      padding: 0;
+      margin: 0;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: row !important;
+      flex-wrap: wrap;
+      /* justify-content:space-between; */
+      align-items: flex-start;
+    }
+
+    .social-icons a {
+      text-decoration: none;
+      color: gray;
+      padding: 10px;
+      font-size: 20px;
+      transition: all 0.3s ease;
+
+    }
+
+    .social-icons a i {
+      font-size: 25px;
+      transition: all 0.3s ease;
+      padding: 12px;
+      border-radius: 50%;
+      background-color: #fff;
+      text-align: center;
+      transition: .5s;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .social-icons a i:hover {
+      transform: translate(0, -15%);
+    }
+
+    /* .social-menu ul li:nth-child(1) a:hover{
+    background-color: rgba(0, 0, 0, 0.829);
+}
+.social-menu ul li:nth-child(2) a:hover{
+    background-color: #E4405F;
+}
+.social-menu ul li:nth-child(3) a:hover{
+    background-color: #0077b5;
+}
+.social-menu ul li:nth-child(4) a:hover{
+    background-color: #000;
+} */
+    .social-icons a .fa-facebook:hover {
+      background-color: #3b5998;
+      color: #fff;
+    }
+
+    .social-icons a .fa-x-twitter:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .social-icons a .fa-linkedin:hover {
+      background-color: #007bb6;
+      color: #fff;
+    }
+
+    .social-icons a .fa-whatsapp:hover {
+      background-color: #24cc63;
+      color: #fff;
+    }
+
+    .social-icons a .fa-instagram:hover {
+      background-color: #E4405F;
+      color: #fff;
+    }
+
+    .social-icons a .fa-copy:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+    @media screen and (max-width: 576px) {
+      .mobile-card-body {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- header start -->
+  <header class="header" style="background-color: #fff;">
+    <div class="container">
+      <div class="row v-center">
+        <div class="header-item item-left">
+          <div class="logo">
+            <a href="Newhome.html">Event</a>
+          </div>
+        </div>
+        <!-- menu start here -->
+        <div class="header-item item-center">
+          <div class="menu-overlay"></div>
+          <nav class="menu">
+            <div class="mobile-menu-head">
+              <a style="padding: 0 50px 0 15px; color: #0E143A; font-size: 20px;font-weight: bold;"
+                href="Newhome.html">Event</a>
+              <div class="go-back"><i class="fa fa-angle-left"></i></div>
+              <div class="current-menu-title"></div>
+              <div class="mobile-menu-close">&times;</div>
+            </div>
+            <ul class="menu-main">
+              <li>
+                <a href="#">Beauty</a>
+              </li>
+              <li>
+                <a href="#">Business</a>
+              </li>
+              <li>
+                <a href="#">Comedy</a>
+              </li>
+              <li class="menu-item-has-children">
+                <a href="#">More <i class="fas fa-angle-down"></i></a>
+                <div class="sub-menu single-column-menu">
+                  <ul>
+                    <li><a href="#">Culture</a></li>
+                    <li><a href="#">Dance</a></li>
+                    <li><a href="#">Education</a></li>
+                    <li><a href="#">Experience</a></li>
+                    <li><a href="#">Health</a></li>
+                    <li><a href="#">Music</a></li>
+                    <li><a href="#">Sport</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- menu end here -->
+        <div class="header-item item-right">
+          <a class="button-organizer" href="./pages organizer interface/index.html">For Organizer</a>
+          <a class="button-nav" href="login.html">Login</a>
+          <div class="profile">
+            <img src="img/profile.png" alt="">
+            <ul class="profile-link">
+              <li><a href="./EventDash/index.html"><i class='bx bxs-user-circle icon'></i> Events</a></li>
+              <li><a href="./EventDash/profile.html"><i class='bx bxs-cog'></i> Profile</a></li>
+              <li><a href="#"><i class='bx bxs-log-out-circle'></i> Logout</a></li>
+            </ul>
+          </div>
+          <!-- mobile menu trigger -->
+          <div class="mobile-menu-trigger">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- end header -->
+
+  <!-- start section details -->
+  <section class="details">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-7">
+          <img src="img/sales2.jpeg" alt="project-image" class="rounded img-details">
+          <div class="project-info-box">
+            <h5 class="mb-3"><b>Event Details</b></h5>
+            <p class="mb-0 ">Vivamus pellentesque, felis in aliquam ullamcorper, lorem tortor porttitor erat, hendrerit
+              porta nunc tellus eu lectus. Ut vel imperdiet est. Pellentesque condimentum, dui et blandit laoreet, quam
+              nisi tincidunt tortor.</p>
+            <ul class="features pt-2 pb-2">
+              <h5 class="mb-2">What to expect ?</h5>
+              <li class="mb-2">
+                <span style="padding-right: 20px;" class="icon "><i class="fas fa-check"></i></span>
+                <span class="list-name">Lorem, ipsum dolor sit amet consectetur adipisicing.</span>
+              </li>
+              <li class="mb-2">
+                <span style="padding-right: 20px;" class="icon  "><i class="fas fa-check"></i></span>
+                <span class="list-name">Lorem, ipsum dolor sit amet consectetur adipisicing.</span>
+              </li>
+              <li class="mb-2">
+                <span style="padding-right: 20px;" class="icon "><i class="fas fa-check"></i></span>
+                <span class="list-name">Lorem, ipsum dolor sit amet consectetur adipisicing.</span>
+              </li>
+              <li class="mb-2">
+                <span style="padding-right: 20px;" class="icon "><i class="fas fa-check"></i></span>
+                <span class="list-name">Lorem, ipsum dolor sit amet consectetur adipisicing.</span>
+              </li>
+
+            </ul>
+            <p class="mb-0"><span style="font-weight: 700; padding: 0 5px;">Hosted by : </span> <a
+                href="Companyprofile.html" class="text-primary">Company</a></p>
+          </div>
+          <div class="container container-details mt-5">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="tickets-tab" data-toggle="tab" href="#tickets" role="tab"
+                  aria-controls="tickets" aria-selected="true">Tickets</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="other-dates-tab" data-toggle="tab" href="#other-dates" role="tab"
+                  aria-controls="other-dates" aria-selected="false">Other dates</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="tickets" role="tabpanel" aria-labelledby="tickets-tab">
+                <!-- start Tickets content  -->
+                <div class="card-body card-bottom mobile-card-body">
+                  <h5 class="card-title">Regular</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                  <p class="card-text">5k Fun Run, (T-shirt, bubuk warna dan kalung medali finisher)</p>
+                  <div class="d-flex justify-content-between align-items-baseline flex-wrap">
+                    <div class="col-md-4 mt-2 mb-2">
+                      <span class="p-2 rounded" style="background-color:rgb(240, 240, 240)">450 EGP</span>
+                    </div>
+                    <div class="col-md-4 mt-2 mb-2">
+                      <span class="p-2 rounded" style="background-color:rgb(240,240,240)">Available :
+                        <span>19</span></span>
+                    </div>
+                    <div class="col-md-4 mt-2 mb-2">
+                      <span class="p-2 rounded" style="background-color:rgb(240,240,240)">Sold Out :
+                        <span>0</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-data">
+                  <div class="card-body">
+                    <h5 class="card-title">Regular</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                    <p class="card-text">10k Race, (T-shirt, nomor pelari / nomor BIB, bubuk warna dan kalung medali
+                      finisher)</p>
+                    <div class="row">
+                      <div class="col-md-4 p-2">
+                        <span class="p-2 rounded" style="background-color:rgb(240, 240, 240)">900 EGP</span>
+                      </div>
+                      <div class="col-md-4 p-2">
+                        <span class="p-2 rounded" style="background-color:rgb(240, 240, 240)">Available : 19</span>
+                      </div>
+                      <div class="col-md-4 p-2">
+                        <span class="p-2 rounded" style="background-color:rgb(240, 240, 240)">Sold Out : 0</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end Tickets content-->
+              </div>
+              <!-- start other dates -->
+              <div class="tab-pane fade p-4" id="other-dates" role="tabpanel" aria-labelledby="other-dates-tab">
+                <!-- start dates content -->
+                <div class="text-center mt-3">
+                  <h5>Other performances by this artist are not available.</h5>
+                  <p>Don't miss the opportunity to visit this concert.</p>
+                  <button class="btn btn-success">Buy Tickets</button>
+                </div>
+                <!-- end dates content -->
+              </div>
+              <!-- end other dates -->
+            </div>
+          </div>
+        </div>
+        <!-- start part get ticket -->
+        <div class="col-md-5">
+          <!-- details ticket -->
+          <div class="project-info-box mt-0">
+            <h4>Belitung Color Splash 2024</h4>
+            <div class="mt-4">
+              <div>
+                <p> <span class="p-2"><i class="fa-solid fa-location-dot"></i></span> Pantai Tanjung Pendam Tanjung
+                  Pandan.</p>
+                <p> <span class="p-2"><i class="fa-solid fa-location-dot"></i></span> Online <a
+                    style="padding: 0 30px ;" href="#">Link
+                  </a></p>
+
+              </div>
+              <p class="pt-3"> <span class="p-2"><i class="fa-solid fa-tag"></i></span> 450 EGP <span
+                  style="padding: 0 30px ;">Beginner session 1</span></p>
+              <p> <span class="p-2"><i class="fa-solid fa-calendar-days"></i></span> 14 Sept 2024, 06:00 </p>
+              <p> <span class="p-2"><i class="fa-solid fa-calendar-days"></i></span> We operate everyday from 10am to
+                8pm , till the first week of September.</p>
+              <div class="p-2 d-flex justify-content-center align-items-baseline">
+                <a href="CompleteOrder.html" class="btn-ticket mr-2 m-2">
+                  Get Tickets
+                </a>
+                <a class="btn-outline m-2" style="padding: 12px 15px ;">
+                  <i class="fa-regular fa-heart"></i>
+                </a>
+              </div>
+              <!-- icon for share link by social media -->
+              <div class="share-links">
+                <p><b>Share with friends</b></p>
+                <div class="social-icons links">
+                  <a href="#" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                  </a>
+                  <a href="#" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </a>
+                  <a href="#" target="_blank">
+                    <i class="fa-brands fa-x-twitter"></i>
+                  </a>
+                  <a href="#" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+                  <a href="#" target="_blank">
+                    <i class="fa-brands fa-linkedin"></i>
+                  </a>
+                  <a href="#" id="copy">
+                    <i class="fa-regular fa-copy"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cancellation policy -->
+          <div class="project-info-box mt-0">
+            <h4>Cancellation policy</h4>
+            <div class="mt-2">
+              <div>
+                <p class="p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit .........</p>
+                <a href="#" class="btn btn-outline-dark" data-bs-target="#cancellation_policy" data-bs-toggle="modal">
+                  Show More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- popup to complete cancellation policy -->
+        <div class="modal " id="cancellation_policy" aria-hidden="true" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">cancellation policy</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto consectetur impedit autem accusamus
+                  eius, quo magnam debitis dolores veritatis repellendus ducimus asperiores dolorum sequi eligendi
+                  sapiente animi quos unde sit.
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime modi earum, voluptas obcaecati,
+                  cupiditate ad saepe voluptatum nisi iusto repudiandae eos illo consequuntur provident? Reiciendis
+                  explicabo aliquam rerum provident modi.
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis reiciendis dicta quo, quibusdam facere
+                  impedit molestiae, corporis, dolor porro consectetur iure aliquam! Aut quis unde reiciendis ad
+                  molestiae, repellendus eligendi?
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end part get ticket -->
+      </div>
+    </div>
+  </section>
+  <!-- end section details -->
+
+  <!-- start section you may also like -->
+  <section class="Events pt-3">
+    <h1>You May Also Like </h1>
+    <!-- <p>Show New Events </p> -->
+    <div class="product-container">
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html">
+            <img src="img/card1.png" alt="image" class="card__img">
+          </a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime.</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html"><img src="img/card2.png" alt="image" class="card__img"></a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html"><img src="img/card3.png" alt="image" class="card__img"></a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html"><img src="img/card4.png" alt="image" class="card__img"></a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+    </div>
+    <div class="text-center mt-4 mb-4 pt-3">
+      <button class="btn btn-success">View More </button>
+    </div>
+  </section>
+  <!-- end section you may also like -->
+
+  <!-- Start Footer section -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="footer-cta pt-5 pb-5">
+        <div class="row">
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="cta-text">
+                <h4>Find us</h4>
+                <span>1010 Avenue, sw 54321, chandigarh</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="fas fa-phone"></i>
+              <div class="cta-text">
+                <h4>Call us</h4>
+                <span><a style="color: #878787;" href="tel:+201033993202">+20 10 3399 3202</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="far fa-envelope-open"></i>
+              <div class="cta-text">
+                <h4>Mail us</h4>
+                <span><a style="color: #878787;" href="mailto:info@innoworx.site">mail@info.com </a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-content pt-5 pb-5">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 mb-50">
+            <div class="footer-widget">
+              <div class="footer-logo">
+                <a href="#" style="font-size: 30px;font-weight: 700; color:#fff">Event</a>
+              </div>
+              <div class="footer-text">
+                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec
+                  tetur adipisicing
+                  elit,Lorem ipsum dolor sit amet.</p>
+              </div>
+              <div class="footer-social-icon">
+                <span>Follow us</span>
+                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Event Types</h3>
+              </div>
+              <ul>
+                <li><a href="#">Music</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Culture</a></li>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">View All</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Useful Links</h3>
+              </div>
+              <ul>
+                <li><a href="./EventDash/profile.html">My Profile</a></li>
+                <li><a href="./pages organizer interface/FAQS.html">FAQS</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="./pages organizer interface/Contact_us.html">Contact us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Subscribe</h3>
+              </div>
+              <div class="footer-text mb-25">
+                <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+              </div>
+              <div class="subscribe-form">
+                <form action="#">
+                  <input type="text" placeholder="Email Address">
+                  <button><i class="fab fa-telegram-plane"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div class="copyright-text">
+              <p>Copyright &copy; 2024, All Right Reserved <a href="Newhome.html">Event</a></p>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="Newhome.html">Home</a></li>
+                <li><a href="./pages organizer interface/terms.html">Terms</a></li>
+                <li><a href="./pages organizer interface/privacy.html">Privacy</a></li>
+                <li><a href="./pages organizer interface/Contact_us.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end Footer section -->
+  <script src="js/jquery-3.5.1.slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap.min2.js"></script>
+  <script src="js/swiper-bundle.min.js"></script>
+  <script src="js/script.js"></script>
+
+</body>
+
+</html>

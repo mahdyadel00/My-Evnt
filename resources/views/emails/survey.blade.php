@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Thanks for Registering</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #ed7326 0%, #f5a97f 100%);
+            padding: 10px 0;
+        }
+
+        .email-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .email-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: #ed7326;
+        }
+
+        .header {
+            background: #ed7326;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 25px 20px;
+            background: #fafafa;
+        }
+
+        .greeting {
+            font-size: 18px;
+            color: #ed7326;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .confirmation-message {
+            background: #fff5f0;
+            border: 1px solid #f8d7c8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(237, 115, 38, 0.1);
+            position: relative;
+        }
+
+        .confirmation-message::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            opacity: 0.6;
+        }
+
+        .confirmation-message h3 {
+            color: #ed7326;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .confirmation-message p {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .booking-details {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f8d7c8;
+        }
+
+        .booking-details h3 {
+            color: #ed7326;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: 2px solid #ed7326;
+            padding-bottom: 10px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #fff5f0;
+            border-radius: 8px;
+            border-left: 3px solid #ed7326;
+            transition: all 0.3s ease;
+        }
+
+        .detail-row:hover {
+            transform: translateX(3px);
+            box-shadow: 0 5px 15px rgba(237, 115, 38, 0.1);
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .detail-label i {
+            margin-right: 8px;
+            color: #ed7326;
+            font-size: 16px;
+        }
+
+        .detail-value {
+            color: #2d3748;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .event-info {
+            background: #fff5f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(237, 115, 38, 0.1);
+            border: 1px solid #f8d7c8;
+        }
+
+        .event-info h3 {
+            color: #ed7326;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .next-steps {
+            background: #fff5f0;
+            border: 1px solid #f8d7c8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(237, 115, 38, 0.1);
+            position: relative;
+        }
+
+        /* .next-steps::before {
+    content: '🚀';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    opacity: 0.7;
+} */
+
+        .next-steps h3 {
+            color: #ed7326;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .next-steps li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            color: #4a5568;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 5px 0;
+        }
+
+        .next-steps li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ed7326;
+            font-size: 14px;
+        }
+
+        .contact-info {
+            background: #fff5f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(237, 115, 38, 0.1);
+            border: 1px solid #f8d7c8;
+            position: relative;
+        }
+
+        /* .contact-info::before {
+    content: '📞';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    opacity: 0.性
+
+System: .7;
+} */
+
+        .contact-info h4 {
+            color: #ed7326;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            color: #4a5568;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #ed7326;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            opacity: 0.9;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #ed7326;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #f5a97f;
+        }
+
+        .social-links {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 5px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 8px;
+            background: #ed7326;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            width: 35px;
+            height: 35px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-2px);
+            background: #f5a97f;
+        }
+
+        @media (max-width: 650px) {
+            .email-container {
+                margin: 8px;
+                border-radius: 12px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            }
+
+            .header {
+                padding: 20px 12px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+                line-height: 1.3;
+            }
+
+            .header p {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .content {
+                padding: 15px 12px;
+            }
+
+            .greeting {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .confirmation-message,
+            .booking-details,
+            .event-info,
+            .next-steps,
+            .contact-info {
+                padding: 5px;
+                margin: 12px 0;
+                border-radius: 8px;
+            }
+
+            .confirmation-message h3,
+            .booking-details h3,
+            .event-info h3,
+            .next-steps h3 {
+                font-size: 16px;
+                line-height: 1.3;
+            }
+
+            .confirmation-message p,
+            .next-steps li,
+            .contact-info p {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .detail-row {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px 12px;
+                margin: 6px 0;
+            }
+
+            .detail-label,
+            .detail-value {
+                font-size: 13px;
+            }
+
+            .detail-label i {
+                font-size: 14px;
+            }
+
+            .next-steps li {
+                padding: 8px 0 8px 28px;
+            }
+
+            .next-steps li:before {
+                font-size: 13px;
+            }
+
+            .contact-info h4 {
+                font-size: 15px;
+            }
+
+            .footer {
+                padding: 15px 12px;
+            }
+
+            .footer p {
+                font-size: 11px;
+                line-height: 1.4;
+            }
+
+            .social-links a {
+                width: 32px;
+                height: 32px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .email-container {
+                margin: 5px;
+                border-radius: 10px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .greeting {
+                font-size: 15px;
+                margin-bottom: 12px;
+            }
+
+            .confirmation-message h3,
+            .booking-details h3,
+            .event-info h3,
+            .next-steps h3 {
+                font-size: 15px;
+            }
+
+            .confirmation-message p,
+            .next-steps li,
+            .contact-info p {
+                font-size: 12px;
+            }
+
+            .detail-row {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+
+            .detail-label,
+            .detail-value {
+                font-size: 12px;
+            }
+
+            .detail-label i {
+                font-size: 13px;
+            }
+
+            .next-steps li {
+                padding: 6px 0 6px 25px;
+            }
+
+            .next-steps li:before {
+                font-size: 12px;
+            }
+
+            .contact-info h4 {
+                font-size: 14px;
+            }
+
+            .footer p {
+                font-size: 10px;
+            }
+
+            .social-links a {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    @php
+        $settings = \App\Models\Setting::first();
+    @endphp
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+
+            <div style="margin-bottom: 10px; text-align: center;">
+                @php
+                    $companyLogo = null;
+                    if ($event->company && $event->company->relationLoaded('media')) {
+                        $companyLogo = $event->company->media->firstWhere('name', 'logo');
+                    } elseif ($event->company) {
+                        $companyLogo = $event->company->media()->where('name', 'logo')->first();
+                    }
+                @endphp
+                @if($companyLogo)
+                    <img src="{{ url('storage/' . $companyLogo->path) }}" 
+                         alt="{{ $event->company->company_name ?? 'Company' }} Logo"
+                         style="max-height:60px; max-width:200px; height:auto; width:auto; display:block; margin:0 auto;">
+                @endif
+            </div>
+
+            <h1><i class="fas fa-bell"></i> Thanks for Registering ✨</h1>
+            <p>Your Event registration has been successfully received.</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="greeting">
+                Hello {{ $user->first_name }} {{ $user->last_name }}
+            </div>
+
+            <div class="confirmation-message">
+                <h3>🎉 Thank you for your Register!</h3>
+                <p>
+                    Your Register for the <strong>{{ $event->name ?? 'the selected event' }}</strong> has been
+                    successfully received!
+                    <br>
+                    We'll be reaching out to you shortly to confirm your spot and share any needed information.
+                    <br>
+                    Thanks for choosing MyEvnt — we're looking forward to seeing you there!
+                </p>
+            </div>
+
+            <!-- Booking Details & Event Information Row -->
+            <!-- Booking Details -->
+            <div class="booking-details">
+                <h3>💎 Your Register Details</h3>
+                <div class="detail-row">
+                    <!-- <div class="detail-label"><i>🙋‍♂️</i> Full Name :</div> -->
+                    <div class="detail-value">{{ $user->first_name }} {{ $user->last_name}}</div>
+                </div>
+                <div class="detail-row">
+                    <!-- <div class="detail-label"><i>✉️</i> Email :</div> -->
+                    <div class="detail-value">{{ $user->email }}</div>
+                </div>
+                <div class="detail-row">
+                    <!-- <div class="detail-label"><i>📞</i> Phone :</div> -->
+                    <div class="detail-value">{{ $user->phone }}</div>
+                    @if($event->date)
+                        <div class="detail-row">
+                            <div class="detail-label"><i>🗓️</i> Preferred Date :</div>
+                            <div class="detail-value">{{ \Carbon\Carbon::parse($event->date)->format('l, F j, Y') }}</div>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Event Information -->
+                <div class="event-info">
+                    <h3>🎭 Event Information</h3>
+                    <div class="detail-row">
+                        <div class="detail-label"><i>🎊</i> Event Name :</div>
+                        <div class="detail-value">{{ $event->name ?? 'Event Details Available Soon' }}</div>
+                    </div>
+                    <!--type of the ticket-->
+                    @if(isset($survey) && $survey)
+                        <div class="detail-row">
+                            <div class="detail-label"><i>🎫</i> Ticket Type :</div>
+                            <div class="detail-value">
+                                @if($survey->ticket_type === 'attendee')
+                                    Attendee Ticket
+                                    @if($survey->attendee_type)
+                                        - {{ ucfirst($survey->attendee_type) }}
+                                        @if($survey->attendee_type === 'mentorship' && $survey->mentorship_track)
+                                            ({{ str_replace('_', ' ', ucwords($survey->mentorship_track, '_')) }})
+                                        @endif
+                                    @endif
+                                @elseif($survey->ticket_type === 'startups')
+                                    Startups
+                                @else
+                                    {{ ucfirst($survey->ticket_type ?? 'N/A') }}
+                                @endif
+                            </div>
+                        </div>
+                        @if($survey->job_title)
+                            <div class="detail-row">
+                                <div class="detail-label"><i>💼</i> Job Title :</div>
+                                <div class="detail-value">{{ $survey->job_title }}</div>
+                            </div>
+                        @endif
+                        @if($survey->organization)
+                            <div class="detail-row">
+                                <div class="detail-label"><i>🏢</i> Organization :</div>
+                                <div class="detail-value">{{ $survey->organization }}</div>
+                            </div>
+                        @endif
+                    @else
+                        <div class="detail-row">
+                            <div class="detail-label"><i>🎫</i> Type of Ticket :</div>
+                            <div class="detail-value">{{ $order->ticket->ticket_type ?? 'Ticket Type Available Soon' }}</div>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Next Steps -->
+                <div class="next-steps">
+                    <h3>🚀 What Happens Next?</h3>
+                    <ul>
+                        <li style="text-align: center;">
+                            <!-- Dynamic QR code using Google Chart API (no imagick needed) -->
+                            @php
+                                $qrData = (string) ($order->order_number ?? 'N/A');
+                                // Use qrserver.com API to generate QR image (no imagick needed)
+                                $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($qrData);
+                            @endphp
+                            <img src="{{ $qrUrl }}" alt="QR Code"
+                                 style="max-width:150px; height:auto; display:block; margin:0 auto;">
+                        </li>
+                        <li style="text-align: center;">
+                            <p>Scan the QR code to view your booking details</p>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <h4>📞 Need Help?</h4>
+                    <p>If you have any questions or need to make changes to your Register in the meeting,</p>
+                    <p>please don't hesitate to contact us:</p>
+                    <p><strong>Email:</strong> {{ $settings->email }}</p>
+                    <p><strong>Phone:</strong> {{ $settings->phone }}</p>
+                </div>
+
+                <p style="color: #666; font-style: italic; text-align: center; margin-top: 15px; font-size: 12px;">
+                    This is an automated message. Please do not reply directly to this email.
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p><strong>{{ $settings->name }}</strong></p>
+                <p>Your trusted partner for event management</p>
+                <div class="social-links">
+                    <a href="{{ $settings->facebook }}" title="Facebook">📘</a>
+                    <a href="{{ $settings->instagram }}" title="Instagram">📸</a>
+                    <a href="https://wa.me/{{'+2' . $settings->whats_app }}" target="_blank" title="WhatsApp">📱</a>
+
+                </div>
+                <p>© {{ date('Y') }} {{ $settings->name }}. All rights reserved.</p>
+                <p>
+                    <a href="{{ route('privacy') }}">Privacy Policy</a> |
+                    <a href="{{ route('terms') }}">Terms of Service</a> |
+                    <a href="{{ route('contacts') }}">Contact Us</a>
+                </p>
+            </div>
+        </div>
+</body>
+
+</html>

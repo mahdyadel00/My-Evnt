@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Event Website</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <!-- swiper css -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="css/swiper-bundle.min.css"
+        />
+        <style>
+            .ticket-section-page-new {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                margin: 20px;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 30px 20px;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .ticket-section-page-new .page-container-new {
+                width: 100%;
+                max-width: 400px; /* Decreased from 500px */
+            }
+
+            .page-container-ticket-new {
+                margin-bottom: 20px;
+            }
+
+            .ticket-details-new {
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 15px 20px; /* Decreased padding */
+                margin-bottom: 20px;
+                border-radius: 10px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+                backdrop-filter: blur(5px);
+                transition: all 0.3s ease;
+            }
+
+            .ticket-details-new:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .ticket-details-new h2 {
+                margin-top: 0;
+                color: #4a4a4a;
+                border-bottom: 2px solid #eaeaea;
+                padding-bottom: 10px;
+                font-weight: 600;
+                font-size: 22px; /* Decreased font size */
+            }
+
+            .ticket-details-new p {
+                margin: 8px 0;
+                font-size: 14px; /* Decreased font size */
+                color: #555;
+                line-height: 1.4;
+            }
+
+            .ticket-details-new strong {
+                color: #333;
+                font-weight: 600;
+            }
+
+            .ticket-container-new {
+                background-color: rgba(255, 255, 255, 0.95);
+                border-radius: 10px;
+                padding: 10px 20px; /* Decreased padding */
+                width: 100%;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                position: relative;
+                transition: all 0.3s ease;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .ticket-header-new {
+                font-size: 22px; /* Decreased font size */
+                font-weight: 700;
+                color: #333;
+                text-align: center;
+                letter-spacing: 0.5px;
+            }
+
+            .qr-container-new {
+                display: flex;
+                justify-content: center;
+                padding: 8px 0;
+                width: 100%;
+            }
+
+            .qr-code-new {
+                width: 150px; /* Decreased size */
+                height: 150px; /* Decreased size */
+                border: 1px solid #eaeaea;
+                padding: 8px;
+                background-color: white;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                border-radius: 6px;
+                transition: transform 0.3s ease;
+            }
+
+            .qr-code-new:hover {
+                transform: scale(1.03);
+            }
+
+            .ticket-info-new {
+                padding: 0 5px;
+            }
+
+            .ticket-label-new {
+                font-size: 12px; /* Decreased font size */
+                color: #777;
+                margin-bottom: 3px;
+                font-weight: 500;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            .ticket-value-new {
+                font-size: 18px; /* Decreased font size */
+                font-weight: 600;
+                margin: 3px 0 12px;
+                color: #333;
+                letter-spacing: 0.5px;
+            }
+
+            .event-name-new {
+                font-size: 16px; /* Decreased font size */
+                font-weight: 700;
+                margin: 4px 0;
+                color: #444;
+                line-height: 1.4;
+            }
+
+            .event-time-new {
+                margin-top: 5px;
+                font-size: 14px; /* Decreased font size */
+                color: #555;
+            }
+
+            .buttons-new {
+                margin-top: 20px;
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .btn-new {
+                padding: 10px 20px; /* Decreased padding */
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
+                transition: all 0.3s ease;
+                font-size: 14px; /* Decreased font size */
+                letter-spacing: 0.5px;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-new:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            .btn-home-new {
+                background: linear-gradient(135deg, #3498db, #2980b9);
+                color: white;
+            }
+
+            .btn-print-new {
+                background: linear-gradient(135deg, #2ecc71, #27ae60);
+                color: white;
+            }
+
+            /* Print-specific styles */
+            @media print {
+                .ticket-section-new {
+                    padding: 0;
+                    background: none;
+                    display: block;
+                }
+
+                .page-container-new {
+                    max-width: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .buttons-new,
+                .ticket-details-new {
+                    display: none;
+                }
+
+                /* .ticket-container {
+                    border: 1px dashed #000;
+                    box-shadow: none;
+                    margin: 0 auto;
+                    padding: 15px;
+                    width: 85%;
+                    max-width: 350px;
+                    border-radius: 0;
+                    transform: none;
+                } */
+
+                .qr-code-new {
+                    box-shadow: none;
+                }
+
+                .ticket-container-new::before {
+                    display: none;
+                }
+
+                .ticket-header-new {
+                    font-size: 18px;
+                    margin-bottom: 15px;
+                }
+
+                .ticket-value-new {
+                    font-size: 16px;
+                }
+
+                .event-name-new {
+                    font-size: 14px;
+                }
+
+                .event-time-new {
+                    font-size: 12px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .ticket-container-new,
+                .ticket-details-new {
+                    padding: 12px;
+                }
+
+                .buttons-new {
+                    flex-direction: column;
+                    gap: 8px;
+                }
+
+                .btn-new {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- header start -->
+        <header class="header" style="background-color: #fff">
+            <div class="container">
+                <div class="row v-center">
+                    <div class="header-item item-left">
+                        <div class="logo">
+                            <a href="Newhome.html">Event</a>
+                        </div>
+                    </div>
+                    <!-- menu start here -->
+                    <div class="header-item item-center">
+                        <div class="menu-overlay"></div>
+                        <nav class="menu">
+                            <div class="mobile-menu-head">
+                                <a
+                                    style="
+                                        padding: 0 50px 0 15px;
+                                        color: #0e143a;
+                                        font-size: 20px;
+                                        font-weight: bold;
+                                    "
+                                    href="Newhome.html"
+                                    >Event</a
+                                >
+                                <div class="go-back">
+                                    <i class="fa fa-angle-left"></i>
+                                </div>
+                                <div class="current-menu-title"></div>
+                                <div class="mobile-menu-close">&times;</div>
+                            </div>
+                            <ul class="menu-main">
+                                <li>
+                                    <a href="#">Beauty</a>
+                                </li>
+                                <li>
+                                    <a href="#">Business</a>
+                                </li>
+                                <li>
+                                    <a href="#">Comedy</a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="#"
+                                        >More <i class="fas fa-angle-down"></i
+                                    ></a>
+                                    <div class="sub-menu single-column-menu">
+                                        <ul>
+                                            <li><a href="#">Culture</a></li>
+                                            <li><a href="#">Dance</a></li>
+                                            <li><a href="#">Education</a></li>
+                                            <li><a href="#">Experience</a></li>
+                                            <li><a href="#">Health</a></li>
+                                            <li><a href="#">Music</a></li>
+                                            <li><a href="#">Sport</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- menu end here -->
+                    <div class="header-item item-right">
+                        <a
+                            class="button-organizer"
+                            href="./pages organizer interface/index.html"
+                            >For Organizer</a
+                        >
+                        <a class="button-nav" href="login.html">Login</a>
+                        <div class="profile">
+                            <img src="img/profile.png" alt="" />
+                            <ul class="profile-link">
+                                <li>
+                                    <a href="./EventDash/index.html"
+                                        ><i class="bx bxs-user-circle icon"></i>
+                                        Events</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="./EventDash/profile.html"
+                                        ><i class="bx bxs-cog"></i> Profile</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        ><i class="bx bxs-log-out-circle"></i>
+                                        Logout</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- mobile menu trigger -->
+                        <div class="mobile-menu-trigger">
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- end header -->
+
+        <!-- start ticket -->
+        <section class="ticket-section-page-new">
+            <div class="page-container-new">
+                <div class="page-container-ticket-new">
+                    <div class="ticket-details-new">
+                        <h2>Event Details</h2>
+                        <p>
+                            <strong>Event:</strong> SHE CAN | ADDING VALUE -
+                            RECEPTION
+                        </p>
+                        <p><strong>Date:</strong> Wed Mar 26, 2025</p>
+                        <p><strong>Time:</strong> 8:30 PM - 11:30 PM</p>
+                        <p><strong>Ticket Type:</strong> Reception</p>
+                        <p><strong>Ticket Code:</strong> He4Pk5T</p>
+                    </div>
+
+                    <div class="ticket-container-new">
+                        <div class="ticket-header-new">Your tickets</div>
+
+                        <div class="qr-container-new">
+                            <!-- 150 * 150 -->
+                            <img
+                                src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb"
+                                alt="QR Code"
+                                class="qr-code-new"
+                            />
+                        </div>
+
+                        <div class="ticket-info-new">
+                            <div class="ticket-label-new">TICKET CODE</div>
+                            <h3 class="ticket-value-new">He4Pk5T</h3>
+                        </div>
+
+                        <div class="ticket-info-new">
+                            <div class="ticket-label-new">TICKET TYPE</div>
+                            <h3 class="ticket-value-new">Reception</h3>
+                        </div>
+
+                        <div class="ticket-info-new">
+                            <div class="ticket-label-new">EVENT</div>
+                            <div class="event-name-new">
+                                SHE CAN | ADDING VALUE - RECEPTION
+                            </div>
+                            <div class="event-time-new">
+                                Wed Mar 26, 2025 8:30 PM - 11:30 PM
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buttons-new">
+                        <a href="#" class="btn btn-home-new" id="homeBtn"
+                            >Return to Home</a
+                        >
+                        <button class="btn-new btn-print-new" id="printBtn">
+                            Print Ticket
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end ticket -->
+
+        <!-- Start Footer section -->
+        <footer class="footer-section">
+            <div class="container">
+                <div class="footer-cta pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="cta-text">
+                                    <h4>Find us</h4>
+                                    <span
+                                        >1010 Avenue, sw 54321, chandigarh</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <span
+                                        ><a
+                                            style="color: #878787"
+                                            href="tel:+201033993202"
+                                            >+20 10 3399 3202</a
+                                        ></span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="far fa-envelope-open"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <span
+                                        ><a
+                                            style="color: #878787"
+                                            href="mailto:info@innoworx.site"
+                                            >mail@info.com
+                                        </a></span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-content pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                    <!-- <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a> -->
+                                    <a
+                                        href="#"
+                                        style="
+                                            font-size: 30px;
+                                            font-weight: 700;
+                                            color: #fff;
+                                        "
+                                        >Event</a
+                                    >
+                                </div>
+                                <div class="footer-text">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consec tetur
+                                        adipisicing elit, sed do eiusmod tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.
+                                    </p>
+                                </div>
+                                <div class="footer-social-icon">
+                                    <span>Follow us</span>
+                                    <a href="#"
+                                        ><i
+                                            class="fab fa-facebook-f facebook-bg"
+                                        ></i
+                                    ></a>
+                                    <a href="#"
+                                        ><i
+                                            class="fab fa-twitter twitter-bg"
+                                        ></i
+                                    ></a>
+                                    <a href="#"
+                                        ><i
+                                            class="fab fa-google-plus-g google-bg"
+                                        ></i
+                                    ></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Event Types</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="#">Music</a></li>
+                                    <li><a href="#">Sports</a></li>
+                                    <li><a href="#">Culture</a></li>
+                                    <li><a href="#">Business</a></li>
+                                    <li><a href="#">View All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <a href="./EventDash/profile.html"
+                                            >My Profile</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/FAQS.html"
+                                            >FAQS</a
+                                        >
+                                    </li>
+                                    <li><a href="#">Pricing</a></li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/Contact_us.html"
+                                            >Contact us</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Subscribe</h3>
+                                </div>
+                                <div class="footer-text mb-25">
+                                    <p>
+                                        Don’t miss to subscribe to our new
+                                        feeds, kindly fill the form below.
+                                    </p>
+                                </div>
+                                <div class="subscribe-form">
+                                    <form action="#">
+                                        <input
+                                            type="text"
+                                            placeholder="Email Address"
+                                        />
+                                        <button>
+                                            <i
+                                                class="fab fa-telegram-plane"
+                                            ></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                            <div class="copyright-text">
+                                <p>
+                                    Copyright &copy; 2024, All Right Reserved
+                                    <a href="Newhome.html">Event</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="Newhome.html">Home</a></li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/terms.html"
+                                            >Terms</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/privacy.html"
+                                            >Privacy</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/Contact_us.html"
+                                            >Contact</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer section -->
+
+        <script src="js/bootstrap.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            document
+                .getElementById("printBtn")
+                .addEventListener("click", function () {
+                    window.print();
+                });
+        </script>
+    </body>
+</html>

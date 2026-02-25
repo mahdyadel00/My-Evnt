@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Details Event</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/event_details.css" />
+        <!-- swiper css -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="css/swiper-bundle.min.css"
+        />
+    </head>
+
+    <body>
+        <!-- header -->
+        <header class="event-header">
+            <div class="event-container">
+                <!-- top navigation -->
+                <nav
+                    class="event-top-nav"
+                    role="navigation"
+                    aria-label="Top navigation"
+                >
+                    <a
+                        href="#"
+                        class="event-logo"
+                        aria-label="AllEvents homepage"
+                    >
+                        <img
+                            src="./img/logos/logo.png"
+                            alt="AllEvents Logo"
+                            class="event-logo-icon"
+                        />
+                    </a>
+                    <!-- search container -->
+                    <div class="event-search-container d-none">
+                        <div class="wrapper">
+                            <!-- search box -->
+                            <div class="search_box">
+                                <!-- location field -->
+                                <div class="location_field">
+                                    <div class="default_option">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Location
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            New York
+                                        </li>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            London
+                                        </li>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            Tokyo
+                                        </li>
+                                        <li>
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            Sydney
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- date field -->
+                                <div class="date_field">
+                                    <input type="date" class="date_input" />
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                                <!-- search field -->
+                                <div class="search_field">
+                                    <input
+                                        type="text"
+                                        class="input"
+                                        placeholder="Search events..."
+                                        id="eventSearchInput"
+                                    />
+                                    <i class="fas fa-search"></i>
+                                    <div
+                                        class="search-results-dropdown"
+                                        id="searchResultsDropdown"
+                                    >
+                                        <div
+                                            class="search-results-list"
+                                            id="searchResultsList"
+                                        >
+                                            <!-- Dynamic search results will appear here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- user actions -->
+                    <div class="event-user-actions">
+                        <!-- create event button -->
+                        <div class="event-dropdown">
+                            <a
+                                href="#"
+                                class="event-create-btn"
+                                aria-label="Create event options"
+                                aria-expanded="false"
+                            >
+                                <i class="fas fa-plus"></i>
+                                Create Event
+                            </a>
+                        </div>
+
+                        <!-- login button -->
+                        <div class="event-dropdown">
+                            <a
+                                href="#"
+                                class="event-create-btn"
+                                aria-label="Create event options"
+                                aria-expanded="false"
+                            >
+                                <i class="fas fa-user"></i>
+                                Login
+                            </a>
+                        </div>
+
+                        <!-- user profile -->
+                        <div class="event-user-profile" id="eventUserProfile">
+                            <div
+                                class="d-flex align-items-center justify-content-center gap-1"
+                            >
+                                <div
+                                    class="event-user-avatar"
+                                    id="eventUserAvatar"
+                                >
+                                    AM
+                                </div>
+                                <span class="event-user-name" id="eventUserName"
+                                    >Ahmed</span
+                                >
+                                <i
+                                    class="fas fa-chevron-down"
+                                    aria-label="User menu"
+                                    aria-expanded="false"
+                                ></i>
+                            </div>
+                            <div class="event-user-dropdown" role="menu">
+                                <div class="event-profile-section">
+                                    <h4>Main Profile</h4>
+                                    <div class="event-profile-info">
+                                        <div
+                                            class="event-profile-avatar"
+                                            id="eventProfileAvatar"
+                                        >
+                                            AM
+                                        </div>
+                                        <div class="event-profile-details">
+                                            <h5 id="eventProfileName">
+                                                Ahmed Mahmoud
+                                            </h5>
+                                            <span id="eventProfileEvents"
+                                                >0 events attended</span
+                                            >
+                                            <i
+                                                class="fas fa-chevron-right"
+                                                style="
+                                                    float: right;
+                                                    margin-top: 2px;
+                                                "
+                                            ></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="viewBookingHistory"
+                                    role="menuitem"
+                                    ><i class="fas fa-history"></i> Booking
+                                    history</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="viewInbox"
+                                    role="menuitem"
+                                    ><i class="fas fa-inbox"></i> Inbox</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="viewInterestedEvents"
+                                    role="menuitem"
+                                    ><i class="fas fa-heart"></i> Interested
+                                    events</a
+                                >
+                                <div
+                                    class="event-app-promo"
+                                    data-action="getEventApp"
+                                    role="button"
+                                >
+                                    <div>
+                                        <i class="fas fa-mobile-alt"></i> Get
+                                        Event Discovery App
+                                    </div>
+                                    <span class="event-new-badge">New</span>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="needHelp"
+                                    role="menuitem"
+                                    ><i class="fas fa-question-circle"></i> Need
+                                    help?</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="accountSettings"
+                                    role="menuitem"
+                                    ><i class="fas fa-cog"></i> Account
+                                    settings</a
+                                >
+                                <div
+                                    style="
+                                        border-top: 1px solid rgba(0, 0, 0, 0.1);
+                                        margin: 5px 0;
+                                    "
+                                ></div>
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    data-action="signOut"
+                                    style="color: #e53e3e"
+                                    role="menuitem"
+                                >
+                                    <i class="fas fa-sign-out-alt"></i> Log out
+                                </a>
+                            </div>
+                        </div>
+
+                        <button
+                            class="event-mobile-menu-btn"
+                            data-action="toggleEventMobileMenu"
+                            aria-label="Toggle mobile menu"
+                            aria-expanded="false"
+                        >
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </nav>
+
+                <!-- main navigation -->
+                <nav
+                    class="event-main-nav"
+                    id="eventMainNav"
+                    role="navigation"
+                    aria-label="Main navigation"
+                >
+                    <!-- all category -->
+                    <ul class="event-nav-list">
+                        <!-- item category -->
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link event-active"
+                                data-category="all"
+                                role="menuitem"
+                                >ALL</a
+                            >
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="entertainment"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                ENTERTAINMENT
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('concerts')"
+                                    role="menuitem"
+                                    ><i class="fas fa-music"></i> Concerts</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('comedy')"
+                                    role="menuitem"
+                                    ><i class="fas fa-laugh"></i> Comedy
+                                    Shows</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('movies')"
+                                    role="menuitem"
+                                    ><i class="fas fa-film"></i> Movies</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('theater')"
+                                    role="menuitem"
+                                    ><i class="fas fa-theater-masks"></i>
+                                    Theater</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="learning"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                LEARNING
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('workshops')"
+                                    role="menuitem"
+                                    ><i class="fas fa-chalkboard-teacher"></i>
+                                    Workshops</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('seminars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-briefcase"></i>
+                                    Seminars</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('webinars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-laptop"></i> Webinars</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="sports"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                SPORTS
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('football')"
+                                    role="menuitem"
+                                    ><i class="fas fa-futbol"></i> Football</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('running')"
+                                    role="menuitem"
+                                    ><i class="fas fa-running"></i> Running</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('fitness')"
+                                    role="menuitem"
+                                    ><i class="fas fa-dumbbell"></i> Fitness</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="food"
+                                >FOOD & DRINK</a
+                            >
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="learning"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                More Categories
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('workshops')"
+                                    role="menuitem"
+                                    ><i class="fas fa-chalkboard-teacher"></i>
+                                    Workshops</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('seminars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-briefcase"></i>
+                                    Seminars</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('webinars')"
+                                    role="menuitem"
+                                    ><i class="fas fa-laptop"></i> Webinars</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item event-dropdown">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="sports"
+                                role="menuitem"
+                                aria-expanded="false"
+                            >
+                                SPORTS
+                                <i
+                                    class="fas fa-chevron-down event-dropdown-arrow"
+                                ></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('football')"
+                                    role="menuitem"
+                                    ><i class="fas fa-futbol"></i> Football</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('running')"
+                                    role="menuitem"
+                                    ><i class="fas fa-running"></i> Running</a
+                                >
+                                <a
+                                    href="#"
+                                    class="event-dropdown-item"
+                                    onclick="filterSubCategory('fitness')"
+                                    role="menuitem"
+                                    ><i class="fas fa-dumbbell"></i> Fitness</a
+                                >
+                            </div>
+                        </li>
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="food"
+                                >FOOD & DRINK</a
+                            >
+                        </li>
+                        <li class="event-nav-item">
+                            <a
+                                href="#"
+                                class="event-nav-link"
+                                data-category="food"
+                                >FOOD & DRINK</a
+                            >
+                        </li>
+                        <li class="event-nav-item event-create-btn-mobile">
+                            <a href="#" class="event-nav-link">
+                                <i class="fas fa-plus pe-2"></i> Create Event
+                            </a>
+                        </li>
+                        <li class="event-nav-item event-create-btn-mobile">
+                            <a href="#" class="event-nav-link">
+                                <i class="fas fa-sign-in-alt pe-2"></i> Sign in
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <!-- end header -->
+
+        <!-- main content -->
+        <main class="nebule-event-details-body">
+            <!-- Event Details Page -->
+            <div class="nebule-event-details">
+                <!-- Sticky bar on scroll: event summary + Get your ticket -->
+                <div
+                    class="nebule-event-details__sticky-bar"
+                    id="eventStickyBar"
+                    aria-hidden="true"
+                >
+                    <div class="nebule-event-details__sticky-bar-inner">
+                        <div class="nebule-event-details__sticky-bar-info">
+                            <img
+                                src="img/test.webp"
+                                alt=""
+                                class="nebule-event-details__sticky-bar-img"
+                                width="56"
+                                height="56"
+                            />
+                            <div class="nebule-event-details__sticky-bar-text">
+                                <span
+                                    class="nebule-event-details__sticky-bar-title"
+                                    >ERP Odoo Business Day</span
+                                >
+                                <span
+                                    class="nebule-event-details__sticky-bar-date"
+                                    ><i
+                                        class="far fa-calendar-alt"
+                                        aria-hidden="true"
+                                    ></i>
+                                    Sat, 14 Feb, 2026 at 9:30 am</span
+                                >
+                            </div>
+                        </div>
+                        <div class="nebule-event-details__sticky-bar-actions">
+                            <button
+                                type="button"
+                                class="nebule-event-details__sticky-bar-share"
+                                title="Share"
+                                aria-label="Share event"
+                                data-bs-toggle="modal"
+                                data-bs-target="#shareModal"
+                            >
+                                <i
+                                    class="fas fa-share-alt"
+                                    aria-hidden="true"
+                                ></i>
+                            </button>
+                            <a
+                                href="#"
+                                class="nebule-event-details__sticky-bar-cta"
+                            >
+                                Get Tickets
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Section -->
+                <div class="nebule-event-details__container">
+                    <div class="nebule-event-details__layout">
+                        <!-- Left Column - Primary Content -->
+                        <div class="nebule-event-details__content">
+                            <!-- image -->
+                            <div
+                                class="nebule-event-details__hero-image-wrapper"
+                            >
+                                <img
+                                    src="img/test.webp"
+                                    alt="ERP Odoo Business Day"
+                                    class="nebule-event-details__hero-image"
+                                />
+                                <div class="nebule-event-details__hero-actions">
+                                    <button
+                                        type="button"
+                                        class="nebule-event-details__hero-action-btn nebule-event-details__hero-action-btn--like"
+                                        title="Like"
+                                        aria-label="Like this event"
+                                    >
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="nebule-event-details__hero-action-btn nebule-event-details__hero-action-btn--share"
+                                        title="Share"
+                                        aria-label="Share this event"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#shareModal"
+                                    >
+                                        <i
+                                            class="fas fa-share-alt"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Event name + organizer + location + date (reference layout) -->
+                            <div class="nebule-event-details__event-meta-block">
+                                <h1 class="nebule-event-details__title">
+                                    ERP Odoo Business Day
+                                </h1>
+
+                                <!-- Host: image, name on its own line, followers, Follow -->
+                                <div
+                                    class="nebule-event-details__organizer-badge"
+                                >
+                                    <div
+                                        class="nebule-event-details__organizer-badge-avatar"
+                                    >
+                                        <img
+                                            src="img/test.webp"
+                                            alt="DPALIGNERS"
+                                            width="40"
+                                            height="40"
+                                        />
+                                    </div>
+                                    <div
+                                        class="nebule-event-details__organizer-badge-info"
+                                    >
+                                        <span
+                                            class="nebule-event-details__organizer-badge-by"
+                                            >Hosted by</span
+                                        >
+                                        <a
+                                            href="#"
+                                            class="nebule-event-details__organizer-badge-name"
+                                            >DPALIGNERS</a
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- Location row -->
+                                <div
+                                    class="nebule-event-details__event-meta-row"
+                                >
+                                    <span
+                                        class="nebule-event-details__event-meta-icon"
+                                        ><i
+                                            class="fas fa-map-marker-alt"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></span>
+                                    <span
+                                        >Future University in Egypt · Cairo,
+                                        Cairo Governorate</span
+                                    >
+                                </div>
+
+                                <!-- Date & time row -->
+                                <div
+                                    class="nebule-event-details__event-meta-row"
+                                >
+                                    <span
+                                        class="nebule-event-details__event-meta-icon"
+                                        ><i
+                                            class="far fa-calendar-alt"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></span>
+                                    <span
+                                        >Saturday, Feb 14 from 9:30 am to 2:30
+                                        pm
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Overview / description with Read more -->
+                            <section
+                                class="nebule-event-details__section nebule-event-details__overview-block"
+                                id="overviewBlock"
+                            >
+                                <h2
+                                    class="nebule-event-details__overview-title"
+                                >
+                                    Description
+                                </h2>
+                                <div
+                                    class="nebule-event-details__section-content"
+                                >
+                                    <p>
+                                        Join us for an in-person Odoo ERP
+                                        Business Day, where business strategy
+                                        meets practical ERP through live
+                                        discussions and real-world examples.
+                                    </p>
+                                    <div
+                                        class="nebule-event-details__section-content-more"
+                                    >
+                                        <p>
+                                            شاركنا في حضور يوم عمل حضوري مخصص
+                                            لنظام Odoo الــ ERP الذي يجمع بين
+                                            استراتيجية الأعمال. تحسين الكفاءة
+                                            والربح مع نظام Odoo -- الــ ERP الذي
+                                            يجمع كل نجاح شركتك داخل نظام واحد.
+                                        </p>
+                                        <p>سنتناول بشكل عملي:</p>
+                                        <p>
+                                            ازاي تختار نظام الـ ERP المناسب
+                                            لــ...
+                                        </p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="nebule-event-details__read-more"
+                                        id="readMoreBtn"
+                                        aria-expanded="false"
+                                        aria-controls="overviewBlock"
+                                    >
+                                        <span
+                                            class="nebule-event-details__read-more-text-expand"
+                                            >Read more</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__read-more-text-collapse"
+                                            >Read less</span
+                                        >
+                                    </button>
+                                </div>
+                            </section>
+
+                            <!-- Choose date & location section -->
+                            <section
+                                class="nebule-event-details__section nebule-event-details__dates-section"
+                            >
+                                <h2 class="nebule-event-details__section-title">
+                                    Choose Data
+                                </h2>
+                                <div class="nebule-event-details__dates-grid">
+                                    <button
+                                        type="button"
+                                        class="nebule-event-details__date-card nebule-event-details__date-card--active"
+                                    >
+                                        <span
+                                            class="nebule-event-details__date-card-day"
+                                            >Sat, Feb 14</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__date-card-time"
+                                            >9:30 am – 2:30 pm EET</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__date-card-location"
+                                            >Baron Hotel Cairo · Cairo,
+                                            Egypt</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__date-card-status"
+                                            >Main date</span
+                                        >
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="nebule-event-details__date-card"
+                                    >
+                                        <span
+                                            class="nebule-event-details__date-card-day"
+                                            >Sun, Feb 15</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__date-card-time"
+                                            >5:00 pm – 9:00 pm
+                                        </span>
+                                        <span
+                                            class="nebule-event-details__date-card-location"
+                                            >Baron Hotel Cairo · Cairo,
+                                            Egypt</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__date-card-status"
+                                            >Additional session</span
+                                        >
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="nebule-event-details__date-card"
+                                    >
+                                        <span
+                                            class="nebule-event-details__date-card-day"
+                                            >Thu, Feb 19</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__date-card-time"
+                                            >6:30 pm – 9:30 pm
+                                        </span>
+                                        <span
+                                            class="nebule-event-details__date-card-location"
+                                            >Online · Zoom</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__date-card-status"
+                                            >Live online</span
+                                        >
+                                    </button>
+                                </div>
+                            </section>
+
+                            <!-- Tickets Section -->
+                            <section
+                                class="nebule-event-details__section nebule-event-details__tickets-content-section"
+                            >
+                                <h2 class="nebule-event-details__section-title">
+                                    Tickets
+                                </h2>
+                                <div class="nebule-event-details__tickets-grid">
+                                    <div
+                                        class="nebule-event-details__ticket-item"
+                                    >
+                                        <span
+                                            class="nebule-event-details__ticket-item-name"
+                                            >General Admission</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__ticket-item-price"
+                                            >Free</span
+                                        >
+                                        <a
+                                            href="#"
+                                            class="nebule-event-details__ticket-item-btn"
+                                            >Get ticket</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="nebule-event-details__ticket-item"
+                                    >
+                                        <span
+                                            class="nebule-event-details__ticket-item-name"
+                                            >Early Bird
+                                        </span>
+                                        <span
+                                            class="nebule-event-details__ticket-item-price"
+                                            >500 EGP</span
+                                        >
+                                        <a
+                                            href="#"
+                                            class="nebule-event-details__ticket-item-btn"
+                                            >Get ticket</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="nebule-event-details__ticket-item"
+                                    >
+                                        <span
+                                            class="nebule-event-details__ticket-item-name"
+                                            >VIP Bird</span
+                                        >
+                                        <span
+                                            class="nebule-event-details__ticket-item-price"
+                                            >300 EGP</span
+                                        >
+                                        <a
+                                            href="#"
+                                            class="nebule-event-details__ticket-item-btn"
+                                            >Get ticket</a
+                                        >
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Company/Organizer Section -->
+                            <section class="nebule-event-details__section">
+                                <h2 class="nebule-event-details__section-title">
+                                    About the Organizer
+                                </h2>
+                                <div
+                                    class="nebule-event-details__section-content"
+                                >
+                                    <div
+                                        class="nebule-event-details__organizer"
+                                    >
+                                        <div
+                                            class="nebule-event-details__organizer-logo"
+                                        >
+                                            <img
+                                                src="img/test.webp"
+                                                alt="Business Danze"
+                                                class="nebule-event-details__organizer-logo-img"
+                                            />
+                                        </div>
+                                        <div
+                                            class="nebule-event-details__organizer-info"
+                                        >
+                                            <div
+                                                class="nebule-event-details__organizer-name-row"
+                                            >
+                                                <a
+                                                    href="#"
+                                                    type="button"
+                                                    class="nebule-event-details__organizer-name"
+                                                >
+                                                    Business Danze
+                                                </a>
+                                                <button
+                                                    type="button"
+                                                    class="nebule-event-details__follow-btn nebule-event-details__follow-btn--organizer"
+                                                >
+                                                    Follow
+                                                </button>
+                                            </div>
+                                            <p
+                                                class="nebule-event-details__organizer-description"
+                                            >
+                                                Leading business solutions
+                                                provider with expertise in ERP
+                                                implementation and digital
+                                                transformation. We've
+                                                successfully helped 100+
+                                                companies optimize their
+                                                business processes.
+                                            </p>
+                                            <div
+                                                class="nebule-event-details__organizer-stats"
+                                            >
+                                                <span
+                                                    class="nebule-event-details__stat-item"
+                                                    ><i
+                                                        class="fas fa-users"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                    1,234 followers</span
+                                                >
+                                                <span
+                                                    class="nebule-event-details__stat-item"
+                                                    ><i
+                                                        class="fas fa-calendar-check"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                    50+ Events</span
+                                                >
+                                                <span
+                                                    class="nebule-event-details__stat-item"
+                                                    ><i
+                                                        class="fas fa-user-friends"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                    5K+ Attendees</span
+                                                >
+                                                <span
+                                                    class="nebule-event-details__stat-item"
+                                                    ><i
+                                                        class="fas fa-star"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                    4.9/5 Rating</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Event Map Section -->
+                            <section class="nebule-event-details__section">
+                                <h2 class="nebule-event-details__section-title">
+                                    Location
+                                </h2>
+                                <div
+                                    class="nebule-event-details__section-content"
+                                >
+                                    <div
+                                        class="nebule-event-details__map-wrapper"
+                                    >
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.123456789!2d31.2357!3d30.0444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1234567890"
+                                            class="nebule-event-details__map"
+                                            allowfullscreen=""
+                                            loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"
+                                        >
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- I am interested -->
+                            <section
+                                class="nebule-event-details__section nebule-event-details__interested-section"
+                                id="interestedSection"
+                            >
+                                <h2 class="nebule-event-details__section-title">
+                                    I am interested
+                                </h2>
+                                <div
+                                    class="nebule-event-details__interested-card"
+                                >
+                                    <p
+                                        class="nebule-event-details__interested-desc"
+                                    >
+                                        Tell the organizer you're
+                                        interested—save the event, get
+                                        reminders, and updates. One click, no
+                                        form.
+                                    </p>
+                                    <ul
+                                        class="nebule-event-details__interested-benefits"
+                                        aria-label="Benefits of marking interest"
+                                    >
+                                        <li>
+                                            <i
+                                                class="fas fa-bell"
+                                                aria-hidden="true"
+                                            ></i>
+                                            Reminder before the event
+                                        </li>
+
+                                        <li>
+                                            <i
+                                                class="fas fa-users"
+                                                aria-hidden="true"
+                                            ></i>
+                                            127 people interested
+                                        </li>
+                                    </ul>
+                                    <div
+                                        class="nebule-event-details__interested-row"
+                                    >
+                                        <button
+                                            type="button"
+                                            id="interestedBtn"
+                                            class="nebule-event-details__interested-btn"
+                                            aria-pressed="false"
+                                            aria-label="Mark that you are interested in this event"
+                                        >
+                                            <span
+                                                class="nebule-event-details__interested-btn-text"
+                                                >I am interested</span
+                                            >
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="nebule-event-details__interested-done"
+                                        id="interestedDone"
+                                        aria-live="polite"
+                                    >
+                                        <i
+                                            class="fas fa-check-circle"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <span
+                                            >You're interested. We'll remind you
+                                            before the event and notify you of
+                                            any updates.</span
+                                        >
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Right Column - Sidebar -->
+                        <aside class="nebule-event-details__sidebar">
+                            <!-- Sticky Wrapper -->
+                            <div class="nebule-event-details__sidebar-sticky">
+                                <!-- Tickets Section  -->
+                                <section
+                                    class="nebule-event-details__tickets-section"
+                                >
+                                    <div
+                                        class="nebule-event-details__ticket-card"
+                                    >
+                                        <div
+                                            class="nebule-event-details__ticket-card-inner"
+                                        >
+                                            <span
+                                                class="nebule-event-details__ticket-price-label"
+                                                >Free</span
+                                            >
+                                            <span
+                                                class="nebule-event-details__ticket-date-label"
+                                                ><i
+                                                    class="far fa-calendar-alt"
+                                                    aria-hidden="true"
+                                                ></i>
+                                                Feb 14 from 9:30 am to 2:30 pm
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="nebule-event-details__reserve-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ticketModal"
+                                    >
+                                        Get Tickets
+                                    </button>
+                                </section>
+                                <!-- facilities -->
+                                <section
+                                    class="nebule-event-details__section nebule-event-details__facilities-section"
+                                >
+                                    <h2
+                                        class="nebule-event-details__section-title nebule-event-details__facilities-title"
+                                    >
+                                        Facilities
+                                    </h2>
+                                    <div
+                                        class="nebule-event-details__facilities-grid"
+                                    >
+                                        <div
+                                            class="nebule-event-details__facility-item"
+                                        >
+                                            <span
+                                                class="nebule-event-details__facility-icon"
+                                                aria-hidden="true"
+                                                ><i
+                                                    class="fas fa-restroom"
+                                                    aria-hidden="true"
+                                                ></i
+                                            ></span>
+                                            <span
+                                                class="nebule-event-details__facility-label"
+                                                >Bathrooms</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="nebule-event-details__facility-item"
+                                        >
+                                            <span
+                                                class="nebule-event-details__facility-icon"
+                                                aria-hidden="true"
+                                                ><i
+                                                    class="fas fa-parking"
+                                                    aria-hidden="true"
+                                                ></i
+                                            ></span>
+                                            <span
+                                                class="nebule-event-details__facility-label"
+                                                >Parking</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="nebule-event-details__facility-item"
+                                        >
+                                            <span
+                                                class="nebule-event-details__facility-icon"
+                                                aria-hidden="true"
+                                                ><i
+                                                    class="fas fa-utensils"
+                                                    aria-hidden="true"
+                                                ></i
+                                            ></span>
+                                            <span
+                                                class="nebule-event-details__facility-label"
+                                                >Food Services</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="nebule-event-details__facility-item"
+                                        >
+                                            <span
+                                                class="nebule-event-details__facility-icon"
+                                                aria-hidden="true"
+                                                ><i
+                                                    class="fas fa-shield-alt"
+                                                    aria-hidden="true"
+                                                ></i
+                                            ></span>
+                                            <span
+                                                class="nebule-event-details__facility-label"
+                                                >Security</span
+                                            >
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- Explore more in Cairo - with images, enhanced -->
+                                <section
+                                    class="nebule-event-details__explore-section"
+                                >
+                                    <h2
+                                        class="nebule-event-details__explore-title"
+                                    >
+                                        Explore more in Cairo
+                                    </h2>
+                                    <div
+                                        class="nebule-event-details__explore-list"
+                                    >
+                                        <a
+                                            href="#"
+                                            class="nebule-event-details__explore-card"
+                                        >
+                                            <div
+                                                class="nebule-event-details__explore-card-img-wrap"
+                                            >
+                                                <img
+                                                    src="img/test.webp"
+                                                    alt=""
+                                                    class="nebule-event-details__explore-card-img"
+                                                    width="120"
+                                                    height="90"
+                                                />
+                                            </div>
+                                            <div
+                                                class="nebule-event-details__explore-card-body"
+                                            >
+                                                <span
+                                                    class="nebule-event-details__explore-name"
+                                                >
+                                                    Digital Transformation
+                                                    Workshop
+                                                </span>
+                                                <span
+                                                    class="nebule-event-details__explore-meta"
+                                                    ><i
+                                                        class="far fa-calendar-alt"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                    Sat, 21 Feb 2026</span
+                                                >
+                                            </div>
+                                        </a>
+                                        <a
+                                            href="#"
+                                            class="nebule-event-details__explore-card"
+                                        >
+                                            <div
+                                                class="nebule-event-details__explore-card-img-wrap"
+                                            >
+                                                <img
+                                                    src="img/test.webp"
+                                                    alt=""
+                                                    class="nebule-event-details__explore-card-img"
+                                                    width="120"
+                                                    height="90"
+                                                />
+                                            </div>
+                                            <div
+                                                class="nebule-event-details__explore-card-body"
+                                            >
+                                                <span
+                                                    class="nebule-event-details__explore-name"
+                                                    >Business Analytics
+                                                    Summit</span
+                                                >
+                                                <span
+                                                    class="nebule-event-details__explore-meta"
+                                                    ><i
+                                                        class="far fa-calendar-alt"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                    Mon, 2 Mar 2026</span
+                                                >
+                                            </div>
+                                        </a>
+                                        <a
+                                            href="#"
+                                            class="nebule-event-details__explore-card"
+                                        >
+                                            <div
+                                                class="nebule-event-details__explore-card-img-wrap"
+                                            >
+                                                <img
+                                                    src="img/test.webp"
+                                                    alt=""
+                                                    class="nebule-event-details__explore-card-img"
+                                                />
+                                            </div>
+                                            <div
+                                                class="nebule-event-details__explore-card-body"
+                                            >
+                                                <span
+                                                    class="nebule-event-details__explore-name"
+                                                    >Business Leaders
+                                                    Meetup</span
+                                                >
+                                                <span
+                                                    class="nebule-event-details__explore-meta"
+                                                    ><i
+                                                        class="far fa-calendar-alt"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                    Fri, 13 Mar 2026</span
+                                                >
+                                            </div>
+                                        </a>
+                                    </div>
+                                </section>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Share & Invite modal -->
+            <div
+                class="modal nebule-event-details__modal nebule-event-details__share-modal"
+                id="shareModal"
+                tabindex="-1"
+                aria-labelledby="shareModalLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div
+                        class="modal-content nebule-event-details__modal-content"
+                    >
+                        <div
+                            class="modal-header nebule-event-details__modal-header nebule-event-details__share-modal-header"
+                        >
+                            <h5
+                                class="modal-title nebule-event-details__modal-title"
+                                id="shareModalLabel"
+                            >
+                                Share & Invite your friends
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div
+                            class="modal-body nebule-event-details__modal-body"
+                        >
+                            <div class="nebule-event-details__share-event-card">
+                                <img
+                                    src="img/test.webp"
+                                    alt=""
+                                    class="nebule-event-details__share-event-thumb"
+                                    width="80"
+                                    height="80"
+                                />
+                                <div
+                                    class="nebule-event-details__share-event-info"
+                                >
+                                    <span
+                                        class="nebule-event-details__share-event-name"
+                                        >ERP Odoo Business Day</span
+                                    >
+                                    <span
+                                        class="nebule-event-details__share-event-date"
+                                        ><i
+                                            class="far fa-calendar-alt"
+                                            aria-hidden="true"
+                                        ></i>
+                                        Fri, 13 Feb 2026 – 09:00 AM</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="nebule-event-details__share-link-wrap">
+                                <input
+                                    type="text"
+                                    readonly
+                                    class="nebule-event-details__share-link-input"
+                                    id="shareLinkInput"
+                                    value="https://allevents.in/cairo/200029253775914?ref=sharer"
+                                    aria-label="Share link"
+                                />
+                                <button
+                                    type="button"
+                                    class="nebule-event-details__share-copy-btn"
+                                    id="shareCopyBtn"
+                                    aria-label="Copy link"
+                                >
+                                    <i
+                                        class="fas fa-copy"
+                                        aria-hidden="true"
+                                    ></i>
+                                    Copy
+                                </button>
+                            </div>
+                            <div
+                                class="nebule-event-details__share-social-wrap"
+                            >
+                                <span
+                                    class="nebule-event-details__share-social-title"
+                                    >Social share</span
+                                >
+                                <div
+                                    class="nebule-event-details__share-social-list"
+                                >
+                                    <a
+                                        href="#"
+                                        class="nebule-event-details__share-social-item nebule-event-details__share-social-item--email"
+                                        title="Email"
+                                        aria-label="Share via Email"
+                                        ><i
+                                            class="fas fa-envelope"
+                                            aria-hidden="true"
+                                        ></i
+                                        ><span>Email</span></a
+                                    >
+                                    <a
+                                        href="#"
+                                        class="nebule-event-details__share-social-item nebule-event-details__share-social-item--whatsapp"
+                                        title="WhatsApp"
+                                        aria-label="Share via WhatsApp"
+                                        ><i
+                                            class="fab fa-whatsapp"
+                                            aria-hidden="true"
+                                        ></i
+                                        ><span>WhatsApp</span></a
+                                    >
+                                    <a
+                                        href="#"
+                                        class="nebule-event-details__share-social-item nebule-event-details__share-social-item--facebook"
+                                        title="Facebook"
+                                        aria-label="Share via Facebook"
+                                        ><i
+                                            class="fab fa-facebook-f"
+                                            aria-hidden="true"
+                                        ></i
+                                        ><span>Facebook</span></a
+                                    >
+                                    <a
+                                        href="#"
+                                        class="nebule-event-details__share-social-item nebule-event-details__share-social-item--linkedin"
+                                        title="LinkedIn"
+                                        aria-label="Share via LinkedIn"
+                                        ><i
+                                            class="fab fa-linkedin-in"
+                                            aria-hidden="true"
+                                        ></i
+                                        ><span>LinkedIn</span></a
+                                    >
+                                    <a
+                                        href="#"
+                                        class="nebule-event-details__share-social-item nebule-event-details__share-social-item--twitter"
+                                        title="Twitter"
+                                        aria-label="Share via Twitter"
+                                        ><i
+                                            class="fab fa-x-twitter"
+                                            aria-hidden="true"
+                                        ></i
+                                        ><span>Twitter</span></a
+                                    >
+
+                                    <!-- tik tok -->
+                                    <a
+                                        href="#"
+                                        class="nebule-event-details__share-social-item nebule-event-details__share-social-item--tiktok"
+                                        title="TikTok"
+                                        aria-label="Share via TikTok"
+                                        ><i
+                                            class="fab fa-tiktok"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <span>TikTok</span>
+                                    </a>
+                                    <a
+                                        href="#"
+                                        class="nebule-event-details__share-social-item nebule-event-details__share-social-item--instagram"
+                                        title="Instagram"
+                                        aria-label="Share via Instagram"
+                                        ><i
+                                            class="fab fa-instagram"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <span>Instagram</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- related events  -->
+        <div
+            class="New-card-event-cards-container related-events-container-nebule"
+        >
+            <h2 class="related-events-title">You May Also Like</h2>
+            <div class="New-card-event-cards-grid">
+                <!-- Event Card 2 -->
+                <div class="New-card-event-card">
+                    <a href="filteration_events.html">
+                        <img
+                            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&amp;h=200&amp;fit=crop&amp;crop=center"
+                            alt="Digital Marketing Masterclass"
+                            class="New-card-event-card-image"
+                        />
+                    </a>
+                    <div
+                        class="New-card-event-favorite-btn"
+                        aria-label="Add to favorites"
+                    >
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <div class="New-card-event-card-content">
+                        <div class="New-card-event-card-header">
+                            <h3 class="New-card-event-card-title">
+                                Digital Marketing Masterclass
+                            </h3>
+                            <div class="New-card-event-card-category">
+                                Marketing
+                            </div>
+                        </div>
+
+                        <p class="New-card-event-card-description">
+                            Learn advanced digital marketing strategies, social
+                            media optimization, and conversion techniques from
+                            industry experts.
+                        </p>
+
+                        <div class="New-card-event-card-details">
+                            <div class="New-card-event-card-detail">
+                                <span class="New-card-event-card-detail-icon"
+                                    ><i class="fas fa-location-dot"></i
+                                ></span>
+                                <span class="New-card-event-card-detail-value"
+                                    >Alexandria</span
+                                >
+                            </div>
+                            <div class="New-card-event-card-detail">
+                                <span class="New-card-event-card-detail-icon"
+                                    ><i class="fas fa-calendar-days"></i
+                                ></span>
+                                <span class="New-card-event-card-detail-value"
+                                    >Sept 22, 2025</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="New-card-event-card-footer">
+                        <div class="New-card-event-card-price">
+                            <span class="New-card-event-card-price-amount"
+                                >199</span
+                            >
+                            <span class="New-card-event-card-price-currency"
+                                >EGP</span
+                            >
+                        </div>
+                        <a href="#" class="New-card-event-details-btn"
+                            >View Details</a
+                        >
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div class="New-card-event-card">
+                    <a href="filteration_events.html">
+                        <img
+                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&amp;h=200&amp;fit=crop&amp;crop=center"
+                            alt="Data Science Workshop"
+                            class="New-card-event-card-image"
+                        />
+                    </a>
+                    <div
+                        class="New-card-event-favorite-btn"
+                        aria-label="Add to favorites"
+                    >
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <div class="New-card-event-card-content">
+                        <div class="New-card-event-card-header">
+                            <h3 class="New-card-event-card-title">
+                                Data Science Workshop
+                            </h3>
+                            <div class="New-card-event-card-category">
+                                Data Analytics
+                            </div>
+                        </div>
+
+                        <p class="New-card-event-card-description">
+                            Learn advanced digital marketing strategies, social
+                            media optimization, and conversion techniques from
+                            industry experts.
+                        </p>
+
+                        <div class="New-card-event-card-details">
+                            <div class="New-card-event-card-detail">
+                                <span class="New-card-event-card-detail-icon"
+                                    ><i class="fas fa-location-dot"></i
+                                ></span>
+                                <span class="New-card-event-card-detail-value"
+                                    >Giza</span
+                                >
+                            </div>
+                            <div class="New-card-event-card-detail">
+                                <span class="New-card-event-card-detail-icon"
+                                    ><i class="fas fa-calendar-days"></i
+                                ></span>
+                                <span class="New-card-event-card-detail-value"
+                                    >Oct 5, 2025</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="New-card-event-card-footer">
+                        <div class="New-card-event-card-price">
+                            <span class="New-card-event-card-price-amount"
+                                >399</span
+                            >
+                            <span class="New-card-event-card-price-currency"
+                                >EGP</span
+                            >
+                        </div>
+                        <a href="#" class="New-card-event-details-btn"
+                            >View Details</a
+                        >
+                    </div>
+                </div>
+
+                <!-- Event Card 1 -->
+                <div class="New-card-event-card">
+                    <a href="filteration_events.html">
+                        <img
+                            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&amp;h=200&amp;fit=crop&amp;crop=center"
+                            alt="Tech Innovation Summit"
+                            class="New-card-event-card-image"
+                        />
+                    </a>
+                    <div
+                        class="New-card-event-favorite-btn"
+                        aria-label="Add to favorites"
+                    >
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <div class="New-card-event-card-content">
+                        <div class="New-card-event-card-header">
+                            <h3 class="New-card-event-card-title">
+                                Tech Innovation Summit
+                            </h3>
+                            <div class="New-card-event-card-category">
+                                Technology
+                            </div>
+                        </div>
+
+                        <p class="New-card-event-card-description">
+                            Learn advanced digital marketing strategies, social
+                            media optimization, and conversion techniques from
+                            industry experts.
+                        </p>
+
+                        <div class="New-card-event-card-details">
+                            <div class="New-card-event-card-detail">
+                                <span class="New-card-event-card-detail-icon"
+                                    ><i class="fas fa-location-dot"></i
+                                ></span>
+                                <span class="New-card-event-card-detail-value"
+                                    >Cairo</span
+                                >
+                            </div>
+                            <div class="New-card-event-card-detail">
+                                <span class="New-card-event-card-detail-icon"
+                                    ><i class="fas fa-calendar-days"></i
+                                ></span>
+                                <span class="New-card-event-card-detail-value"
+                                    >Sept 15, 2025</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="New-card-event-card-footer">
+                        <div class="New-card-event-card-price">
+                            <span class="New-card-event-card-price-amount"
+                                >299</span
+                            >
+                            <span class="New-card-event-card-price-currency"
+                                >EGP</span
+                            >
+                        </div>
+                        <a href="#" class="New-card-event-details-btn"
+                            >View Details</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Footer section -->
+        <footer class="footer-section">
+            <div class="container">
+                <div class="footer-cta pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="cta-text">
+                                    <h4>Find us</h4>
+                                    <span
+                                        >1010 Avenue, sw 54321, chandigarh</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <span
+                                        ><a
+                                            style="color: #878787"
+                                            href="tel:+201033993202"
+                                            >+20 10 3399 3202</a
+                                        ></span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="far fa-envelope-open"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <span
+                                        ><a
+                                            style="color: #878787"
+                                            href="mailto:info@innoworx.site"
+                                            >mail@info.com
+                                        </a></span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-content pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                    <a
+                                        href="#"
+                                        style="
+                                            font-size: 30px;
+                                            font-weight: 600;
+                                            color: #fff;
+                                        "
+                                        >Event</a
+                                    >
+                                </div>
+                                <div class="footer-text">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consec tetur
+                                        adipisicing elit, sed do eiusmod tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.
+                                    </p>
+                                </div>
+                                <div class="footer-social-icon">
+                                    <span>Follow us</span>
+                                    <a href="#"
+                                        ><i
+                                            class="fab fa-facebook-f facebook-bg"
+                                        ></i
+                                    ></a>
+                                    <a href="#"
+                                        ><i
+                                            class="fab fa-twitter twitter-bg"
+                                        ></i
+                                    ></a>
+                                    <a href="#"
+                                        ><i
+                                            class="fab fa-google-plus-g google-bg"
+                                        ></i
+                                    ></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Event Types</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="#">Music</a></li>
+                                    <li><a href="#">Sports</a></li>
+                                    <li><a href="#">Culture</a></li>
+                                    <li><a href="#">Business</a></li>
+                                    <li><a href="#">View All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <a href="./EventDash/profile.html"
+                                            >My Profile</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/FAQS.html"
+                                            >FAQS</a
+                                        >
+                                    </li>
+                                    <li><a href="#">Pricing</a></li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/Contact_us.html"
+                                            >Contact us</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Subscribe</h3>
+                                </div>
+                                <div class="footer-text mb-25">
+                                    <p>
+                                        Don’t miss to subscribe to our new
+                                        feeds, kindly fill the form below.
+                                    </p>
+                                </div>
+                                <div class="subscribe-form">
+                                    <form action="#">
+                                        <input
+                                            type="text"
+                                            placeholder="Email Address"
+                                        />
+                                        <button>
+                                            <i
+                                                class="fab fa-telegram-plane"
+                                            ></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                            <div class="copyright-text">
+                                <p>
+                                    Copyright &copy; 2024, All Right Reserved
+                                    <a href="Newhome.html">Event</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="Newhome.html">Home</a></li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/terms.html"
+                                            >Terms</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/privacy.html"
+                                            >Privacy</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="./pages organizer interface/Contact_us.html"
+                                            >Contact</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer section -->
+        <script src="js/jquery-3.5.1.slim.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/bootstrap.min2.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script src="js/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/event_details.js"></script>
+    </body>
+</html>

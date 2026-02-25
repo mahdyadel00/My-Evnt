@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Complete Order </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/login.css" />
+  <!-- swiper css -->
+  <link rel="stylesheet" type="text/css" href="css/swiper-bundle.min.css" />
+  <style>
+    .com
+  </style>
+
+</head>
+
+<body>
+  <!-- header start -->
+  <header class="header" style="background-color: #fff;">
+    <div class="container">
+      <div class="row v-center">
+        <div class="header-item item-left">
+          <div class="logo">
+            <a href="Newhome.html">Event</a>
+          </div>
+        </div>
+        <!-- menu start here -->
+        <div class="header-item item-center">
+          <div class="menu-overlay"></div>
+          <nav class="menu">
+            <div class="mobile-menu-head">
+              <a style="padding: 0 50px 0 15px; color: #0E143A; font-size: 20px;font-weight: bold;"
+                href="Newhome.html">Event</a>
+              <div class="go-back"><i class="fa fa-angle-left"></i></div>
+              <div class="current-menu-title"></div>
+              <div class="mobile-menu-close">&times;</div>
+            </div>
+            <ul class="menu-main">
+              <li>
+                <a href="#">Beauty</a>
+              </li>
+              <li>
+                <a href="#">Business</a>
+              </li>
+              <li>
+                <a href="#">Comedy</a>
+              </li>
+              <li class="menu-item-has-children">
+                <a href="#">More <i class="fas fa-angle-down"></i></a>
+                <div class="sub-menu single-column-menu">
+                  <ul>
+                    <li><a href="#">Culture</a></li>
+                    <li><a href="#">Dance</a></li>
+                    <li><a href="#">Education</a></li>
+                    <li><a href="#">Experience</a></li>
+                    <li><a href="#">Health</a></li>
+                    <li><a href="#">Music</a></li>
+                    <li><a href="#">Sport</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- menu end here -->
+        <div class="header-item item-right">
+          <a class="button-organizer" href="./pages organizer interface/index.html">For Organizer</a>
+          <a class="button-nav" href="login.html">Login</a>
+          <div class="profile">
+            <img src="img/profile.png" alt="">
+            <ul class="profile-link">
+              <li><a href="./EventDash/index.html"><i class='bx bxs-user-circle icon'></i> Events</a></li>
+              <li><a href="./EventDash/profile.html"><i class='bx bxs-cog'></i> Profile</a></li>
+              <li><a href="#"><i class='bx bxs-log-out-circle'></i> Logout</a></li>
+            </ul>
+          </div>
+          <!-- mobile menu trigger -->
+          <div class="mobile-menu-trigger">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- end header -->
+
+  <!-- start section details -->
+  <section class="details">
+    <div class="container mt-5">
+      <div class="row d-flex flex-wrap align-items-baseline">
+        <div class="col-md-7">
+          <!-- start part get ticket info -->
+          <div class="project-info-box">
+            <h4 class="pb-2">Shopping Cart</h4>
+            <div class="row">
+              <div class="col-lg-4  col-12">
+                <div class="card-info-payment">
+                  <h5><i class="fas fa-map-marker-alt"></i> Cairo</h5>
+                  <p>Lorem ipsum dolor sit amet.</p>
+                </div>
+              </div>
+              <div class="col-lg-4  col-12">
+                <div class="card-info-payment">
+                  <h5><i class="fas fa-calendar-alt"></i> 29 October 2024</h5>
+                  <p>Tuesday</p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-12">
+                <div class="card-info-payment">
+                  <h5><i class="fas fa-clock"></i> 20:00 — 22:00</h5>
+                  <p>2 hours </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- section full data to payment  -->
+          <div class="col-12">
+            <div class="project-info-box">
+              <div class="d-flex justify-content-between align-items-baseline flex-wrap">
+                <h4 class="pb-2">Continue as Guest</h4>
+                <a href="#" style="font-weight: 600; color: #ed7326;" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"> Register
+                  For
+                  Discount </a>
+              </div>
+              <!-- modal register -->
+              <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content custom-modal-animation">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel"> Create Account </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="login_form modal_login_form">
+                        <form id="registerForm" action="#">
+                          <div class="input_box">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Enter email address" required />
+                          </div>
+                          <div class="input_box">
+                            <div class="password_title">
+                              <label for="password">Password</label>
+                            </div>
+                            <input type="password" id="password" placeholder="Enter your password" required />
+                          </div>
+                          <div class="input_box">
+                            <div class="password_title">
+                              <label for="Confirm-password">Confirm Password</label>
+                            </div>
+                            <input type="password" id="Confirm-password" placeholder="Confirm Password" required />
+                          </div>
+                          <div class="input_box">
+                            <div class="password_title">
+                              <label for="Confirm-password">Phone Number </label>
+                            </div>
+                            <input type="number" placeholder="Enter phone number" required />
+                          </div>
+                          <p id="error-message" style="color: rgb(245, 33, 33); display: none;text-align: left;">The
+                            password fields must
+                            match .</p>
+
+                          <div class="col-12">
+                            <div class="form-check pb-2">
+                              <input class="form-check-input" type="checkbox" required>
+                              <label class="form-check-label">
+                                Agree to terms and conditions
+                              </label>
+                            </div>
+                          </div>
+                          <button type="submit">Create Account</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- modal register -->
+
+              <div class="row">
+                <form class="mb-2 mt-2">
+                  <div class="mb-3 input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" style="padding-left: 45px;" class="form-control " placeholder="First Name">
+                  </div>
+                  <div class="mb-3 input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" style="padding-left: 45px;" class="form-control " placeholder="Last Name">
+                  </div>
+                  <div class="mb-3 input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" style="padding-left: 45px;" class="form-control " placeholder="Email Address">
+                  </div>
+                  <div class="mb-3 input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" style="padding-left: 45px;" class="form-control "
+                      placeholder="Confirm Email Address">
+                  </div>
+                  <div class="mb-3 input-container">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" style="padding-left: 45px;" class="form-control " placeholder="Phone Number">
+                  </div>
+                  <!-- <div class="mt-4 d-flex justify-content-center">
+                    <button class="btn btn-primary border-0" type="submit">
+                      <i class="fas fa-shopping-cart pe-2"></i> Proceed To Checkout
+                    </button>
+                  </div> -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- start part get ticket -->
+        <div class="col-12 col-md-5 col-lg-5 sticky-top" style="top: 3%;">
+          <aside class="project-info-box mt-0">
+            <h4>Tickets</h4>
+            <div class="mt-4">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <p> <span style="padding-right:5px ;">0</span>Tickets</p>
+                <p>0.00 EGP</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-baseline">
+                <p> Stripe Transaction Fee </p>
+                <p>0.00 EGP</p>
+              </div>
+              <!-- Number of tickets -->
+              <div class="d-flex justify-content-between align-items-baseline">
+                <p>Number of tickets</p>
+                <div class="d-flex align-items-center">
+                  <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                  <input type="number" id="quantity" value="0" />
+                  <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                </div>
+              </div>
+              <!-- ticket type -->
+              <div class="ticket-card">
+                <div class="ticket-content ">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ticketSelection">
+                    <p class="ticket-name">Normal Ticket</p>
+                  </div>
+                  <span class="price ">500 <span>EGP</span></span>
+                </div>
+                <div class="ticket-content ">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ticketSelection">
+                    <p class="ticket-name">Vip Ticket</p>
+                  </div>
+                  <span class="price ">500 <span>EGP</span></span>
+                </div>
+                <div class="ticket-content ">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ticketSelection">
+                    <p class="ticket-name">Student Ticket</p>
+                  </div>
+                  <span class="price">500 <span>EGP</span></span>
+                </div>
+              </div>
+              <!-- enter code coupon -->
+              <div class="mt-2 mb-2 d-flex justify-content-between align-items-baseline flex-wrap ">
+                <div class="col-md-8 col-12 mb-3">
+                  <input type="text" class="form-control" id="coupon-code" placeholder="Coupon code">
+                  <small class="text-danger">This code is not valid</small>
+                </div>
+                <div class="col-md-4 col-12">
+                  <button class="btn-apply-code">Apply code</button>
+                </div>
+              </div>
+              <!-- total -->
+              <div class="d-flex justify-content-between align-items-baseline">
+                <p style="font-weight: bold;"> Total</p>
+                <p>0.00 EGP</p>
+              </div>
+              <!-- <div class="d-flex justify-content-between align-items-baseline">
+                <input class="form-check-input" type="checkbox" id="exampleCheckbox" />
+                <p class="mb-0 ms-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate ipsam amet,
+                  ipsum velit iusto eveniet!</p>
+              </div> -->
+              <div class="p-2 d-flex justify-content-center mt-2">
+                <a href="#" class="btn-disabled">Complete Order </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <!-- end part get ticket -->
+      </div>
+    </div>
+  </section>
+  <!-- end section details -->
+
+  <!-- Start Footer section -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="footer-cta pt-5 pb-5">
+        <div class="row">
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="cta-text">
+                <h4>Find us</h4>
+                <span>1010 Avenue, sw 54321, chandigarh</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="fas fa-phone"></i>
+              <div class="cta-text">
+                <h4>Call us</h4>
+                <span><a style="color: #878787;" href="tel:+201033993202">+20 10 3399 3202</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="far fa-envelope-open"></i>
+              <div class="cta-text">
+                <h4>Mail us</h4>
+                <span><a style="color: #878787;" href="mailto:info@innoworx.site">mail@info.com </a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-content pt-5 pb-5">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 mb-50">
+            <div class="footer-widget">
+              <div class="footer-logo">
+                <!-- <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a> -->
+                <a href="#" style="font-size: 30px;font-weight: 700; color:#fff">Event</a>
+              </div>
+              <div class="footer-text">
+                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec
+                  tetur adipisicing
+                  elit,Lorem ipsum dolor sit amet.</p>
+              </div>
+              <div class="footer-social-icon">
+                <span>Follow us</span>
+                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Event Types</h3>
+              </div>
+              <ul>
+                <li><a href="#">Music</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Culture</a></li>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">View All</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Useful Links</h3>
+              </div>
+              <ul>
+                <li><a href="./EventDash/profile.html">My Profile</a></li>
+                <li><a href="./pages organizer interface/FAQS.html">FAQS</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="./pages organizer interface/Contact_us.html">Contact us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Subscribe</h3>
+              </div>
+              <div class="footer-text mb-25">
+                <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+              </div>
+              <div class="subscribe-form">
+                <form action="#">
+                  <input type="text" placeholder="Email Address">
+                  <button><i class="fab fa-telegram-plane"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div class="copyright-text">
+              <p>Copyright &copy; 2024, All Right Reserved <a href="Newhome.html">Event</a></p>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="Newhome.html">Home</a></li>
+                <li><a href="./pages organizer interface/terms.html">Terms</a></li>
+                <li><a href="./pages organizer interface/privacy.html">Privacy</a></li>
+                <li><a href="./pages organizer interface/Contact_us.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end Footer section -->
+  <script src="js/jquery-3.5.1.slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap.min2.js"></script>
+  <script src="js/swiper-bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

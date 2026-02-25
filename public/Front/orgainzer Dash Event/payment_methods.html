@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Boxicons -->
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+  <!-- My CSS -->
+  <link rel="stylesheet" href="../EventDash/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../EventDash/css/dashboard.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
+
+  <title>Create Event step 4</title>
+</head>
+
+<body>
+  <!-- SIDEBAR -->
+  <section id="sidebar">
+    <a href="createEventstep1.html" class="brand">
+      <i class='bx bxs-smile'></i>
+      <span class="text">Event</span>
+    </a>
+    <ul class="side-menu top">
+      <li>
+        <a href="createEventstep1.html">
+          <i class='bx bxs-plus-circle'></i>
+          <span class="text">Create New Event</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="payment_methods.html">
+          <i class='bx bxs-wallet'></i>
+          <span class="text">Payment Methods</span>
+        </a>
+      </li>
+      <li>
+        <a href="MyEvents.html">
+          <i class='bx bxs-wallet-alt'></i>
+          <span class="text">My Events</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-qr-scan'></i>
+          <span class="text">Ticket Scanner App</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-envelope'></i>
+          <span class="text">Statistics</span>
+        </a>
+      </li>
+      <li>
+        <a href="profileOrgainzer.html">
+          <i class='bx bxs-user'></i>
+          <span class="text">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="ArchivedEvents.html">
+          <i class='bx bxs-archive'></i>
+          <span class="text">Archived Events</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-chat'></i>
+          <span class="text">Support</span>
+        </a>
+      </li>
+
+    </ul>
+    <ul class="side-menu logout">
+      <li>
+        <a href="#" class="logout">
+          <i class='bx bx-log-out-circle'></i>
+          <span class="text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <!-- SIDEBAR -->
+
+
+  <!-- CONTENT -->
+  <section id="content">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <i class='bx bx-menu'></i>
+      <a href="#" class="profile">
+        <img src="../EventDash/img/people.png">
+      </a>
+    </nav>
+    <!-- NAVBAR -->
+    <main>
+      <div class="head-title" style="margin-bottom: 20px;">
+        <div class="left">
+          <ul class="breadcrumb" style="margin-bottom: 20px;">
+            <li>
+              <a class="active" href="#">Home</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+              <a href="#">Payment Methods</a>
+            </li>
+          </ul>
+          <h1>Payment Methods</h1>
+        </div>
+      </div>
+      <!-- Payment Methods -->
+      <section class="py-xl-8">
+        <div class="container">
+          <div class="row gy-4 gy-lg-0">
+            <div class="col-12 col-lg-12 col-xl-12">
+              <div class="card widget-card border-light shadow-sm">
+                <div class="card-body p-3">
+                  <ul class="nav nav-tabs" id="profileTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="overview-tab" data-bs-toggle="tab"
+                        data-bs-target="#credit-card" type="button" role="tab" aria-controls="credit-card"
+                        aria-selected="true">Credit Card</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link " id="delete-tab" data-bs-toggle="tab" data-bs-target="#Bank"
+                        type="button" role="tab" aria-controls="Bank" aria-selected="false">Bank
+                        Account</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#office"
+                        type="button" role="tab" aria-controls="office" aria-selected="false">Office</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content pt-4" id="profileTabContent">
+                    <!-- Credit card form -->
+                    <div class="tab-pane fade show active" id="credit-card" role="tabpanel"
+                      aria-labelledby="overview-tab" tabindex="0">
+                      <form id="form-credit" class="row g-3">
+                        <div id="formCredit" class="col-12">
+                          <div class="row g-3 input-group">
+                            <div class="col-md-6">
+                              <label class="form-label">Card Owner</label>
+                              <input type="text" class="form-control p-2" placeholder="Card Owner Name">
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label">Card Number</label>
+                              <input type="text" class="form-control p-2" placeholder="Card Owner Number"
+                                maxlength="15">
+                            </div>
+                            <div class="col-md-6">
+                              <label for="expiryDate" class="form-label">Expiration Date</label>
+                              <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label">CVV</label>
+                              <input type="text" class="form-control p-2" placeholder="CVV" maxlength="3">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                          <button type="button" id="repeatButtonCredit" class="btn btn-info"
+                            style="padding: 7px 30px;margin:0 10px ; color: #fff;"> <i
+                              class='bx bxs-message-alt-add'></i>
+                            Add Data </button>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center align-items-center mt-5 mb-3">
+                          <button type="submit" class="btn btn-primary"
+                            style="padding: 7px 30px;margin:0 10px">Save</button>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- bank data -->
+                    <div class="tab-pane fade" id="Bank" role="tabpanel" aria-labelledby="delete-tab" tabindex="0">
+                      <form class="row g-3" id="Bankdata">
+                        <div class="col-md-6">
+                          <label class="form-label">Email</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter Email">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Phone</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter Phone">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Address</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter Address">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">City</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter City">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Postal Code</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter Postal Code">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Country</label>
+                          <select class="form-select p-2">
+                            <option selected>Choose Country</option>
+                            <option>Egypt</option>
+                            <option>USA</option>
+                            <option>UK</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Country Bank</label>
+                          <select class="form-select p-2">
+                            <option selected>Country of The Bank Account</option>
+                            <option>Egypt</option>
+                            <option>USA</option>
+                            <option>UK</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Bank Name</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter Bank Name">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Account Holder Name</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter Account Name">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">IBAN</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter IBAN">
+                        </div>
+                        <div class="col-12 d-flex justify-content-left align-items-center mt-3 mb-3">
+                          <button type="button" class="btn btn-info text-white" id="repeatBankData"> <i
+                              class='bx bxs-message-alt-add'></i> Add Data</button>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-3">
+                          <button type="submit" class="btn btn-primary" style="padding: 7px 30px;">Save</button>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- office data -->
+                    <div id="office" class="tab-pane fade pt-2">
+                      <form class="row g-3" id="officeTicketForm">
+                        <div class="col-md-6">
+                          <label class="form-label">Where to Buy Tickets</label>
+                          <input type="text" class="form-control p-2" placeholder="Address of the ticket selling point">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Merchant Contacts</label>
+                          <input type="text" class="form-control p-2" placeholder="Email">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Phone</label>
+                          <input type="text" class="form-control p-2" placeholder="Enter Number Phone">
+                        </div>
+                        <div class="col-12 d-flex justify-content-left align-items-center mt-3">
+                          <button type="button" class="btn btn-info text-white" id="repeatButton-office"> <i
+                              class='bx bxs-message-alt-add'></i> Add Data</button>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center align-items-center mt-5 mb-3">
+                          <button type="submit" class="btn btn-primary" style="padding: 7px 30px;">Save</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end profile data -->
+    </main>
+
+  </section>
+  <!-- CONTENT -->
+
+
+  <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+  <script src="../EventDash/js/script.js"></script>
+  <script>
+    // Add more Credit data form
+    const formCredit = document.getElementById("formCredit");
+    const repeatButtonCredit = document.getElementById("repeatButtonCredit");
+
+    // Add event listener for the "Repeat" button
+    repeatButtonCredit.addEventListener("click", () => {
+      // Create a wrapper div for inputs and delete button
+      const wrapper = document.createElement("div");
+      wrapper.className = "row g-3 mt-3 input-group";
+
+      // Create inputs dynamically
+      wrapper.innerHTML = `
+      <div class="col-md-6">
+        <label class="form-label">Card Owner</label>
+        <input type="text" class="form-control p-2" placeholder="Card Owner Name">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Card Number</label>
+        <input type="text" class="form-control p-2" placeholder="Card Owner Number" maxlength="15">
+      </div>
+      <div class="col-md-6">
+        <label for="expiryDate" class="form-label">Expiration Date</label>
+        <input type="text" class="form-control" placeholder="MM/YY" maxlength="5">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">CVV</label>
+        <input type="text" class="form-control p-2" placeholder="CVV" maxlength="3">
+      </div>
+      <div class="col-12 text-center mt-3">
+        <button type="button" class="btn btn-danger deleteButton ">Delete</button>
+      </div>
+    `;
+
+      // Append the new inputs and delete button to the container
+      formCredit.appendChild(wrapper);
+
+      // Add functionality to the delete button
+      const deleteButton = wrapper.querySelector(".deleteButton");
+      deleteButton.addEventListener("click", () => {
+        wrapper.remove(); // Remove the entire group
+      });
+    });
+
+    /////////////////////////////////// bank ///////////////////////////////////////////////
+
+    // Add more bank data form
+    const bankDataForm = document.getElementById('Bankdata');
+    const repeatBankDataButton = document.getElementById('repeatBankData');
+
+    // Add event listener to the repeat button
+    repeatBankDataButton.addEventListener('click', () => {
+      // Create a new form group by cloning the existing form
+      const newGroup = document.createElement('div');
+      newGroup.classList.add('repeated-group', 'border-top', 'pt-4', 'pb-4', 'mt-4', 'mb-2'); // Add some styling for clarity
+
+      // Add the content for the new group
+      newGroup.innerHTML = `
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input type="text" class="form-control p-2" placeholder="Enter Email">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Phone</label>
+        <input type="text" class="form-control p-2" placeholder="Enter Phone">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Address</label>
+        <input type="text" class="form-control p-2" placeholder="Enter Address">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">City</label>
+        <input type="text" class="form-control p-2" placeholder="Enter City">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Postal Code</label>
+        <input type="text" class="form-control p-2" placeholder="Enter Postal Code">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Country</label>
+        <select class="form-select p-2">
+          <option selected>Choose Country</option>
+          <option>Egypt</option>
+          <option>USA</option>
+          <option>UK</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Country Bank</label>
+        <select class="form-select p-2">
+          <option selected>Country of The Bank Account</option>
+          <option>Egypt</option>
+          <option>USA</option>
+          <option>UK</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Bank Name</label>
+        <input type="text" class="form-control p-2" placeholder="Enter Bank Name">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Account Holder Name</label>
+        <input type="text" class="form-control p-2" placeholder="Enter Account Name">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">IBAN</label>
+        <input type="text" class="form-control p-2" placeholder="Enter IBAN">
+      </div>
+      <div class="col-12 d-flex justify-content-center align-items-center mt-3">
+        <button type="button" class="btn btn-danger delete-button">Delete</button>
+      </div>
+    </div>
+  `;
+
+      // Insert the new group above the Repeat button
+      bankDataForm.insertBefore(newGroup, repeatBankDataButton.parentElement);
+
+      // Add delete functionality to the new group's delete button
+      const deleteButton = newGroup.querySelector('.delete-button');
+      deleteButton.addEventListener('click', () => {
+        newGroup.remove(); // Remove the group when the delete button is clicked
+      });
+    });
+
+    /////////////////////////////////// office ///////////////////////////////////////////////
+    // Add more office data form
+    // Add more office data form
+    const officeTicketForm = document.getElementById('officeTicketForm');
+    const repeatOffice = document.getElementById('repeatButton-office');
+
+    // Add event listener to the repeat button
+    repeatOffice.addEventListener('click', () => {
+      // Create a new group of inputs
+      const newGroup = document.createElement('div');
+      newGroup.classList.add('row', 'g-3', 'repeated-group', 'border-top', 'p-3', 'mt-3');
+
+      // Populate the new group with inputs and a delete button
+      newGroup.innerHTML = `
+    <div class="col-md-6">
+      <label class="form-label">Where to Buy Tickets</label>
+      <input type="text" class="form-control p-2" placeholder="Address of the ticket selling point">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Merchant Contacts</label>
+      <input type="text" class="form-control p-2" placeholder="Email">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Phone</label>
+      <input type="text" class="form-control p-2" placeholder="Enter Number Phone">
+    </div>
+    <div class="col-12 d-flex justify-content-center align-items-center mt-3">
+      <button type="button" class="btn btn-danger delete-button">Delete</button>
+    </div>
+  `;
+
+      // Insert the new group before the repeat button's parent container
+      officeTicketForm.insertBefore(newGroup, repeatOffice.parentElement);
+
+      // Add functionality to the delete button
+      newGroup.querySelector('.delete-button').addEventListener('click', () => {
+        newGroup.remove();
+      });
+    });
+  </script>
+
+</body>
+
+</html>

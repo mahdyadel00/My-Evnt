@@ -1,0 +1,2445 @@
+          
+/* event deatils new page  */
+            /* Reset & Base Styles */
+            .nebule-event-details * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+
+          .nebule-event-details-body {
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                  Roboto, "Helvetica Neue", Arial, sans-serif;
+              color: #333;
+              line-height: 1.6;
+              background-color: #fff;
+          }
+
+          .nebule-event-details {
+              background-color: #fff;
+          }
+
+          /* ============================================
+ Hero Section
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__hero {
+              width: 100%;
+          }
+
+          .nebule-event-details .nebule-event-details__hero-image-wrapper {
+              width: 100%;
+              max-width: 1200px;
+              max-height: auto;
+              margin: 0 auto;
+              overflow: hidden;
+              position: relative;
+          }
+
+          .nebule-event-details .nebule-event-details__hero-image {
+              width: 100%;
+              max-width: 1200px;
+              height: 100%;
+              /* object-fit: cover; */
+              display: block;
+              margin: 0 auto;
+              /* aspect-ratio: 21/9; */
+              border-radius: 7px;
+              margin-bottom: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__hero-actions {
+              position: absolute;
+              top: 5px;
+              right: 10px;
+              display: flex;
+              justify-content: flex-end;
+              gap: 10px;
+              z-index: 2;
+          }
+
+          .nebule-event-details .nebule-event-details__hero-action-btn {
+              width: 44px;
+              height: 44px;
+              border: none;
+              background-color: rgba(255, 255, 255, 0.95);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: background-color 0.2s, color 0.2s, transform 0.2s;
+              color: #555;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          }
+
+          .nebule-event-details .nebule-event-details__hero-action-btn:hover {
+              background-color: #fff;
+              color: #ed7326;
+              transform: scale(1.05);
+          }
+
+          .nebule-event-details .nebule-event-details__hero-action-btn i {
+              font-size: 1.2rem;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__hero-action-btn.is-liked,
+          .nebule-event-details
+              .nebule-event-details__hero-action-btn.is-liked
+              i {
+              color: #ed7326;
+          }
+
+          /* ============================================
+ Sticky Bar (visible on scroll)
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__sticky-bar {
+              position: fixed;
+              top: 0;
+              left: 0;
+              right: 0;
+              z-index: 1000;
+              background-color: #fff;
+              border-bottom: 1px solid #e5e5e5;
+              padding: 12px 20px;
+              transform: translateY(-100%);
+              transition: transform 0.25s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar.is-visible {
+              transform: translateY(0);
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-inner {
+              max-width: 1200px;
+              margin: 0 auto;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-info {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              min-width: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-img {
+              width: 56px;
+              height: 56px;
+              border-radius: 6px;
+              object-fit: cover;
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-text {
+              display: flex;
+              flex-direction: column;
+              gap: 2px;
+              min-width: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-title {
+              font-size: 1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-date {
+              font-size: 0.8rem;
+              color: #6c757d;
+              display: flex;
+              align-items: baseline;
+              gap: 6px;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-date i {
+              color: #ed7326;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-actions {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-share {
+              width: 40px;
+              height: 40px;
+              border: 1px solid #e5e5e5;
+              background: #fff;
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              color: #4a4a4a;
+              transition: border-color 0.2s, color 0.2s;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__sticky-bar-share:hover {
+              border-color: #ed7326;
+              color: #ed7326;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-cta {
+              padding: 10px 20px;
+              background-color: #ed7326;
+              color: #fff;
+              border: none;
+              border-radius: 6px;
+              font-size: 0.95rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: background-color 0.2s;
+          }
+
+          .nebule-event-details .nebule-event-details__sticky-bar-cta:hover {
+              background-color: #d86620;
+          }
+
+          /* ============================================
+ Main Container & Layout
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__container {
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 40px 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__layout {
+              display: grid;
+              grid-template-columns: 1fr 380px;
+              gap: 50px;
+              align-items: start;
+          }
+
+          /* ============================================
+ Title Display (Mobile/Desktop Toggle)
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__mobile-title {
+              display: none;
+              margin-bottom: 30px;
+          }
+
+          .nebule-event-details .nebule-event-details__desktop-title {
+              display: block;
+              margin-bottom: 24px;
+          }
+
+          .nebule-event-details .nebule-event-details__title {
+              font-size: 2rem;
+              font-weight: 700;
+              color: #1a1a1a;
+              margin-bottom: 16px;
+              line-height: 1.2;
+          }
+
+          .nebule-event-details .nebule-event-details__subtitle {
+              font-size: 1rem;
+              color: #6c757d;
+              font-weight: 400;
+          }
+
+          /* ============================================
+ Organizer Badge (Under Title)
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__organizer-badge {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              margin-bottom: 20px;
+              padding-bottom: 20px;
+              border-bottom: 1px solid #e5e5e5;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__organizer-badge-avatar {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__organizer-badge-avatar
+              i,
+          .nebule-event-details
+              .nebule-event-details__organizer-badge-avatar
+              img {
+              color: #fff;
+              font-size: 0.9rem;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__organizer-badge-avatar
+              img {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              object-fit: cover;
+              display: block;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-badge-info {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 2px;
+              flex: 1;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-badge-name {
+              font-size: 0.95rem;
+              color: #1a1a1a;
+              font-weight: 600;
+              line-height: 1.3;
+              display: block;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-badge-by {
+              font-size: 0.9rem;
+              color: #6c757d;
+              font-weight: 400;
+              display: block;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__organizer-badge-followers {
+              font-size: 0.8rem;
+              color: #6c757d;
+              font-weight: 400;
+          }
+
+          .nebule-event-details .nebule-event-details__follow-btn {
+              padding: 7px 12px;
+              background-color: #fff;
+              color: #1a1a1a;
+              border: 1px solid #d0d0d0;
+              border-radius: 8px;
+              font-size: 0.95rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__follow-btn:hover {
+              border-color: #ed7326;
+              background-color: #fff8f5;
+              color: #ed7326;
+          }
+
+          /* ============================================
+ Left Column - Primary Content
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__content {
+              background-color: #fff;
+          }
+
+          /* Section Styles */
+          .nebule-event-details .nebule-event-details__section {
+              margin-bottom: 48px;
+          }
+
+          .nebule-event-details .nebule-event-details__section:last-child {
+              margin-bottom: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__section-title {
+              font-size: 1.4rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__overview-title {
+              font-size: 1.4rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__section-content {
+              color: #4a4a4a;
+              font-size: 0.95rem;
+              line-height: 1.7;
+          }
+
+          .nebule-event-details .nebule-event-details__section-content p {
+              margin-bottom: 16px;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__section-content
+              p:last-child {
+              margin-bottom: 0;
+          }
+
+          /* I am interested section */
+          .nebule-event-details .nebule-event-details__interested-section {
+              margin-bottom: 25px;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-desc {
+              font-size: 0.875rem;
+              color: #5a5a5a;
+              line-height: 1.55;
+              /* margin-bottom: 16px; */
+              max-width: 480px;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-benefits {
+              list-style: none;
+              margin: 0 0 20px 0;
+              padding-top: 10px;
+              display: flex;
+              flex-wrap: wrap;
+              gap: 12px 24px;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-benefits
+              li {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 0.9rem;
+              color: #5a5a5a;
+              margin: 0;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-benefits
+              li
+              i {
+              color: #ed7326;
+              font-size: 0.85rem;
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-row {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              gap: 16px 24px;
+              padding-top: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-btn {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              padding: 7px 12px;
+              font-size: 1rem;
+              font-weight: 500;
+              color: #ed7326;
+              background-color: #fff;
+              border: 2px solid #ed7326;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+                  transform 0.15s;
+              user-select: none;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-btn:hover {
+              background-color: #ed7326;
+              color: #fff;
+              transform: translateY(-1px);
+          }
+
+          .nebule-event-details .nebule-event-details__interested-btn i {
+              font-size: 1.1rem;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-btn.is-interested {
+              background-color: #198754;
+              border-color: #198754;
+              color: #fff;
+              cursor: default;
+              pointer-events: none;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-btn.is-interested:hover {
+              transform: none;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-label {
+              font-size: 0.95rem;
+              color: #6c757d;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-btn.is-interested
+              + .nebule-event-details__interested-label {
+              color: #198754;
+              font-weight: 500;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-count {
+              font-size: 0.9rem;
+              color: #6c757d;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-count i {
+              color: #ed7326;
+          }
+
+          .nebule-event-details .nebule-event-details__interested-done {
+              display: none;
+              align-items: center;
+              gap: 10px;
+              font-size: 0.95rem;
+              color: #ed7326;
+              font-weight: 500;
+              padding-top: 15px;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-section.is-done
+              .nebule-event-details__interested-done {
+              display: flex;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-section.is-done
+              .nebule-event-details__interested-row {
+              display: none;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__interested-section.is-done
+              .nebule-event-details__interested-desc,
+          .nebule-event-details
+              .nebule-event-details__interested-section.is-done
+              .nebule-event-details__interested-benefits {
+              margin-bottom: 0;
+          }
+
+          /* Subsection Titles */
+          .nebule-event-details .nebule-event-details__subsection-title {
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-top: 24px;
+              margin-bottom: 12px;
+          }
+
+          /* Lists */
+          .nebule-event-details .nebule-event-details__list {
+              margin-left: 20px;
+              margin-bottom: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__list li {
+              margin-bottom: 8px;
+              color: #4a4a4a;
+              line-height: 1.6;
+          }
+
+          .nebule-event-details .nebule-event-details__list li::marker {
+              color: #ed7326;
+          }
+
+          /* Tickets Section (main content - columns grid) */
+          .nebule-event-details
+              .nebule-event-details__tickets-content-section
+              .nebule-event-details__section-content {
+              margin-bottom: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__tickets-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-item {
+              position: relative;
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              padding: 20px 20px 20px 24px;
+              background: linear-gradient(145deg, #fff 0%, #fafafa 100%);
+              border: 1px solid #e8e8e8;
+              border-radius: 12px;
+              overflow: hidden;
+              transition: border-color 0.2s, box-shadow 0.2s;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-item::before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 0;
+              bottom: 0;
+              width: 4px;
+              background: linear-gradient(
+                  180deg,
+                  #ed7326 0%,
+                  #f07d2e 50%,
+                  #ed7326 100%
+              );
+              border-radius: 12px 0 0 12px;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-item-name {
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              line-height: 1.3;
+              letter-spacing: -0.01em;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-item-price {
+              font-size: 1rem;
+              font-weight: 400;
+              color: #1a1a1a;
+              letter-spacing: -0.02em;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-item-btn {
+              width: 100%;
+              margin-top: 4px;
+              padding: 7px 12px;
+              background-color: #ed7326;
+              color: #fff;
+              border: none;
+              border-radius: 8px;
+              font-size: 0.95rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: background-color 0.2s, transform 0.15s;
+              text-decoration: none;
+              display: inline-block;
+              text-align: center;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-item-btn:hover {
+              background-color: #d86620;
+              color: #fff;
+              transform: translateY(-1px);
+          }
+
+          /* Choose dates section (multiple dates / locations) */
+          .nebule-event-details .nebule-event-details__dates-section {
+              margin-bottom: 40px;
+          }
+
+          .nebule-event-details .nebule-event-details__dates-grid {
+              display: grid;
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__date-card {
+              border: 1px solid #e5e5e5;
+              border-radius: 10px;
+              padding: 14px 16px;
+              background-color: #fff;
+              text-align: left;
+              cursor: pointer;
+              display: flex;
+              flex-direction: column;
+              gap: 4px;
+              transition: border-color 0.2s, box-shadow 0.2s,
+                  background-color 0.2s, transform 0.15s;
+          }
+
+          .nebule-event-details .nebule-event-details__date-card:hover {
+              border-color: #ed7326;
+              box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+              transform: translateY(-1px);
+          }
+
+          .nebule-event-details .nebule-event-details__date-card--active {
+              border-color: #ed7326;
+              background-color: #fff8f5;
+          }
+
+          .nebule-event-details .nebule-event-details__date-card-day {
+              font-size: 0.95rem;
+              font-weight: 500;
+              color: #1a1a1a;
+          }
+
+          .nebule-event-details .nebule-event-details__date-card-time {
+              font-size: 0.9rem;
+              color: #4a4a4a;
+          }
+
+          .nebule-event-details .nebule-event-details__date-card-location {
+              font-size: 0.85rem;
+              color: #6c757d;
+          }
+
+          .nebule-event-details .nebule-event-details__date-card-status {
+              margin-top: 4px;
+              font-size: 0.8rem;
+              font-weight: 600;
+              color: #ed7326;
+              text-transform: uppercase;
+              letter-spacing: 0.04em;
+          }
+
+          /* Event name + meta block (under hero) */
+          .nebule-event-details .nebule-event-details__event-meta-block {
+              margin-bottom: 32px;
+          }
+
+          .nebule-event-details .nebule-event-details__event-meta-row {
+              display: flex;
+              align-items: flex-start;
+              gap: 10px;
+              margin-bottom: 14px;
+              font-size: 0.95rem;
+              color: #4a4a4a;
+              line-height: 1.5;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__event-meta-row:last-of-type {
+              margin-bottom: 0;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__event-meta-row
+              .nebule-event-details__event-meta-icon {
+              flex-shrink: 0;
+              width: 20px;
+              text-align: center;
+              color: #ed7326;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__event-meta-row
+              .nebule-event-details__event-meta-icon
+              i {
+              font-size: 1rem;
+          }
+
+          /* Read more: expandable description */
+          .nebule-event-details__overview-block .nebule-event-details__overview-text {
+              max-height: 8em;
+              overflow: hidden;
+              transition: max-height 0.35s ease;
+          }
+
+          .nebule-event-details__overview-block.is-expanded .nebule-event-details__overview-text {
+              max-height: 5000px;
+          }
+
+          .nebule-event-details .nebule-event-details__section-content-more {
+              display: none;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__overview-block.is-expanded
+              .nebule-event-details__section-content-more {
+              display: block;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__overview-block.is-expanded
+              .nebule-event-details__read-more-text-expand {
+              display: none;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__overview-block:not(.is-expanded)
+              .nebule-event-details__read-more-text-collapse {
+              display: none;
+          }
+
+          .nebule-event-details .nebule-event-details__read-more {
+              color: #ed7326;
+              font-weight: 500;
+              font-size: 0.95rem;
+              display: inline-block;
+              margin-top: 10px;
+              cursor: pointer;
+              background: none;
+              border: none;
+              padding: 0;
+              text-decoration: underline;
+          }
+
+          .nebule-event-details .nebule-event-details__read-more:hover {
+              text-decoration: underline;
+          }
+
+          /* ============================================
+ Good to Know Section (Highlights)
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__highlights-card {
+              background-color: #fafafa;
+              border: 1px solid #e5e5e5;
+              border-radius: 8px;
+              padding: 20px;
+              margin-top: 24px;
+          }
+
+          .nebule-event-details .nebule-event-details__highlights-title {
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__highlights-list {
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+          }
+
+          .nebule-event-details .nebule-event-details__highlight-item {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              color: #4a4a4a;
+              font-size: 0.9rem;
+          }
+
+          .nebule-event-details .nebule-event-details__highlight-item i {
+              color: #1a1a1a;
+              font-size: 1rem;
+          }
+
+          /* ============================================
+ Facilities Section
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__facilities-section {
+              margin-bottom: 28px;
+          }
+
+          .nebule-event-details .nebule-event-details__facilities-title {
+              font-size: 1.4rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 16px;
+
+              letter-spacing: 0.02em;
+          }
+
+          .nebule-event-details .nebule-event-details__facilities-grid {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 16px 24px;
+          }
+
+          .nebule-event-details .nebule-event-details__facility-item {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              color: #1a1a1a;
+              font-size: 0.95rem;
+          }
+
+          .nebule-event-details .nebule-event-details__facility-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #ed7326;
+              font-size: 1.1rem;
+          }
+
+          .nebule-event-details .nebule-event-details__facility-icon i {
+              color: #ed7326;
+          }
+
+          .nebule-event-details .nebule-event-details__facility-label {
+              font-weight: 500;
+          }
+
+          /* ============================================
+ Organizer Section
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__organizer {
+              display: flex;
+              gap: 20px;
+              align-items: start;
+              padding: 24px;
+              /* background-color: #fafafa; */
+              border: 1px solid #e8e8e8;
+              border-radius: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-logo {
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-logo-img {
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              object-fit: cover;
+              border: 1px solid #e5e5e5;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-info {
+              flex: 1;
+              min-width: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-name-row {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 16px;
+              flex-wrap: wrap;
+              margin-bottom: 12px;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-name {
+              font-size: 1.2rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin: 0;
+              display: inline-block;
+              background: none;
+              border: none;
+              padding: 0;
+              cursor: pointer;
+              text-align: left;
+              transition: color 0.2s;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-name:hover {
+              color: #ed7326;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-name--plain {
+              cursor: default;
+              pointer-events: none;
+          }
+
+          .nebule-event-details .nebule-event-details__follow-btn--organizer {
+              margin: 0;
+              flex-shrink: 0;
+              padding: 7px 12px;
+              font-size: 0.95rem;
+              font-weight: 600;
+              border-radius: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer--modal {
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__organizer--modal
+              .nebule-event-details__organizer-info {
+              text-align: center;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-description {
+              color: #6c757d;
+              margin-bottom: 16px;
+              line-height: 1.6;
+              font-size: 0.9rem;
+          }
+
+          .nebule-event-details .nebule-event-details__organizer-stats {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__stat-item {
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+              color: #4a4a4a;
+              font-size: 0.85rem;
+              font-weight: 500;
+          }
+
+          .nebule-event-details .nebule-event-details__stat-item i {
+              color: #ed7326;
+          }
+
+          /* ============================================
+ Map Section
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__map-wrapper {
+              width: 100%;
+              height: 400px;
+              border-radius: 8px;
+              overflow: hidden;
+              margin-bottom: 16px;
+              border: 1px solid #e5e5e5;
+          }
+
+          .nebule-event-details .nebule-event-details__map {
+              width: 100%;
+              height: 100%;
+              border: none;
+              display: block;
+          }
+
+          .nebule-event-details .nebule-event-details__location-details {
+              padding: 20px;
+              background-color: #fafafa;
+              border: 1px solid #e5e5e5;
+              border-radius: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__location-name {
+              font-size: 1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__location-address {
+              color: #4a4a4a;
+              margin-bottom: 8px;
+              display: flex;
+              align-items: start;
+              gap: 8px;
+              font-size: 0.9rem;
+          }
+
+          .nebule-event-details .nebule-event-details__location-address i {
+              color: #ed7326;
+              margin-top: 3px;
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__location-note {
+              color: #6c757d;
+              font-size: 0.85rem;
+              display: flex;
+              align-items: start;
+              gap: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__location-note i {
+              margin-top: 3px;
+              flex-shrink: 0;
+          }
+
+          /* ============================================
+ Related Events Section
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__related-events {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+              gap: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__related-card {
+              background-color: #fff;
+              border: 1px solid #e5e5e5;
+              border-radius: 8px;
+              overflow: hidden;
+              transition: all 0.2s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__related-card:hover {
+              border-color: #d0d0d0;
+          }
+
+          .nebule-event-details .nebule-event-details__related-image {
+              position: relative;
+              width: 100%;
+              height: 180px;
+              overflow: hidden;
+          }
+
+          .nebule-event-details .nebule-event-details__related-img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+          }
+
+          .nebule-event-details .nebule-event-details__related-badge {
+              position: absolute;
+              top: 12px;
+              left: 12px;
+              background-color: #fff;
+              color: #1a1a1a;
+              padding: 4px 12px;
+              border-radius: 4px;
+              font-size: 0.75rem;
+              font-weight: 600;
+
+              border: 1px solid #e5e5e5;
+          }
+
+          .nebule-event-details .nebule-event-details__related-content {
+              padding: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__related-title {
+              font-size: 1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 12px;
+              line-height: 1.3;
+          }
+
+          .nebule-event-details .nebule-event-details__related-date,
+          .nebule-event-details .nebule-event-details__related-location {
+              color: #6c757d;
+              font-size: 0.85rem;
+              margin-bottom: 6px;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+          }
+
+          .nebule-event-details .nebule-event-details__related-date i,
+          .nebule-event-details .nebule-event-details__related-location i {
+              color: #4a4a4a;
+          }
+
+          /* ============================================
+ Right Column - Sidebar
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__sidebar {
+              position: relative;
+          }
+
+          .nebule-event-details .nebule-event-details__sidebar-sticky {
+              position: sticky;
+              top: 20px;
+          }
+
+          /* Info Card */
+          .nebule-event-details .nebule-event-details__info-card {
+              border-radius: 8px;
+              padding: 0;
+              margin-bottom: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__info-card-body {
+              padding: 24px;
+          }
+
+          /* Action Buttons in Header */
+          .nebule-event-details .nebule-event-details__action-buttons {
+              display: flex;
+              gap: 10px;
+              justify-content: flex-end;
+              margin-bottom: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__icon-btn {
+              width: 36px;
+              height: 36px;
+              border: 1px solid #e5e5e5;
+              background-color: #fff;
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: all 0.2s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__icon-btn:hover {
+              border-color: #d0d0d0;
+              background-color: #fafafa;
+          }
+
+          .nebule-event-details .nebule-event-details__icon-btn i {
+              font-size: 1.1rem;
+              color: #4a4a4a;
+          }
+
+          /* Price Display */
+          .nebule-event-details .nebule-event-details__price-display {
+              margin-bottom: 16px;
+          }
+
+          .nebule-event-details .nebule-event-details__price-label {
+              font-size: 0.85rem;
+              color: #6c757d;
+              margin-bottom: 4px;
+          }
+
+          .nebule-event-details .nebule-event-details__price-value {
+              font-size: 1.5rem;
+              font-weight: 600;
+              color: #1a1a1a;
+          }
+
+          .nebule-event-details .nebule-event-details__price-date {
+              font-size: 0.85rem;
+              color: #6c757d;
+              margin-top: 2px;
+          }
+
+          /* Tickets Section (sidebar - ticket-style card) */
+          .nebule-event-details .nebule-event-details__tickets-section {
+              margin-bottom: 28px;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-card {
+              position: relative;
+              margin-bottom: 18px;
+              border-radius: 14px;
+              overflow: hidden;
+              transition: box-shadow 0.25s ease, border-color 0.25s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-card::before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 0;
+              bottom: 0;
+              width: 4px;
+              background: linear-gradient(
+                  180deg,
+                  #ed7326 0%,
+                  #f07d2e 50%,
+                  #ed7326 100%
+              );
+              border-radius: 14px 0 0 14px;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-card-inner {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              padding: 20px 20px 20px 24px;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-price-label {
+              font-size: 1.5rem;
+              font-weight: 500;
+              color: #1a1a1a;
+              line-height: 1.2;
+              letter-spacing: -0.03em;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-date-label {
+              font-size: 0.95rem;
+              color: #6c757d;
+              font-weight: 500;
+              line-height: 1.4;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__ticket-date-label i {
+              color: #ed7326;
+              font-size: 0.9rem;
+          }
+
+          /* Reserve Button */
+          .nebule-event-details .nebule-event-details__reserve-btn {
+              width: 100%;
+              padding: 14px 24px;
+              background-color: #ed7326;
+              color: #fff;
+              border: none;
+              border-radius: 6px;
+              font-size: 1rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              margin-top: 8px;
+              margin-bottom: 0;
+              text-decoration: none;
+              display: inline-block;
+              text-align: center;
+          }
+
+          .nebule-event-details .nebule-event-details__reserve-btn:hover {
+              background-color: #d86620;
+              color: #fff;
+          }
+
+          /* Info Items */
+          .nebule-event-details .nebule-event-details__info-item {
+              padding: 16px 0;
+              border-bottom: 1px solid #f0f0f0;
+          }
+
+          .nebule-event-details .nebule-event-details__info-item:last-child {
+              border-bottom: none;
+              padding-bottom: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__info-item-label {
+              font-size: 0.85rem;
+              color: #6c757d;
+              margin-bottom: 6px;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+          }
+
+          .nebule-event-details .nebule-event-details__info-item-label i {
+              font-size: 0.9rem;
+          }
+
+          .nebule-event-details .nebule-event-details__info-item-value {
+              font-size: 0.95rem;
+              color: #1a1a1a;
+              font-weight: 500;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-title {
+              font-size: 1.5rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 24px;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-list {
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-card {
+              display: flex;
+              align-items: center;
+              gap: 20px;
+              padding: 0;
+              text-decoration: none;
+              color: #1a1a1a;
+              border-radius: 10px;
+              overflow: hidden;
+              transition: opacity 0.2s, transform 0.2s;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-card:hover {
+              transform: translateX(4px);
+          }
+
+          .nebule-event-details .nebule-event-details__explore-card-img-wrap {
+              width: 90px;
+              height: 70px;
+              flex-shrink: 0;
+              overflow: hidden;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-card-img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-card-body {
+              flex: 1;
+              min-width: 0;
+              padding: 14px 16px 14px 0;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-name {
+              font-size: 1.05rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              line-height: 1.3;
+              display: block;
+              margin-bottom: 6px;
+          }
+
+          .nebule-event-details__explore-name i {
+              color: #ed7326;
+              margin-right: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-meta {
+              font-size: 0.9rem;
+              color: #6c757d;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+          }
+
+          .nebule-event-details .nebule-event-details__explore-meta i {
+              color: #ed7326;
+          }
+
+          /* ============================================
+ Share Section
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__share-card {
+              background-color: #fff;
+              border: 1px solid #e5e5e5;
+              border-radius: 8px;
+              padding: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__share-title {
+              font-size: 1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 14px;
+          }
+
+          .nebule-event-details .nebule-event-details__share-buttons {
+              display: flex;
+              gap: 8px;
+              flex-wrap: wrap;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn {
+              width: 40px;
+              height: 40px;
+              border: 1px solid #e5e5e5;
+              background-color: #fff;
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: all 0.2s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn i {
+              font-size: 1.1rem;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn:hover {
+              border-color: #d0d0d0;
+              background-color: #fafafa;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn--facebook {
+              color: #1877f2;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn--twitter {
+              color: #1da1f2;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn--linkedin {
+              color: #0a66c2;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn--email {
+              color: #ea4335;
+          }
+
+          .nebule-event-details .nebule-event-details__share-btn--link {
+              color: #4a4a4a;
+          }
+
+          /* ============================================
+ Share modal: Share & Invite your friends (enhanced)
+ ============================================ */
+
+          .nebule-event-details__share-modal .modal-dialog {
+              max-width: 480px;
+              margin: 1rem auto;
+          }
+
+          .nebule-event-details__share-modal .modal-content {
+              box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+              width: 96%;
+          }
+
+          .nebule-event-details__share-modal-header {
+              border-bottom-width: 2px;
+              border-bottom-color: #f0f0f0;
+              padding-bottom: 20px;
+          }
+
+          .nebule-event-details__share-modal-header
+              .nebule-event-details__modal-title {
+              font-size: 1.35rem;
+              font-weight: 600;
+              letter-spacing: -0.02em;
+              color: #1a1a1a;
+          }
+
+          .nebule-event-details__share-event-card {
+              display: flex;
+              align-items: center;
+              gap: 20px;
+              border-radius: 12px;
+              margin-bottom: 24px;
+              transition: border-color 0.2s, box-shadow 0.2s;
+          }
+
+          .nebule-event-details__share-event-card:hover {
+              border-color: #e0e0e0;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+          }
+
+          .nebule-event-details__share-event-thumb {
+              width: 84px;
+              height: 84px;
+              border-radius: 10px;
+              object-fit: cover;
+              flex-shrink: 0;
+              border: 1px solid #eee;
+          }
+
+          .nebule-event-details__share-event-info {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              min-width: 0;
+          }
+
+          .nebule-event-details__share-event-name {
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              line-height: 1.3;
+              letter-spacing: -0.01em;
+          }
+
+          .nebule-event-details__share-event-date {
+              font-size: 0.9rem;
+              color: #6c757d;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-weight: 500;
+          }
+
+          .nebule-event-details__share-event-date i {
+              color: #ed7326;
+              font-size: 0.95rem;
+          }
+
+          .nebule-event-details__share-link-wrap {
+              display: flex;
+              gap: 12px;
+              margin-bottom: 20px;
+          }
+
+          .nebule-event-details__share-link-input {
+              flex: 1;
+              padding: 14px 16px;
+              border: 1px solid #d8d8d8;
+              border-radius: 10px;
+              font-size: 0.9rem;
+              color: #333;
+              background-color: #fcfcfc;
+              transition: border-color 0.2s, background-color 0.2s;
+          }
+
+          .nebule-event-details__share-link-input:focus {
+              outline: none;
+              border-color: #ed7326;
+              background-color: #fff;
+          }
+
+          .nebule-event-details__share-copy-btn {
+              padding: 14px 22px;
+              background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+              color: #fff;
+              border: none;
+              border-radius: 10px;
+              font-size: 0.95rem;
+              font-weight: 600;
+              cursor: pointer;
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              flex-shrink: 0;
+              transition: background 0.2s, transform 0.15s;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          }
+
+          .nebule-event-details__share-copy-btn:hover {
+              background: linear-gradient(180deg, #333 0%, #222 100%);
+              color: #fff;
+              transform: translateY(-1px);
+          }
+
+          .nebule-event-details__share-copy-btn:active {
+              transform: translateY(0);
+          }
+
+          .nebule-event-details__share-social-title {
+              font-size: 1.05rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 18px;
+              display: block;
+              letter-spacing: -0.01em;
+          }
+
+          .nebule-event-details__share-social-list {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px;
+          }
+
+          .nebule-event-details__share-social-item {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+              text-decoration: none;
+              color: #4a4a4a;
+              font-size: 0.82rem;
+              font-weight: 500;
+              transition: transform 0.2s, color 0.2s;
+          }
+
+          .nebule-event-details__share-social-item:hover {
+              color: #1a1a1a;
+              transform: translateY(-3px);
+          }
+          .nebule-event-details__share-social-item span {
+              font-size: 10px;
+          }
+          .nebule-event-details__share-social-item i {
+              width: 48px;
+              height: 48px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 1.2rem;
+              color: #fff;
+              transition: transform 0.2s, box-shadow 0.2s;
+          }
+
+          .nebule-event-details__share-social-item:hover i {
+              transform: scale(1.08);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          }
+
+          .nebule-event-details__share-social-item--email i {
+              background: linear-gradient(135deg, #f05545 0%, #ea4335 100%);
+          }
+
+          .nebule-event-details__share-social-item--whatsapp i {
+              background: linear-gradient(135deg, #2dd370 0%, #25d366 100%);
+          }
+
+          .nebule-event-details__share-social-item--facebook i {
+              background: linear-gradient(135deg, #1a7cf8 0%, #1877f2 100%);
+          }
+
+          .nebule-event-details__share-social-item--linkedin i {
+              background: linear-gradient(135deg, #0d6cb5 0%, #0a66c2 100%);
+          }
+
+          .nebule-event-details__share-social-item--twitter i {
+              background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+          }
+
+          .nebule-event-details__share-social-item--tiktok i {
+              background: linear-gradient(135deg, #000 0%, #000 100%);
+          }
+          .nebule-event-details__share-social-item--instagram i {
+              background: linear-gradient(135deg, #e4405f 0%, #e4405f 100%);
+          }
+
+          /* .nebule-event-details__share-social-item--reddit i {
+              background: linear-gradient(135deg, #ff5522 0%, #ff4500 100%);
+          } */
+
+          .nebule-event-details__share-social-item--more i {
+              background: linear-gradient(135deg, #7a8288 0%, #6c757d 100%);
+          }
+
+          /* ============================================
+ Bootstrap Modal Customization (all modals)
+ ============================================ */
+
+          .nebule-event-details .nebule-event-details__modal .modal-dialog {
+              margin: 1rem;
+              max-height: calc(100vh - 2rem);
+          }
+
+          .nebule-event-details .nebule-event-details__modal .modal-content {
+              border-radius: 12px;
+              border: 1px solid #e5e5e5;
+              max-height: calc(100vh - 2rem);
+              display: flex;
+              flex-direction: column;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-header {
+              background-color: #fff;
+              border-bottom: 1px solid #e5e5e5;
+              padding: 20px 24px;
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-title {
+              font-size: 1.25rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              line-height: 1.3;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-body {
+              padding: 24px;
+              overflow-y: auto;
+              flex: 1 1 auto;
+              min-height: 0;
+          }
+
+          /* Modal Event Summary */
+          .nebule-event-details .nebule-event-details__modal-summary {
+              background-color: #fafafa;
+              border: 1px solid #e5e5e5;
+              padding: 16px;
+              border-radius: 8px;
+              margin-bottom: 24px;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-event-name {
+              font-size: 1.05rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-event-info {
+              font-size: 0.85rem;
+              color: #6c757d;
+              margin-bottom: 4px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-event-info i {
+              color: #4a4a4a;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__modal-event-info:last-child {
+              margin-bottom: 0;
+          }
+
+          /* Modal Form Sections */
+          .nebule-event-details .nebule-event-details__modal-section {
+              margin-bottom: 20px;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-label {
+              display: block;
+              font-size: 0.9rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-input {
+              width: 100%;
+              padding: 12px 16px;
+              border: 1px solid #d0d0d0;
+              border-radius: 6px;
+              font-size: 0.95rem;
+              color: #1a1a1a;
+              transition: all 0.2s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-input:focus {
+              outline: none;
+              border-color: #ed7326;
+          }
+
+          /* Quantity Selector */
+          .nebule-event-details .nebule-event-details__quantity-selector {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              max-width: 180px;
+          }
+
+          .nebule-event-details .nebule-event-details__quantity-btn {
+              width: 40px;
+              height: 40px;
+              border: 1px solid #d0d0d0;
+              background-color: #fff;
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: all 0.2s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__quantity-btn:hover {
+              border-color: #1a1a1a;
+              background-color: #fafafa;
+          }
+
+          .nebule-event-details .nebule-event-details__quantity-input {
+              flex: 1;
+              text-align: center;
+              padding: 10px;
+              border: 1px solid #d0d0d0;
+              border-radius: 6px;
+              font-size: 1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+          }
+
+          /* Price Summary */
+          .nebule-event-details .nebule-event-details__modal-price-summary {
+              background-color: #fafafa;
+              border: 1px solid #e5e5e5;
+              padding: 22px;
+              border-radius: 8px;
+              margin-bottom: 22px;
+          }
+
+          .nebule-event-details .nebule-event-details__price-row {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 12px;
+              color: #4a4a4a;
+              font-size: 0.9rem;
+          }
+
+          .nebule-event-details .nebule-event-details__price-row:last-child {
+              margin-bottom: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__price-total {
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              padding-top: 12px;
+              border-top: 1px solid #e5e5e5;
+              margin-top: 8px;
+          }
+
+          .nebule-event-details .nebule-event-details__divider {
+              height: 1px;
+              background-color: #e5e5e5;
+              margin: 16px 0;
+          }
+
+          /* Terms Checkbox */
+          .nebule-event-details .nebule-event-details__modal-checkbox {
+              display: flex;
+              align-items: start;
+              gap: 10px;
+          }
+
+          .nebule-event-details .nebule-event-details__checkbox-input {
+              width: 18px;
+              height: 18px;
+              margin-top: 2px;
+              cursor: pointer;
+              accent-color: #ed7326;
+          }
+
+          .nebule-event-details .nebule-event-details__checkbox-label {
+              font-size: 0.85rem;
+              color: #6c757d;
+              line-height: 1.5;
+              cursor: pointer;
+          }
+
+          .nebule-event-details .nebule-event-details__link {
+              color: #ed7326;
+              text-decoration: none;
+              font-weight: 500;
+          }
+
+          .nebule-event-details .nebule-event-details__link:hover {
+              text-decoration: underline;
+          }
+
+          /* Modal Footer */
+          .nebule-event-details .nebule-event-details__modal-footer {
+              padding: 18px 24px 24px;
+              border-top: 1px solid #e5e5e5;
+              display: flex;
+              gap: 12px;
+              flex-shrink: 0;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-btn {
+              padding: 12px 24px;
+              border: none;
+              border-radius: 6px;
+              font-size: 0.95rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-btn--secondary {
+              background-color: #fff;
+              color: #4a4a4a;
+              border: 1px solid #d0d0d0;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__modal-btn--secondary:hover {
+              background-color: #fafafa;
+              border-color: #1a1a1a;
+          }
+
+          .nebule-event-details .nebule-event-details__modal-btn--primary {
+              background-color: #ed7326;
+              color: #fff;
+              flex: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+          }
+
+          .nebule-event-details
+              .nebule-event-details__modal-btn--primary:hover {
+              background-color: #d86620;
+          }
+          /* related events - responsive base */
+          .related-events-container-nebule {
+              width: 100%;
+              max-width: 1200px;
+              margin: 30px auto;
+              padding: 20px;
+              box-sizing: border-box;
+          }
+          .related-events-container-nebule .related-events-title {
+              font-size: 1.4rem;
+              font-weight: 600;
+              color: #1a1a1a;
+              margin-bottom: 16px;
+          }
+          .related-events-container-nebule .New-card-event-cards-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 20px;
+              padding: 0;
+          }
+          @media (min-width: 992px) {
+              .related-events-container-nebule .New-card-event-cards-grid {
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: 24px;
+              }
+          }
+
+          /* ============================================
+ Responsive Design - Tablet
+ ============================================ */
+
+          @media (max-width: 991px) {
+              .nebule-event-details .nebule-event-details__layout {
+                  grid-template-columns: 1fr;
+                  gap: 30px;
+              }
+              .related-events-container-nebule {
+                  padding: 16px;
+                  margin-top: 24px;
+                  margin-bottom: 24px;
+              }
+              .related-events-container-nebule .New-card-event-cards-grid {
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 16px;
+              }
+              .related-events-container-nebule .related-events-title {
+                  font-size: 1.25rem;
+              }
+
+              .nebule-event-details .nebule-event-details__content {
+                  order: 1;
+              }
+
+              .nebule-event-details .nebule-event-details__sidebar {
+                  order: 2;
+              }
+
+              .nebule-event-details .nebule-event-details__sidebar-sticky {
+                  position: static;
+              }
+
+              .nebule-event-details .nebule-event-details__desktop-title {
+                  display: none;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__hero-image-wrapper {
+                  max-height: 400px;
+              }
+
+              .nebule-event-details .nebule-event-details__dates-grid {
+                  grid-template-columns: repeat(2, minmax(0, 1fr));
+              }
+
+              .nebule-event-details .nebule-event-details__tickets-grid {
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 16px;
+              }
+          }
+
+          /* ============================================
+ Responsive Design - Mobile
+ ============================================ */
+
+          @media (max-width: 767px) {
+              .nebule-event-details .nebule-event-details__container {
+                  padding: 20px 16px;
+              }
+              .related-events-container-nebule {
+                  padding: 12px 16px;
+                  margin-top: 20px;
+                  margin-bottom: 20px;
+                  max-width: 100%;
+              }
+              .related-events-container-nebule .New-card-event-cards-grid {
+                  grid-template-columns: 1fr;
+                  gap: 16px;
+              }
+              .related-events-container-nebule .related-events-title {
+                  font-size: 1.2rem;
+                  margin-bottom: 12px;
+              }
+
+              .nebule-event-details .nebule-event-details__layout {
+                  gap: 24px;
+              }
+
+              .nebule-event-details .nebule-event-details__content {
+                  order: 1;
+              }
+
+              .nebule-event-details .nebule-event-details__sidebar {
+                  order: 2;
+              }
+
+              .nebule-event-details .nebule-event-details__title {
+                  font-size: 1.5rem;
+              }
+
+              .nebule-event-details .nebule-event-details__section-title {
+                  font-size: 1.2rem;
+              }
+
+              .nebule-event-details .nebule-event-details__dates-grid {
+                  grid-template-columns: repeat(2, 1fr);
+              }
+
+              .nebule-event-details .nebule-event-details__tickets-grid {
+                  gap: 14px;
+              }
+
+              .nebule-event-details .nebule-event-details__ticket-item {
+                  padding: 14px;
+              }
+
+              .nebule-event-details .nebule-event-details__ticket-item-name {
+                  font-size: 1.05rem;
+              }
+
+              .nebule-event-details .nebule-event-details__ticket-item-price {
+                  font-size: 1rem;
+              }
+
+              .nebule-event-details .nebule-event-details__ticket-item-btn {
+                  padding: 7px 12px;
+              }
+
+              .nebule-event-details .nebule-event-details__hero {
+                  padding: 0;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__hero-image-wrapper {
+                  max-height: 280px;
+                  max-width: 100%;
+                  margin: 0 auto;
+              }
+
+              .nebule-event-details .nebule-event-details__hero-image {
+                  aspect-ratio: 16/9;
+                  max-width: 100%;
+              }
+              .nebule-event-details .nebule-event-details__hero-action-btn {
+                  width: 25px;
+                  height: 25px;
+              }
+              .nebule-event-details .nebule-event-details__hero-action-btn i {
+                  font-size: 0.8rem;
+              }
+              .nebule-event-details .nebule-event-details__event-meta-block {
+                  margin-bottom: 20px;
+              }
+
+              .nebule-event-details .nebule-event-details__organizer-badge {
+                  margin-bottom: 16px;
+                  padding-bottom: 16px;
+              }
+
+              .nebule-event-details .nebule-event-details__organizer {
+                  align-items: start;
+                  padding: 10px;
+                  gap: 10px;
+              }
+
+              .nebule-event-details .nebule-event-details__organizer-stats {
+                  gap: 12px;
+              }
+
+              .nebule-event-details .nebule-event-details__map-wrapper {
+                  height: 280px;
+              }
+
+              .nebule-event-details .nebule-event-details__explore-title {
+                  font-size: 1.2rem;
+                  margin-bottom: 16px;
+              }
+
+              .nebule-event-details .nebule-event-details__explore-card {
+                  gap: 14px;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__explore-card-img-wrap {
+                  width: 100px;
+                  height: 75px;
+              }
+
+              .nebule-event-details .nebule-event-details__explore-card-body {
+                  padding: 12px 12px 12px 0;
+              }
+
+              .nebule-event-details .nebule-event-details__explore-name {
+                  font-size: 0.95rem;
+              }
+
+              .nebule-event-details .nebule-event-details__facilities-grid {
+                  gap: 12px;
+              }
+
+              .nebule-event-details .nebule-event-details__facilities-title {
+                  font-size: 1.2rem;
+              }
+
+              .nebule-event-details .nebule-event-details__facility-item {
+                  min-height: 44px;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-footer {
+                  flex-direction: column;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-btn {
+                  width: 100%;
+                  justify-content: center;
+              }
+
+              .nebule-event-details .nebule-event-details__action-buttons {
+                  margin-bottom: 12px;
+              }
+
+              /* Modals - tablet/mobile */
+              .nebule-event-details
+                  .nebule-event-details__modal
+                  .modal-dialog {
+                  margin: 0.75rem;
+                  max-width: calc(100vw - 1.5rem);
+                  max-height: calc(100vh - 1.5rem);
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__modal
+                  .modal-content {
+                  max-height: calc(100vh - 1.5rem);
+              }
+
+              .nebule-event-details .nebule-event-details__modal-header {
+                  padding: 18px 20px;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-title {
+                  font-size: 1.15rem;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-body {
+                  padding: 20px;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-footer {
+                  padding: 16px 20px 20px;
+                  gap: 10px;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-btn {
+                  padding: 14px 20px;
+                  min-height: 48px;
+              }
+
+              /* Share modal - mobile */
+              .nebule-event-details
+                  .nebule-event-details__share-modal
+                  .modal-dialog {
+                  max-width: calc(100vw - 1.5rem);
+              }
+
+              .nebule-event-details .nebule-event-details__share-event-card {
+                  padding: 16px;
+                  gap: 14px;
+                  margin-bottom: 18px;
+              }
+
+              .nebule-event-details .nebule-event-details__share-event-thumb {
+                  width: 72px;
+                  height: 72px;
+              }
+
+              .nebule-event-details .nebule-event-details__share-event-name {
+                  font-size: 1rem;
+              }
+
+              .nebule-event-details .nebule-event-details__share-event-date {
+                  font-size: 0.85rem;
+              }
+
+              .nebule-event-details .nebule-event-details__share-link-wrap {
+                  flex-direction: column;
+                  gap: 10px;
+                  margin-bottom: 12px;
+              }
+
+              .nebule-event-details .nebule-event-details__share-link-input {
+                  padding: 12px;
+                  font-size: 0.85rem;
+              }
+
+              .nebule-event-details .nebule-event-details__share-copy-btn {
+                  width: 100%;
+                  justify-content: center;
+                  padding: 14px;
+                  min-height: 48px;
+              }
+
+              .nebule-event-details .nebule-event-details__share-social-list {
+                  gap: 14px 20px;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__share-social-item
+                  i {
+                  width: 48px;
+                  height: 48px;
+                  font-size: 1.15rem;
+              }
+
+              .nebule-event-details .nebule-event-details__share-social-item {
+                  font-size: 0.75rem;
+              }
+              .nebule-event-details .nebule-event-details__date-card {
+                  padding: 10px;
+              }
+
+              /* Ticket modal - mobile */
+              .nebule-event-details
+                  .nebule-event-details__ticket-modal
+                  .modal-dialog {
+                  max-width: calc(100vw - 1.5rem);
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__ticket-modal-summary {
+                  margin-bottom: 20px;
+                  padding-bottom: 18px;
+              }
+
+              .nebule-event-details .nebule-event-details__ticket-modal-row {
+                  flex-direction: column;
+                  align-items: stretch;
+                  gap: 14px;
+                  padding: 18px 0;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__ticket-modal-price {
+                  text-align: left;
+                  min-width: 0;
+              }
+
+              .nebule-event-details .nebule-event-details__quantity-selector {
+                  max-width: none;
+                  justify-content: flex-start;
+              }
+
+              .nebule-event-details .nebule-event-details__quantity-btn {
+                  width: 44px;
+                  height: 44px;
+                  min-width: 44px;
+                  min-height: 44px;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__modal-price-summary {
+                  padding: 18px;
+                  margin-bottom: 18px;
+              }
+
+              .nebule-event-details .nebule-event-details__organizer--modal {
+                  padding: 16px 0;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__organizer--modal
+                  .nebule-event-details__organizer-logo-img {
+                  width: 72px;
+                  height: 72px;
+              }
+          }
+
+          /* Modals - small phones (≤575px) */
+          @media (max-width: 575px) {
+              .related-events-container-nebule {
+                  padding: 10px 12px;
+                  margin-top: 16px;
+                  margin-bottom: 16px;
+              }
+              .related-events-container-nebule .New-card-event-cards-grid {
+                  grid-template-columns: 1fr;
+                  gap: 12px;
+              }
+              .related-events-container-nebule .related-events-title {
+                  font-size: 1.1rem;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__modal
+                  .modal-dialog {
+                  margin: 0.5rem;
+                  max-width: calc(100vw - 1rem);
+                  max-height: calc(100vh - 1rem);
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__modal
+                  .modal-content {
+                  max-height: calc(100vh - 1rem);
+                  border-radius: 10px;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-header {
+                  padding: 16px 18px;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-title {
+                  font-size: 1.1rem;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-body {
+                  padding: 18px;
+              }
+
+              .nebule-event-details .nebule-event-details__modal-footer {
+                  padding: 14px 18px 18px;
+              }
+
+              .nebule-event-details .nebule-event-details__share-event-card {
+                  padding: 14px;
+                  gap: 12px;
+              }
+
+              .nebule-event-details .nebule-event-details__share-event-thumb {
+                  width: 64px;
+                  height: 64px;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__share-social-item
+                  i {
+                  width: 44px;
+                  height: 44px;
+              }
+
+              .nebule-event-details .nebule-event-details__ticket-modal-row {
+                  padding: 16px 0;
+              }
+          }
+
+          /* Modals - tablet (≤991px) - ensure full width on narrow viewports */
+          @media (max-width: 991px) {
+              .nebule-event-details
+                  .nebule-event-details__modal
+                  .modal-dialog {
+                  margin: 1rem auto;
+              }
+
+              .nebule-event-details
+                  .nebule-event-details__share-modal
+                  .modal-dialog,
+              .nebule-event-details
+                  .nebule-event-details__ticket-modal
+                  .modal-dialog {
+                  max-width: min(560px, calc(100vw - 2rem));
+              }
+          }
+
+          /* Sticky bar - mobile */
+          @media (max-width: 767px) {
+              .nebule-event-details .nebule-event-details__sticky-bar {
+                  padding: 10px 16px;
+              }
+
+              .nebule-event-details .nebule-event-details__sticky-bar-inner {
+                  gap: 12px;
+              }
+
+              .nebule-event-details .nebule-event-details__sticky-bar-img {
+                  width: 44px;
+                  height: 44px;
+              }
+
+              .nebule-event-details .nebule-event-details__sticky-bar-title {
+                  font-size: 0.9rem;
+              }
+
+              .nebule-event-details .nebule-event-details__sticky-bar-date {
+                  font-size: 0.75rem;
+              }
+
+              .nebule-event-details .nebule-event-details__sticky-bar-share {
+                  width: 36px;
+                  height: 36px;
+              }
+
+              .nebule-event-details .nebule-event-details__sticky-bar-cta {
+                  padding: 10px 14px;
+                  font-size: 0.875rem;
+              }
+              .nebule-event-details__share-social-item i {
+                  width: 35px;
+                  height: 35px;
+                  font-size: 1rem;
+              }
+          }
+

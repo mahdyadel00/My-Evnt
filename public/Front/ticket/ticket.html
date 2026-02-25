@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Ticket</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- fave icon -->
+        <link rel="icon" type="image/png" href="logo-white.png" />
+        <style>
+            /* ticket confirm page */
+            .ticket-section {
+                width: 100%;
+                max-width: 600px;
+                margin: 0px auto;
+                display: grid;
+                font-family: sans-serif;
+                color: black;
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                height: 90vh;
+            }
+
+            .ticket-data {
+                margin: auto;
+                display: flex;
+                background: white;
+                box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+                    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+                border-radius: 10px;
+            }
+
+            .ticket-data .left {
+                display: flex;
+                width: 70%;
+            }
+
+            .ticket-data .left .ticket-number {
+                height: 250px;
+                width: 250px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                padding: 5px;
+            }
+
+            .ticket-data .left .ticket-info {
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .ticket-info .date {
+                border-top: 1px solid gray;
+                border-bottom: 1px solid gray;
+                padding: 5px 0;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                width: 100%;
+            }
+
+            .ticket-info .date span {
+                width: 100px;
+            }
+
+            .ticket-info .date span:first-child {
+                text-align: left;
+            }
+
+            .ticket-info .date span:last-child {
+                text-align: right;
+            }
+
+            .ticket-info .date .day {
+                color: #ed7326;
+                font-size: 20px;
+            }
+
+            .ticket-info .ticket-name h1 {
+                font-size: 30px;
+                color: #ed7326;
+                font-weight: 600;
+            }
+
+            .event-time p {
+                padding: 10px 0;
+                color: #4a437e;
+                text-align: center;
+                /* display: flex;
+  flex-direction: column; */
+                gap: 10px;
+                font-weight: 700;
+            }
+
+            .event-time span {
+                font-weight: 600;
+                color: #4a437e;
+            }
+
+            .event-time {
+                font-size: 16px;
+            }
+
+            .ticket-info .Company-Name {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                padding-top: 8px;
+                border-top: 1px solid gray;
+            }
+
+            .ticket-data .right {
+                width: 30%;
+                border-left: 1px dashed #404040;
+            }
+
+            .ticket-data .right .right-info-container {
+                height: 320px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .right-info-container .logo img {
+                width: 150px;
+                height: 60px;
+            }
+
+            .ticket-data .right .show-name h1 {
+                font-size: 18px;
+            }
+
+            .right-info-container .barcode {
+                height: 100px;
+            }
+
+            .right-info-container .barcode img {
+                height: 100%;
+            }
+
+            .right .ticket-number {
+                color: gray;
+            }
+
+            .right .event-time p {
+                font-size: 12px;
+            }
+
+            @media screen and (max-width: 700px) {
+                .ticket-section {
+                    width: 96%;
+                    margin: 30px auto;
+                }
+
+                .ticket-data {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .ticket-data .left .ticket-info {
+                    padding: 5px 0;
+                }
+
+                .ticket-info .ticket-name h1 {
+                    font-size: 25px;
+                    padding: 20px 0;
+                }
+
+                .ticket-info .Company-Name {
+                    font-size: 12px;
+                }
+
+                .ticket-data .left {
+                    width: 100%;
+                }
+
+                .ticket-info .date {
+                    border-top: none;
+                }
+
+                .ticket-data .right {
+                    width: 100%;
+                    border: none;
+                }
+
+                .ticket-data .right .right-info-container {
+                    height: auto;
+                    margin: 10px 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- start ticket -->
+        <section class="ticket-section">
+            <div class="ticket-data">
+                <div class="left">
+                    <div class="ticket-info">
+                        <p class="date">
+                            <span>TUESDAY</span>
+                            <span class="day">SEP 29TH</span>
+                            <span>2024</span>
+                        </p>
+                        <div class="ticket-name">
+                            <h1>Music Festival Prom Tickets</h1>
+                        </div>
+                        <div class="event-time">
+                            <p>
+                                <span>8:00 PM</span> <span>TO</span>
+                                <span>11:00 PM</span>
+                            </p>
+                        </div>
+                        <div class="Company-Name">
+                            <span>Company Name</span>
+                            <span class="separator"
+                                ><i class="far fa-smile"></i
+                            ></span>
+                            <span class="location"
+                                >Egypt, Cairo, Cairo City</span
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="right-info-container">
+                        <div class="show-name logo">
+                            <img src="logo.png" alt="logo" />
+                        </div>
+                        <div class="event-time">
+                            <p>
+                                <span>8:00 PM</span> <span>TO</span>
+                                <span>11:00 PM</span>
+                            </p>
+                            <p>Scan the QR code</p>
+                        </div>
+                        <div class="barcode">
+                            <img
+                                src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb"
+                                alt="QR code"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end ticket -->
+    </body>
+</html>

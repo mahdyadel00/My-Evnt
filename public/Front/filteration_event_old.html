@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Search Interface</title>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/filteration.css" />
+    <!-- Flatpickr  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <style>
+        /* Parent Container Styles */
+  .filteration-event-main-container {
+    background: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Arial, sans-serif;
+    /* min-height: 100vh; */
+    color: #333;
+  }
+
+  .filteration-event-header-wrapper {
+    padding: 40px 20px 60px;
+    text-align: center;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  }
+
+  .filteration-event-search-container {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    position: relative;
+    padding: 0 20px;
+  }
+
+  .filteration-event-search-input {
+    width: 100%;
+    padding: 16px 24px 16px 50px;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(237, 115, 38, 0.1);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    min-height: 52px;
+    box-sizing: border-box;
+  }
+
+  .filteration-event-search-input:focus {
+    border-color: #ed7326;
+    box-shadow: 0 4px 25px rgba(237, 115, 38, 0.2);
+  }
+
+  .filteration-event-search-icon {
+    position: absolute;
+    left: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 18px;
+  }
+
+  .filteration-event-category-title {
+    color: #ed7326;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .filteration-event-categories-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .filteration-event-categories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .filteration-event-category-count {
+    color: #666;
+    font-size: 14px;
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+  }
+
+  .filteration-event-categories-slider {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 15px;
+    position: relative;
+  }
+
+  .filteration-event-categories-slider::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .filteration-event-categories-slider::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+  }
+
+  .filteration-event-categories-slider::-webkit-scrollbar-thumb {
+    background: #ed7326;
+    border-radius: 6px;
+  }
+
+  .filteration-event-categories-slider::-webkit-scrollbar-thumb:hover {
+    background: #d65a1b;
+  }
+
+  .filteration-event-categories-slider.grid-view {
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding: 15px 0;
+  }
+
+  .filteration-event-categories-slider.grid-view .filteration-event-categories-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    width: 100%;
+    padding: 0;
+    overflow: visible;
+  }
+
+  @media (max-width: 768px) {
+    .filteration-event-categories-slider.grid-view .filteration-event-categories-row {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .filteration-event-categories-slider.grid-view .filteration-event-categories-row {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 12px;
+    }
+  }
+
+  .filteration-event-categories-row {
+    display: flex;
+    gap: 20px;
+    padding: 0 10px;
+    width: max-content;
+  }
+
+  .filteration-event-slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    position: relative;
+  }
+
+  .filteration-event-view-toggle {
+    display: flex;
+    gap: 5px;
+    background: #f8f9fa;
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+
+  .filteration-event-toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    color: #666;
+  }
+
+  .filteration-event-toggle-btn.active {
+    background: #ed7326;
+    color: white;
+    width: 100%;
+  }
+
+  .filteration-event-slider-btn {
+    background: #ed7326;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 18px;
+  }
+
+  .filteration-event-slider-btn:hover {
+    background: #d65a1b;
+    transform: scale(1.1);
+  }
+
+  .filteration-event-slider-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /*  Category Section */
+
+  .filteration-event-cards-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .filteration-event-category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 10px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    min-width: 120px;
+    scroll-snap-align: start;
+  }
+
+  .filteration-event-category-item:hover {
+    border-color: #ed7326;
+    /* transform: translateY(-3px); */
+    box-shadow: 0 8px 30px rgba(237, 115, 38, 0.15);
+  }
+
+  .filteration-event-category-item.selected {
+    border-color: #ed7326;
+    background: linear-gradient(135deg, #ed7326 0%, #d65a1b 100%);
+    color: white;
+    box-shadow: 0 6px 20px rgba(237, 115, 38, 0.4);
+    transform: translateY(-2px) scale(1.02);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .filteration-event-category-item.selected::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent);
+    transition: left 0.5s;
+  }
+
+  .filteration-event-category-item.selected:hover::before {
+    left: 100%;
+  }
+
+  .filteration-event-category-item.selected .filteration-event-category-icon {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+  }
+
+  .filteration-event-category-item.selected .filteration-event-category-label {
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+
+  .filteration-event-category-item.selected .filteration-event-category-icon img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+    transform: scale(1.1);
+  }
+
+  .filteration-event-category-icon {
+    width: 50px;
+    height: 50px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 7px;
+    transition: all 0.3s ease;
+  }
+
+  .filteration-event-category-icon img {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+    filter: brightness(0) saturate(100%) invert(42%) sepia(6%) saturate(6%) hue-rotate(349deg) brightness(95%) contrast(88%);
+  }
+
+  .filteration-event-category-label {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* filteration event by using select */
+
+  .filteration-event-filters-section {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Container for filters row */
+  .filteration-event-filters-container {
+    width: 100%;
+  }
+
+  .filteration-event-filters-container .filteration-event-filters-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    align-items: end;
+  }
+
+  /* Filter Group */
+  .filteration-event-filters-row .filteration-event-filter-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filteration-event-filter-group .filteration-event-filter-label {
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    padding-left: 12px;
+  }
+
+  /* Custom Select Styling */
+  .filteration-event-filter-group .filteration-event-custom-select {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .filteration-event-custom-select .filteration-event-select-button {
+    /* width: 100%; */
+    padding: 0 1rem;
+    /* background: linear-gradient(145deg, #ffffff, #f7fafc); */
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #4a5568;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 50px;
+  }
+
+  /* .filteration-event-select-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(237, 115, 38, 0.1),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+
+  .filteration-event-select-button:hover::before {
+    left: 100%;
+  } */
+
+  /* .filteration-event-select-button:hover {
+    border-color: #ed7326;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(237, 115, 38, 0.2);
+  } */
+
+  .filteration-event-select-button.filteration-event-select-active {
+    border-color: #ed7326;
+    box-shadow: 0 0 0 4px rgba(237, 115, 38, 0.15);
+    background: linear-gradient(145deg, #ffffff, #fef8f4);
+  }
+
+  .filteration-event-select-button .filteration-event-select-text {
+    flex: 1;
+    text-align: left;
+    color: #555 !important;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .filteration-event-select-button .filteration-event-select-arrow {
+    transition: transform 0.35s ease;
+    font-size: 0.8rem;
+    color: #ed7226aa;
+    font-weight: bold;
+    margin-left: 1rem;
+  }
+
+  .filteration-event-select-button.filteration-event-select-active .filteration-event-select-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown Menu */
+  .filteration-event-custom-select .filteration-event-select-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #ed7326;
+    border-radius: 16px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px) scale(0.95);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 20px 40px rgba(237, 115, 38, 0.15),
+      0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .filteration-event-select-dropdown.filteration-event-select-dropdown-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .filteration-event-select-dropdown .filteration-event-select-option {
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border-bottom: 1px solid #f1f5f9;
+    font-weight: 400;
+    color: #4a5568;
+    position: relative;
+    overflow: hidden;
+    font-size: 0.9rem;
+  }
+
+  .filteration-event-select-option::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(237, 115, 38, 0.1),
+        transparent);
+    transition: left 0.4s ease;
+  }
+
+  .filteration-event-select-option:hover::before {
+    left: 100%;
+  }
+
+  .filteration-event-select-option:hover {
+    background: linear-gradient(145deg, #ed7326, #d65d1f);
+    color: white;
+    font-weight: 500;
+  }
+
+  .filteration-event-select-option:last-child {
+    border-bottom: none;
+  }
+
+  .filteration-event-select-option:first-child:hover {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .filteration-event-select-option:last-child:hover {
+    border-radius: 0 0 14px 14px;
+  }
+
+  /* Date Input Styling */
+  .filteration-event-filter-group .filteration-event-date-input,
+  .filteration-event-filter-group #filteration-event-date-select {
+    padding: 0rem 1rem;
+    background: linear-gradient(145deg, #ffffff, #f7fafc);
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #4a5568;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 50px;
+  }
+
+  .filteration-event-date-input:focus,
+  .filteration-event-filter-group #filteration-event-date-select:focus {
+    outline: none;
+    border-color: #ed7326;
+    box-shadow: 0 0 0 4px rgba(237, 115, 38, 0.15);
+    transform: translateY(-3px);
+    background: linear-gradient(145deg, #ffffff, #fef8f4);
+    z-index: 1000 !important;
+  }
+
+  .filteration-event-date-input::-webkit-calendar-picker-indicator,
+  .filteration-event-filter-group #filteration-event-date-select::-webkit-calendar-picker-indicator {
+    color: #ed7326;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 6px;
+    margin-right: 4px;
+    z-index: 1000 !important;
+  }
+
+  .filteration-event-date-input::-webkit-calendar-picker-indicator:hover,
+  .filteration-event-filter-group #filteration-event-date-select::-webkit-calendar-picker-indicator:hover {
+    transform: scale(1.1);
+    z-index: 1000 !important;
+  }
+
+  .filteration-event-filter-group .filteration-event-date-input::placeholder {
+    color: #555 !important;
+    font-size: 1rem;
+    font-weight: 400 !important;
+  }
+
+  /* Active Filters Section */
+  .filteration-event-filters-section .filteration-event-active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    margin: .5rem 0;
+    border-top: 2px solid #f1f5f9;
+    align-items: center;
+  }
+
+  .filteration-event-active-filters .filteration-event-filter-pill {
+    background: #fff;
+    color: #ed7326;
+    padding: .5rem;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: filteration-event-slideIn 0.4s ease;
+    border: 2px solid #ed7326;
+  }
+
+  .filteration-event-filter-pill .filteration-event-pill-remove {
+    cursor: pointer;
+    /* width: 20px;
+    height: 20px; */
+    background: #ed7326;
+    padding: 2px 8px;
+    border-radius: 25px;
+    color: #fff;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.25s ease;
+  }
+
+
+  @keyframes filteration-event-slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-25px) scale(0.8);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  /* Clear All Button */
+  .filteration-event-active-filters .filteration-event-clear-all-button {
+    background: #ed7326;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.35s ease;
+    margin-left: auto;
+    box-shadow: 0 4px 15px rgba(237, 115, 38, 0.3);
+    border: 2px solid #ed7326;
+  }
+
+  .filteration-event-clear-all-button:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(237, 115, 38, 0.4);
+  }
+
+  /* Custom Scrollbar */
+  .filteration-event-select-dropdown::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .filteration-event-select-dropdown::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+
+  .filteration-event-select-dropdown::-webkit-scrollbar-thumb {
+    background: #ed7326;
+    border-radius: 4px;
+  }
+
+  .filteration-event-select-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #ed7326;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .filteration-event-filters-section {
+      padding: 1rem .5rem;
+      margin: 1rem 0;
+    }
+
+    .filteration-event-filters-container .filteration-event-filters-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .filteration-event-active-filters {
+      justify-content: center;
+    }
+
+    .filteration-event-clear-all-button {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  }
+
+  /* Loading Animation */
+  @keyframes filteration-event-pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .filteration-event-loading {
+    animation: filteration-event-pulse 1.8s ease-in-out infinite;
+  }
+
+  /* Enhanced Focus States */
+  .filteration-event-select-button:focus,
+  .filteration-event-date-input:focus {
+    outline: none;
+    border-color: #ed7326;
+    box-shadow: 0 0 0 4px rgba(237, 115, 38, 0.15);
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .filteration-event-select-option,
+  .filteration-event-filter-pill,
+  .filteration-event-clear-all-button,
+  .filteration-event-select-button,
+  .filteration-event-date-input {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /*  Results Section */
+
+  .filteration-event-results-section {
+    padding: 10px 0;
+  }
+
+  .filteration-event-results-container , .filteration-event-results-container-top {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .filteration-event-results-header {
+    margin-bottom: 30px;
+  }
+
+  .filteration-event-results-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .filteration-event-results-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .filteration-event-results-count {
+    color: #666;
+    font-size: 14px;
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    white-space: nowrap;
+  }
+
+  .filteration-event-results-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #064554;
+    margin: 5px;
+  }
+
+  .filteration-event-results-subtitle {
+    color: #666;
+    font-size: 16px;
+  }
+
+  .filteration-event-cards-container {
+    position: relative;
+  }
+
+  .filteration-event-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+
+  .filteration-event-cards-grid.slider-view {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 15px;
+    padding-bottom: 20px;
+  }
+
+  .filteration-event-cards-grid.slider-view::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .filteration-event-cards-grid.slider-view::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+  }
+
+  .filteration-event-cards-grid.slider-view::-webkit-scrollbar-thumb {
+    background: #ed7326;
+    border-radius: 8px;
+  }
+
+  .filteration-event-cards-grid.slider-view .filteration-event-card {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+  }
+
+  .filteration-event-card {
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+  }
+
+  .filteration-event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 35px rgba(237, 115, 38, 0.15);
+    border-color: #ed7326;
+  }
+
+  /* .filteration-event-card:hover .filteration-event-card-image {
+    transform: scale(1.05);
+  } */
+
+  .filteration-event-card-image {
+    transition: transform 0.3s ease;
+  }
+
+  /* .filteration-event-cards-grid.slider-view .filteration-event-card:hover {
+    transform: translateY(-3px) scale(1.02);
+  } */
+
+  .filteration-event-card-image {
+    width: 100%;
+    height: 200px;
+    /* object-fit: cover; */
+    border-radius: 0;
+  }
+
+  .filteration-event-card-content {
+    padding: 10px;
+  }
+
+  .filteration-event-card-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filteration-event-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.3;
+    flex: 1;
+    margin: 5px 0px;
+  }
+
+  .filteration-event-card-category {
+    margin-top: 5px;
+    background: #ed7326;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: fit-content;
+  }
+
+  .filteration-event-card-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 1rem;
+    font-weight: 400;
+  }
+
+  .filteration-event-card-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .filteration-event-card-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .filteration-event-card-detail-icon {
+    color: #ed7326;
+    font-size: 16px;
+  }
+
+  .filteration-event-card-detail-label {
+    color: #999;
+    font-weight: 500;
+  }
+
+  .filteration-event-card-detail-value {
+    color: #333;
+    font-weight: 600;
+  }
+
+  .filteration-event-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #d6d6d639;
+    background: #d6d6d643;
+  }
+
+  .filteration-event-card-price {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .filteration-event-details-btn {
+    background: #ed7326;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .filteration-event-details-btn:hover {
+    background: #d65a1b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(237, 115, 38, 0.3);
+  }
+
+  /* Pagination Styles */
+  .filteration-event-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .filteration-event-pagination-btn {
+    background: white;
+    border: 2px solid #e0e0e0;
+    color: #666;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .filteration-event-pagination-btn:hover {
+    border-color: #ed7326;
+    color: #ed7326;
+    transform: translateY(-2px);
+  }
+
+  .filteration-event-pagination-btn.active {
+    background: #ed7326;
+    border-color: #ed7326;
+    color: white;
+  }
+
+  .filteration-event-pagination-btn.disabled {
+    background: #f5f5f5;
+    border-color: #e0e0e0;
+    color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .filteration-event-pagination-btn.disabled:hover {
+    background: #f5f5f5;
+    border-color: #e0e0e0;
+    color: #ccc;
+    transform: none;
+  }
+
+  .filteration-event-pagination-dots {
+    color: #999;
+    font-size: 16px;
+    padding: 0 5px;
+  }
+
+  .filteration-event-card-price-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ed7326;
+  }
+
+  .filteration-event-card-price-currency {
+    font-size: 14px;
+    color: #999;
+  }
+
+  /* Enhanced Responsive Design */
+
+  /* Large Desktop (1440px and above) */
+  @media (min-width: 1440px) {
+    .filteration-event-main-container {
+      font-size: 16px;
+    }
+
+    .filteration-event-search-container {
+      max-width: 700px;
+    }
+
+    .filteration-event-cards-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .filteration-event-categories-container {
+      max-width: 1200px;
+    }
+  }
+
+  /* iPad Pro and Large Tablets (1024px - 1439px) */
+  @media (max-width: 1439px) and (min-width: 1025px) {
+    .filteration-event-cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .filteration-event-search-container {
+      max-width: 650px;
+    }
+  }
+
+  /* iPad and Large Tablets (769px - 1024px) */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .filteration-event-main-container {
+      font-size: 15px;
+    }
+
+    .filteration-event-header-wrapper {
+      padding: 30px 20px 45px;
+    }
+
+    .filteration-event-search-container {
+      max-width: 550px;
+      padding: 0 20px;
+    }
+
+    .filteration-event-search-input {
+      padding: 16px 20px 16px 50px;
+      font-size: 16px;
+      min-height: 56px;
+      border-radius: 28px;
+    }
+
+    .filteration-event-search-icon {
+      left: 22px;
+      font-size: 18px;
+    }
+
+    .filteration-event-categories-container {
+      padding: 0 20px;
+    }
+
+    .filteration-event-categories-row {
+      gap: 16px;
+      padding: 0 10px;
+      width: 100%;
+      max-width: 100%;
+      justify-content: space-between;
+    }
+
+    .filteration-event-category-item {
+      min-width: 100px;
+      max-width: 120px;
+      padding: 16px 12px;
+      flex: 1;
+    }
+
+    .filteration-event-category-icon {
+      width: 46px;
+      height: 46px;
+    }
+
+    .filteration-event-category-label {
+      font-size: 13px;
+    }
+
+    .filteration-event-filters-section {
+      padding: 10px 5px;
+    }
+
+    .filteration-event-filters-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .filteration-event-filter-select {
+      min-height: 48px;
+      font-size: 15px;
+      padding: 12px 40px 12px 16px;
+    }
+
+    .filteration-event-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .filteration-event-cards-grid.slider-view .filteration-event-card {
+      flex: 0 0 300px;
+    }
+
+    .filteration-event-results-header-content {
+      gap: 18px;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .filteration-event-results-controls {
+      gap: 15px;
+    }
+
+    .filteration-event-results-count {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+
+    .filteration-event-toggle-btn {
+      min-height: 44px;
+      padding: 10px 16px;
+      font-size: 13px;
+    }
+
+    .filteration-event-card-title {
+      font-size: 17px;
+    }
+
+    .filteration-event-card-description {
+      font-size: 14px;
+    }
+
+    .filteration-event-card-footer {
+      padding: 14px 18px;
+    }
+
+    .filteration-event-pagination {
+      gap: 8px;
+      padding: 18px;
+    }
+
+    .filteration-event-pagination-btn {
+      min-width: 40px;
+      min-height: 40px;
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+  }
+
+  /* Small Tablets and Large Phones (481px - 768px) */
+  @media (max-width: 768px) and (min-width: 481px) {
+    .filteration-event-main-container {
+      font-size: 14px;
+    }
+
+    .filteration-event-header-wrapper {
+      padding: 25px 15px 40px;
+    }
+
+    .filteration-event-search-container {
+      padding: 0 15px;
+      margin: 0 auto 20px;
+      max-width: 400px;
+    }
+
+    .filteration-event-search-input {
+      padding: 14px 16px 14px 42px;
+      font-size: 15px;
+      min-height: 50px;
+      border-radius: 25px;
+    }
+
+    .filteration-event-search-icon {
+      left: 18px;
+      font-size: 16px;
+    }
+
+    .filteration-event-categories-container {
+      padding: 0 15px;
+    }
+
+    .filteration-event-categories-row {
+      gap: 12px;
+      padding: 0 8px;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .filteration-event-category-item {
+      min-width: 85px;
+      max-width: 100px;
+      padding: 14px 10px;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      touch-action: manipulation;
+    }
+
+    .filteration-event-category-icon {
+      width: 42px;
+      height: 42px;
+    }
+
+    .filteration-event-category-label {
+      font-size: 12px;
+    }
+
+    .filteration-event-slider-controls {
+      margin-top: 12px;
+    }
+
+    .filteration-event-slider-btn {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+      touch-action: manipulation;
+    }
+
+
+    .filteration-event-filters-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .filteration-event-filter-select {
+      min-height: 44px;
+      font-size: 14px;
+      padding: 11px 36px 11px 12px;
+    }
+
+    .filteration-event-cards-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .filteration-event-cards-grid.slider-view .filteration-event-card {
+      flex: 0 0 280px;
+    }
+
+    .filteration-event-results-header-content {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .filteration-event-results-controls {
+      align-self: stretch;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .filteration-event-results-count {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+
+    .filteration-event-toggle-btn {
+      min-height: 40px;
+      padding: 8px 12px;
+      touch-action: manipulation;
+      font-size: 11px;
+    }
+
+    .filteration-event-card-title {
+      font-size: 16px;
+    }
+
+    .filteration-event-card-description {
+      font-size: 13px;
+    }
+
+    .filteration-event-card-footer {
+      padding: 10px 15px;
+    }
+
+    .filteration-event-pagination {
+      flex-wrap: wrap;
+      gap: 5px;
+      padding: 12px;
+    }
+
+    .filteration-event-pagination-btn {
+      min-width: 36px;
+      min-height: 36px;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .filteration-event-categories-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .filteration-event-category-count {
+      font-size: 13px;
+      padding: 7px 14px;
+    }
+
+    .filteration-event-slider-indicators {
+      margin-top: 12px;
+    }
+
+    .filteration-event-categories-slider.grid-view .filteration-event-categories-row {
+      grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+      gap: 12px;
+    }
+
+    .filteration-event-actions-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .filteration-event-action-button {
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      font-size: 14px;
+      touch-action: manipulation;
+    }
+
+    .filteration-event-details-btn {
+      padding: 9px 18px;
+      touch-action: manipulation;
+    }
+
+    .filteration-event-results-title {
+      font-size: 26px;
+    }
+
+    .filteration-event-results-subtitle {
+      font-size: 15px;
+    }
+  }
+
+  /* Mobile Phones (up to 480px) */
+  @media (max-width: 480px) {
+    .filteration-event-main-container {
+      font-size: 14px;
+    }
+
+    .filteration-event-header-wrapper {
+      padding: 25px 5px;
+    }
+
+    .filteration-event-search-container {
+      padding: 0 12px;
+      margin: 0 auto 18px;
+      max-width: none;
+    }
+
+    .filteration-event-search-input {
+      padding: 14px 12px 14px 38px;
+      font-size: 16px;
+      min-height: 48px;
+      border-radius: 24px;
+      border-width: 1px;
+    }
+
+    .filteration-event-search-icon {
+      font-size: 16px;
+      left: 20px;
+    }
+
+    .filteration-event-categories-container {
+      padding: 0 12px;
+    }
+
+    .filteration-event-category-title {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .filteration-event-categories-header {
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .filteration-event-category-item {
+      min-width: 85px;
+      padding: 12px 6px;
+      border-radius: 12px;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .filteration-event-category-item:active {
+      transform: scale(0.95);
+    }
+
+    .filteration-event-category-item.selected:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    .filteration-event-category-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+
+    .filteration-event-category-icon img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .filteration-event-category-label {
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .filteration-event-slider-btn {
+      width: 38px;
+      height: 38px;
+      font-size: 15px;
+    }
+
+    .filteration-event-slider-controls {
+      margin-top: 12px;
+    }
+
+    .filteration-event-slider-indicators {
+      margin-top: 8px;
+    }
+
+    .filteration-event-slider-indicator {
+      width: 6px;
+      height: 6px;
+    }
+
+    .filteration-event-filters-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .filteration-event-filter-select {
+      min-height: 44px;
+      font-size: 15px;
+      padding: 11px 35px 11px 12px;
+      border-radius: 6px;
+    }
+
+    .filteration-event-select-arrow {
+      right: 10px;
+      margin-top: 10px;
+    }
+
+    .filteration-event-filter-label {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .filteration-event-results-section {
+      padding: 8px 0;
+    }
+
+    .filteration-event-results-container , .filteration-event-results-container-top {
+      padding: 0 12px;
+    }
+
+    .filteration-event-results-title {
+      font-size: 22px;
+      margin: 3px 0;
+    }
+
+    .filteration-event-results-subtitle {
+      font-size: 14px;
+      margin: 3px 0;
+    }
+
+    .filteration-event-results-header-content {
+      gap: 12px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .filteration-event-results-controls {
+      /* flex-direction: column; */
+      gap: 10px;
+      align-items: center;
+    }
+
+    .filteration-event-results-count {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+
+    .filteration-event-view-toggle {
+      width: 100%;
+      justify-content: center;
+      max-width: 200px;
+    }
+
+    .filteration-event-toggle-btn {
+      min-height: 38px;
+      padding: 8px 12px;
+      font-size: 12px;
+      flex: 1;
+    }
+
+    .filteration-event-cards-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .filteration-event-cards-grid.slider-view {
+      gap: 15px;
+      padding-bottom: 15px;
+    }
+
+    .filteration-event-cards-grid.slider-view .filteration-event-card {
+      flex: 0 0 320px;
+    }
+
+    .filteration-event-card {
+      border-radius: 12px;
+    }
+
+    .filteration-event-card:hover {
+      transform: translateY(-1px);
+    }
+
+    .filteration-event-card-content {
+      padding: 12px;
+    }
+
+    .filteration-event-card-title {
+      font-size: 16px;
+      margin: 4px 0;
+    }
+
+    .filteration-event-card-description {
+      font-size: 13px;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .filteration-event-card-category {
+      font-size: 11px;
+      padding: 3px 10px;
+    }
+
+    .filteration-event-card-details {
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .filteration-event-card-detail {
+      font-size: 13px;
+      gap: 6px;
+    }
+
+    .filteration-event-card-footer {
+      /* flex-direction: column; */
+      gap: 8px;
+      text-align: center;
+      padding: 12px 15px;
+    }
+
+    .filteration-event-card-price-amount {
+      font-size: 18px;
+    }
+
+    .filteration-event-details-btn {
+      /* width: 100%; */
+      padding: 10px 16px;
+      font-size: 13px;
+      border-radius: 6px;
+    }
+
+    .filteration-event-actions-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .filteration-event-action-button {
+      min-height: 44px;
+      padding: 12px 16px;
+      font-size: 14px;
+      border-radius: 6px;
+      justify-content: center;
+    }
+
+    .filteration-event-pagination {
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 12px;
+      margin-top: 25px;
+    }
+
+    .filteration-event-pagination-btn {
+      min-width: 36px;
+      min-height: 36px;
+      padding: 8px 10px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+
+    .filteration-event-pagination-dots {
+      font-size: 14px;
+    }
+
+    .filteration-event-cards-controls {
+      margin-top: 15px;
+    }
+
+    .filteration-event-cards-indicators {
+      margin-top: 10px;
+    }
+
+    .filteration-event-categories-slider.grid-view .filteration-event-categories-row {
+      grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+      gap: 10px;
+    }
+  }
+
+  /* Extra Small Devices (320px - 360px) */
+  @media (max-width: 360px) {
+    .filteration-event-search-container {
+      padding: 0 8px;
+    }
+
+    .filteration-event-search-input {
+      padding: 12px 10px 12px 35px;
+      min-height: 44px;
+      font-size: 15px;
+    }
+
+    .filteration-event-search-icon {
+      font-size: 15px;
+      left: 15px;
+    }
+
+    .filteration-event-categories-container {
+      padding: 0 8px;
+    }
+
+    .filteration-event-category-item {
+      min-width: 75px;
+      padding: 10px 4px;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .filteration-event-category-item:active {
+      transform: scale(0.95);
+    }
+
+    .filteration-event-category-item.selected:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    .filteration-event-category-icon {
+      width: 35px;
+      height: 35px;
+    }
+
+    .filteration-event-category-icon img {
+      width: 18px;
+      height: 18px;
+    }
+
+    .filteration-event-category-label {
+      font-size: 10px;
+    }
+
+    .filteration-event-results-container,
+    .filteration-event-filters-container,
+    .filteration-event-results-container-top {
+      padding: 0 10px;
+    }
+
+    .filteration-event-cards-grid.slider-view .filteration-event-card {
+      flex: 0 0 280px;
+    }
+
+    .filteration-event-card-title {
+      font-size: 15px;
+    }
+
+    .filteration-event-results-title {
+      font-size: 20px;
+    }
+  }
+
+  /* Landscape Orientation for Mobile */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .filteration-event-header-wrapper {
+      padding: 15px 5px;
+    }
+
+    .filteration-event-category-item {
+      padding: 12px 8px;
+    }
+
+    .filteration-event-category-icon {
+      width: 35px;
+      height: 35px;
+      margin-bottom: 4px;
+    }
+
+    .filteration-event-slider-controls {
+      margin-top: 10px;
+    }
+  }
+
+  /* High DPI / Retina Displays */
+  @media (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi) {
+    .filteration-event-category-icon img {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+  }
+
+  /* Print Styles */
+  @media print {
+
+    .filteration-event-slider-controls,
+    .filteration-event-slider-indicators,
+    .filteration-event-cards-controls,
+    .filteration-event-cards-indicators,
+    .filteration-event-pagination {
+      display: none !important;
+    }
+
+    .filteration-event-cards-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .filteration-event-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+    </style>
+</head>
+
+<body>
+    <div class="filteration-event-main-container">
+        <!-- Header Section category and search -->
+        <div class="filteration-event-header-wrapper">
+            <div class="filteration-event-search-container">
+                <!-- input search -->
+                <div class="filteration-event-search-icon">🔍</div>
+                <input type="text" class="filteration-event-search-input"
+                    placeholder="Search by Event Name , Location , Category"
+                    aria-label="Search events by name, location, or category" autocomplete="off" spellcheck="false" />
+            </div>
+
+            <div class="filteration-event-categories-container">
+                <!-- Category Header -->
+                <div class="filteration-event-categories-header">
+                    <div>
+                        <div class="filteration-event-category-title">
+                            Search by Category
+                        </div>
+                    </div>
+                    <div style="
+                                display: flex;
+                                align-items: center;
+                                gap: 15px;
+                            ">
+                        <div class="filteration-event-category-count">
+                            <span id="categoryCount">10</span> Categories
+                        </div>
+                        <div class="filteration-event-view-toggle">
+                            <button class="filteration-event-toggle-btn active" onclick="toggleView('slider')"
+                                id="sliderViewBtn">
+                                Slider
+                            </button>
+                            <button class="filteration-event-toggle-btn" onclick="toggleView('grid')" id="gridViewBtn">
+                                Grid
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Universal Slider Layout -->
+                <div class="filteration-event-categories-slider" id="categorySlider">
+                    <div class="filteration-event-categories-row">
+                        <a href="#" class="filteration-event-category-item selected">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/music.svg" alt="Music" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Music
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/Bussines.svg" alt="Business" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Business
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/comdey.svg" alt="Comedy" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Comedy
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/culture.svg" alt="Culture" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Culture
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/education.svg" alt="Education" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Education
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/sports.svg" alt="Sports" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Sports
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/bazaars.svg" alt="Bazaars" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Bazaars
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/workshop.svg" alt="Workshop" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Workshop
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/Enterainment.svg" alt="Entertainment" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Entertainment
+                            </div>
+                        </a>
+
+                        <a href="#" class="filteration-event-category-item">
+                            <div class="filteration-event-category-icon">
+                                <img src="img/category/Health & Wellness.svg" alt="Health & Wellness" />
+                            </div>
+                            <div class="filteration-event-category-label">
+                                Health & Wellness
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Slider Navigation Controls -->
+                <div class="filteration-event-slider-controls">
+                    <button class="filteration-event-slider-btn" id="prevBtn" onclick="slideCategories('prev')"
+                        title="Previous Categories">
+                        ‹
+                    </button>
+                    <button class="filteration-event-slider-btn" id="nextBtn" onclick="slideCategories('next')"
+                        title="Next Categories">
+                        ›
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filteration-event-filters-section">
+            <div class="filteration-event-filters-container">
+                <div class="filteration-event-filters-row">
+                    <!-- Category Filter -->
+                    <div class="filteration-event-filter-group">
+                        <label class="filteration-event-filter-label">Category</label>
+                        <div class="filteration-event-custom-select" data-filter="category">
+                            <div class="filteration-event-select-button">
+                                <span class="filteration-event-select-text">Select Category</span>
+                                <span class="filteration-event-select-arrow">▼</span>
+                            </div>
+                            <div class="filteration-event-select-dropdown">
+                                <div class="filteration-event-select-option" data-value="">
+                                    All Categories
+                                </div>
+                                <div class="filteration-event-select-option" data-value="music">
+                                    Music
+                                </div>
+                                <div class="filteration-event-select-option" data-value="business">
+                                    Business
+                                </div>
+                                <div class="filteration-event-select-option" data-value="comedy">
+                                    Comedy
+                                </div>
+                                <div class="filteration-event-select-option" data-value="culture">
+                                    Culture
+                                </div>
+                                <div class="filteration-event-select-option" data-value="education">
+                                    Education
+                                </div>
+                                <div class="filteration-event-select-option" data-value="sports">
+                                    Sports
+                                </div>
+                                <div class="filteration-event-select-option" data-value="bazaars">
+                                    Bazaars
+                                </div>
+                                <div class="filteration-event-select-option" data-value="workshop">
+                                    Workshop
+                                </div>
+                                <div class="filteration-event-select-option" data-value="entertainment">
+                                    Entertainment
+                                </div>
+                                <div class="filteration-event-select-option" data-value="health">
+                                    Health & Wellness
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- City Filter -->
+                    <div class="filteration-event-filter-group">
+                        <label class="filteration-event-filter-label">City</label>
+                        <div class="filteration-event-custom-select" data-filter="city">
+                            <div class="filteration-event-select-button">
+                                <span class="filteration-event-select-text">Select City</span>
+                                <span class="filteration-event-select-arrow">▼</span>
+                            </div>
+                            <div class="filteration-event-select-dropdown">
+                                <div class="filteration-event-select-option" data-value="">
+                                    All Cities
+                                </div>
+                                <div class="filteration-event-select-option" data-value="cairo">
+                                    Cairo
+                                </div>
+                                <div class="filteration-event-select-option" data-value="alexandria">
+                                    Alexandria
+                                </div>
+                                <div class="filteration-event-select-option" data-value="giza">
+                                    Giza
+                                </div>
+                                <div class="filteration-event-select-option" data-value="mansoura">
+                                    Mansoura
+                                </div>
+                                <div class="filteration-event-select-option" data-value="suez">
+                                    Suez
+                                </div>
+                                <div class="filteration-event-select-option" data-value="aswan">
+                                    Aswan
+                                </div>
+                                <div class="filteration-event-select-option" data-value="luxor">
+                                    Luxor
+                                </div>
+                                <div class="filteration-event-select-option" data-value="asyut">
+                                    Asyut
+                                </div>
+                                <div class="filteration-event-select-option" data-value="sohag">
+                                    Sohag
+                                </div>
+                                <div class="filteration-event-select-option" data-value="qena">
+                                    Qena
+                                </div>
+                                <div class="filteration-event-select-option" data-value="new-valley">
+                                    New Valley
+                                </div>
+                                <div class="filteration-event-select-option" data-value="red-sea">
+                                    Red Sea
+                                </div>
+                                <div class="filteration-event-select-option" data-value="north-sinai">
+                                    North Sinai
+                                </div>
+                                <div class="filteration-event-select-option" data-value="south-sinai">
+                                    South Sinai
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Filter -->
+                    <div class="filteration-event-filter-group">
+                        <label class="filteration-event-filter-label">Date</label>
+                        <!-- <input
+                                type="date"
+                                class="filteration-event-date-input"
+                                id="filteration-event-date-select"
+                            /> -->
+                        <input type="text" id="filteration-event-date-select" class="filteration-event-date-input"
+                            placeholder="Select Date" />
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div class="filteration-event-filter-group">
+                        <label class="filteration-event-filter-label">Price</label>
+                        <div class="filteration-event-custom-select" data-filter="price">
+                            <div class="filteration-event-select-button">
+                                <span class="filteration-event-select-text">Select Price</span>
+                                <span class="filteration-event-select-arrow">▼</span>
+                            </div>
+                            <div class="filteration-event-select-dropdown">
+                                <div class="filteration-event-select-option" data-value="">
+                                    All Prices
+                                </div>
+                                <div class="filteration-event-select-option" data-value="free">
+                                    Free
+                                </div>
+                                <div class="filteration-event-select-option" data-value="paid">
+                                    Paid
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Filters -->
+                <div class="filteration-event-active-filters" id="filteration-event-active-filters"></div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="filteration-event-results-section">
+            <div class="filteration-event-results-container">
+                <div class="filteration-event-results-header">
+                    <div class="filteration-event-results-header-content">
+                        <div>
+                            <h2 class="filteration-event-results-title">
+                                Featured Events
+                            </h2>
+                            <p class="filteration-event-results-subtitle">
+                                Discover amazing opportunities near you
+                            </p>
+                        </div>
+                        <div class="filteration-event-results-controls">
+                            <div class="filteration-event-results-count">
+                                <span id="eventsCount">24</span> Events
+                                Found
+                            </div>
+                            <div class="filteration-event-view-toggle">
+                                <button class="filteration-event-toggle-btn" onclick="toggleCardsView('slider')"
+                                    id="cardsSliderViewBtn">
+                                    Slider
+                                </button>
+
+                                <button class="filteration-event-toggle-btn active" onclick="toggleCardsView('grid')"
+                                    id="cardsGridViewBtn">
+                                    Grid
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards Container with Navigation -->
+                <div class="filteration-event-cards-container">
+                    <div class="filteration-event-cards-grid" id="cardsContainer">
+                        <!-- Event Card 1 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                alt="Tech Innovation Summit" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Tech Innovation Summit
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Technology
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Cairo</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 15, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">299</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 2 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center"
+                                alt="Digital Marketing Masterclass" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Digital Marketing Masterclass
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Marketing
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Alexandria</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 22, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">199</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 3 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center"
+                                alt="Data Science Workshop" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Data Science Workshop
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Data Analytics
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Giza</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Oct 5, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">399</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+                        <!-- Event Card 1 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                alt="Tech Innovation Summit" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Tech Innovation Summit
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Technology
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Cairo</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 15, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">299</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 2 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center"
+                                alt="Digital Marketing Masterclass" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Digital Marketing Masterclass
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Marketing
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Alexandria</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 22, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">199</span>
+                                    <span class="filteration-event-card-price-currency">USD</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 3 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center"
+                                alt="Data Science Workshop" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Data Science Workshop
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Data Analytics
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Giza</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Oct 5, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">399</span>
+                                    <span class="filteration-event-card-price-currency">USD</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+                        <!-- Event Card 1 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                alt="Tech Innovation Summit" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Tech Innovation Summit
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Technology
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Cairo</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 15, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">299</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 2 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center"
+                                alt="Digital Marketing Masterclass" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Digital Marketing Masterclass
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Marketing
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Alexandria</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 22, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">199</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 3 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center"
+                                alt="Data Science Workshop" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Data Science Workshop
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Data Analytics
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Giza</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Oct 5, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">
+                                        399</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+                        <!-- Event Card 1 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop&crop=center"
+                                alt="Tech Innovation Summit" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Tech Innovation Summit
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Technology
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Cairo</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 15, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">
+                                        299</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 2 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center"
+                                alt="Digital Marketing Masterclass" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Digital Marketing Masterclass
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Marketing
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Alexandria</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Sept 22, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">
+                                        199</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 3 -->
+                        <div class="filteration-event-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center"
+                                alt="Data Science Workshop" class="filteration-event-card-image" />
+                            <div class="filteration-event-card-content">
+                                <div class="filteration-event-card-header">
+                                    <h3 class="filteration-event-card-title">
+                                        Data Science Workshop
+                                    </h3>
+                                    <div class="filteration-event-card-category">
+                                        Data Analytics
+                                    </div>
+                                </div>
+
+                                <p class="filteration-event-card-description">
+                                    Learn advanced digital marketing
+                                    strategies, social media optimization,
+                                    and conversion techniques from industry
+                                    experts.
+                                </p>
+
+                                <div class="filteration-event-card-details">
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📍</span>
+                                        <span class="filteration-event-card-detail-value">Giza</span>
+                                    </div>
+                                    <div class="filteration-event-card-detail">
+                                        <span class="filteration-event-card-detail-icon">📅</span>
+                                        <span class="filteration-event-card-detail-value">Oct 5, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filteration-event-card-footer">
+                                <div class="filteration-event-card-price">
+                                    <span class="filteration-event-card-price-amount">
+                                        399</span>
+                                    <span class="filteration-event-card-price-currency">EGP</span>
+                                </div>
+                                <a href="#" class="filteration-event-details-btn">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cards Navigation Controls (for slider mode) - Below the cards -->
+                    <div class="filteration-event-cards-controls" id="cardsControls" style="display: none">
+                        <button class="filteration-event-slider-btn" id="prevCardsBtn" onclick="slideCards('prev')"
+                            title="Previous Cards">
+                            ‹
+                        </button>
+                        <button class="filteration-event-slider-btn" id="nextCardsBtn" onclick="slideCards('next')"
+                            title="Next Cards">
+                            ›
+                        </button>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="filteration-event-pagination">
+                        <button class="filteration-event-pagination-btn disabled" onclick="changePage('prev')"
+                            id="prevPageBtn">
+                            ‹
+                        </button>
+
+                        <button class="filteration-event-pagination-btn active" onclick="changePage(1)" data-page="1">
+                            1
+                        </button>
+
+                        <button class="filteration-event-pagination-btn" onclick="changePage(2)" data-page="2">
+                            2
+                        </button>
+
+                        <button class="filteration-event-pagination-btn" onclick="changePage(3)" data-page="3">
+                            3
+                        </button>
+
+                        <span class="filteration-event-pagination-dots">...</span>
+
+                        <button class="filteration-event-pagination-btn" onclick="changePage(8)" data-page="8">
+                            8
+                        </button>
+
+                        <button class="filteration-event-pagination-btn" onclick="changePage('next')" id="nextPageBtn">
+                            ›
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/event-filter.js"></script>
+    <!-- Flatpickr  -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#filteration-event-date-select", {
+            dateFormat: "Y-m-d",
+        });
+    </script>
+</body>
+
+</html>

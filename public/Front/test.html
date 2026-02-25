@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Gallery with Animations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .Album-events {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .event-gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            position: relative;
+        }
+
+        .event-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .event-gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .event-gallery-item:hover .image-title {
+            opacity: 1;
+        }
+
+        .image-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .modal-events {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-events.show {
+            opacity: 1;
+        }
+
+        .modal-content-event {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            margin: 50px auto;
+        }
+
+        .slide {
+            display: none;
+            height: 100%;
+            position: relative;
+            animation: fadeOut 0.3s ease;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.9); }
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .slide-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .slide:hover .slide-title {
+            transform: translateY(0);
+        }
+
+        .close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close:hover {
+            transform: rotate(90deg);
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 16px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content-event {
+                width: 95%;
+                height: 60vh;
+                margin: 100px auto;
+            }
+
+            .prev, .next {
+                padding: 10px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="Album-events">
+        <div class="event-gallery-item">
+            <img src="img/sales2.jpeg" alt="Image 1">
+            <div class="image-title">Beautiful Sunset</div>
+        </div>
+        <div class="event-gallery-item">
+            <img src="img/sales3.jpeg" alt="Image 2">
+            <div class="image-title">Mountain Lake</div>
+        </div>
+        <div class="event-gallery-item">
+            <img src="img/sales1.jpeg" alt="Image 3">
+            <div class="image-title">Forest Path</div>
+        </div>
+        <div class="event-gallery-item">
+            <img src="img/slide1.jpg" alt="Image 4">
+            <div class="image-title">Ocean View</div>
+        </div>
+    </div>
+
+    <div class="modal-events">
+        <div class="modal-content-event">
+            <span class="close">&times;</span>
+            <div class="slide">
+                <img src="img/slide1.jpg" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="img/slide2.jpg" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="img/slide3.jpg" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="img/sales4.jpeg" alt="Image 4">
+            </div>
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        const gallery = document.querySelector('.Album-events');
+        const modal = document.querySelector('.modal-events');
+        const slides = document.querySelectorAll('.slide');
+        const closeBtn = document.querySelector('.close');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentSlide = 0;
+
+        // Open modal and show corresponding slide
+        gallery.addEventListener('click', (e) => {
+            const item = e.target.closest('.event-gallery-item'); // Fixed class name
+            if (!item) return;
+            
+            const index = Array.from(gallery.children).indexOf(item);
+            currentSlide = index;
+            showSlide(currentSlide);
+            modal.style.display = 'block';
+            modal.offsetHeight; // Trigger reflow
+            modal.classList.add('show');
+        });
+
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+        });
+
+        // Previous slide
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        // Next slide
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    showSlide(currentSlide);
+                } else if (e.key === 'ArrowRight') {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    showSlide(currentSlide);
+                } else if (e.key === 'Escape') {
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 300);
+                }
+            }
+        });
+
+        // Show slide
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+        }
+    </script>
+</body>
+</html>

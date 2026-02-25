@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Event Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/login.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!-- swiper css -->
+  <link rel="stylesheet" type="text/css" href="css/swiper-bundle.min.css" />
+  <style>
+    /* new slider */
+    /* carousel */
+    .carousel {
+      height: 100vh;
+      /* margin-top: -50px; */
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel .list .item {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0 0 0 0;
+    }
+
+    .item .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 0;
+    }
+
+    .carousel .list .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel .list .item .content {
+      position: absolute;
+      top: 20%;
+      width: 1140px;
+      max-width: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-right: 30%;
+      box-sizing: border-box;
+      color: #fff;
+      text-shadow: 0 5px 10px transparent;
+    }
+
+    .carousel .list .item .author {
+      font-weight: bold;
+      letter-spacing: 10px;
+    }
+
+    .carousel .list .item .title,
+    .carousel .list .item .topic {
+      font-size: 4em;
+      font-weight: bold;
+      line-height: 1.1em;
+      margin-bottom: 5px;
+    }
+
+    .carousel .list .item .topic {
+      color: #f1683a;
+    }
+
+    .carousel .list .item .buttons {
+      /* display: grid;
+      grid-template-columns: repeat(2, 130px);
+      grid-template-rows: 40px; */
+      /* gap: 5px; */
+      margin-top: 25px;
+    }
+
+    .carousel .list .item .buttons a {
+      border: none;
+      background-color: #d3682e;
+      color: #fff;
+      font-family: Poppins;
+      font-weight: 500;
+      cursor: pointer;
+      z-index: 999;
+      border-radius: 10px;
+      padding: 12px 25px;
+    }
+
+    .carousel .list .item .buttons button:nth-child(2) {
+      background-color: transparent;
+      border: 1px solid #fff;
+      color: #eee;
+      border-radius: 10px;
+    }
+
+    /* thumbail */
+    .thumbnail {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      width: max-content;
+      z-index: 9;
+      display: flex;
+      gap: 20px;
+    }
+
+    .thumbnail .item {
+      width: 150px;
+      height: 200px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .thumbnail .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .thumbnail .item .content {
+      color: #fff;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+    }
+
+    .thumbnail .item .content .title {
+      font-weight: 500;
+    }
+
+    .thumbnail .item .content .description {
+      font-weight: 300;
+    }
+
+    .carousel .list .item:nth-child(1) .content .des {
+      font-size: 20px !important;
+      text-align: justify;
+    }
+
+
+    /* arrows */
+    .arrows {
+      position: absolute;
+      bottom: 10%;
+      left: 30%;
+      transform: translateX(-50%);
+      z-index: 9;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .arrows button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f1683a;
+      border: none;
+      color: #fff;
+      font-family: monospace;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .arrows button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .arrows button i {
+      font-size: 22px;
+    }
+
+
+    /* animation */
+    .carousel .list .item:nth-child(1) {
+      z-index: 1;
+    }
+
+    /* animation text in first item */
+
+    .carousel .list .item:nth-child(1) .content .author,
+    .carousel .list .item:nth-child(1) .content .title,
+    .carousel .list .item:nth-child(1) .content .topic,
+    .carousel .list .item:nth-child(1) .content .des,
+    .carousel .list .item:nth-child(1) .content .buttons {
+      transform: translateY(50px);
+      filter: blur(20px);
+      opacity: 0;
+      animation: showContent .5s .5s linear 1 forwards;
+    }
+
+    @keyframes showContent {
+      to {
+        transform: translateY(0px);
+        filter: blur(0px);
+        opacity: 1;
+      }
+    }
+
+    .carousel .list .item:nth-child(1) .content .title {
+      animation-delay: .5s !important;
+    }
+
+    .carousel .list .item:nth-child(1) .content .topic {
+      animation-delay: .5s !important;
+    }
+
+    .carousel .list .item:nth-child(1) .content .des {
+      animation-delay: .6s !important;
+      font-size: 16px;
+    }
+
+    .carousel .list .item:nth-child(1) .content .buttons {
+      animation-delay: .5s !important;
+    }
+
+    /* create animation when next click */
+    .carousel.next .list .item:nth-child(1) img {
+      width: 150px;
+      height: 200px;
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      border-radius: 30px;
+      animation: showImage .5s linear 1 forwards;
+    }
+
+    @keyframes showImage {
+      to {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+    }
+
+    .carousel.next .thumbnail .item:nth-last-child(1) {
+      overflow: hidden;
+      animation: showThumbnail .5s linear 1 forwards;
+    }
+
+    .carousel.prev .list .item img {
+      z-index: 100;
+    }
+
+    @keyframes showThumbnail {
+      from {
+        width: 0;
+        opacity: 0;
+      }
+    }
+
+    .carousel.next .thumbnail {
+      animation: effectNext .5s linear 1 forwards;
+    }
+
+    @keyframes effectNext {
+      from {
+        transform: translateX(150px);
+      }
+    }
+
+    /* running time */
+
+    .carousel .time {
+      position: absolute;
+      z-index: 9;
+      width: 0%;
+      height: 5px;
+      background-color: #f1683a;
+      left: 0;
+      top: 0;
+    }
+
+    .carousel.next .time,
+    .carousel.prev .time {
+      animation: runningTime .5s linear 1 forwards;
+    }
+
+    @keyframes runningTime {
+      from {
+        width: 100%
+      }
+
+      to {
+        width: 0
+      }
+    }
+
+
+    /* prev click */
+
+    .carousel.prev .list .item:nth-child(2) {
+      z-index: 2;
+    }
+
+    .carousel.prev .list .item:nth-child(2) img {
+      animation: outFrame 0.5s linear 1 forwards;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    @keyframes outFrame {
+      to {
+        width: 150px;
+        height: 220px;
+        bottom: 50px;
+        left: 50%;
+        border-radius: 20px;
+      }
+    }
+
+    .carousel.prev .thumbnail .item:nth-child(1) {
+      overflow: hidden;
+      opacity: 0;
+      animation: showThumbnail .5s linear 1 forwards;
+    }
+
+    .carousel.next .arrows a,
+    .carousel.prev .arrows a {
+      pointer-events: none;
+    }
+
+    .carousel.prev .list .item:nth-child(2) .content .author,
+    .carousel.prev .list .item:nth-child(2) .content .title,
+    .carousel.prev .list .item:nth-child(2) .content .topic,
+    .carousel.prev .list .item:nth-child(2) .content .des,
+    .carousel.prev .list .item:nth-child(2) .content .buttons {
+      animation: contentOut .5s linear 1 forwards !important;
+    }
+
+    @keyframes contentOut {
+      to {
+        transform: translateY(-150px);
+        filter: blur(20px);
+        opacity: 0;
+      }
+    }
+
+    @media screen and (max-width: 678px) {
+      .carousel .list .item .content {
+        padding-right: 0;
+      }
+
+      .carousel {
+        height: 75vh;
+      }
+
+      .carousel .list .item .content {
+        top: 13%;
+        max-width: 90%;
+      }
+
+      .thumbnail .item {
+        height: 175px;
+      }
+
+      .carousel .list .item .title,
+      .carousel .list .item .topic {
+        font-size: 3em;
+        margin-bottom: 0px;
+      }
+
+      .carousel .list .item:nth-child(1) .content .des {
+        font-size: 17px !important;
+      }
+    }
+
+    @media screen and (max-width:385px) {
+      .carousel {
+        height: 85vh;
+      }
+
+      .carousel .list .item .content {
+        top: 8%;
+      }
+
+      .carousel .list .item .title,
+      .carousel .list .item .topic {
+        font-size: 2.5em;
+      }
+    }
+
+    /* new slider */
+  </style>
+</head>
+
+<body>
+
+  <!-- header start -->
+  <header class="header" style="background-color: #fff;">
+    <div class="container">
+      <div class="row v-center">
+        <div class="header-item item-left">
+          <div class="logo">
+            <a href="Newhome.html">Event</a>
+          </div>
+        </div>
+        <!-- menu start here -->
+        <div class="header-item item-center">
+          <div class="menu-overlay"></div>
+          <nav class="menu">
+            <div class="mobile-menu-head">
+              <a style="padding: 0 50px 0 15px; color: #0E143A; font-size: 20px;font-weight: bold;"
+                href="Newhome.html">Event</a>
+              <div class="go-back"><i class="fa fa-angle-left"></i></div>
+              <div class="current-menu-title"></div>
+              <div class="mobile-menu-close">&times;</div>
+            </div>
+            <ul class="menu-main">
+              <li>
+                <a href="#">Beauty</a>
+              </li>
+              <li>
+                <a href="#">Business</a>
+              </li>
+              <li>
+                <a href="#">Comedy</a>
+              </li>
+              <li class="menu-item-has-children">
+                <a href="#">More <i class="fas fa-angle-down"></i></a>
+                <div class="sub-menu single-column-menu">
+                  <ul>
+                    <li><a href="#">Culture</a></li>
+                    <li><a href="#">Dance</a></li>
+                    <li><a href="#">Education</a></li>
+                    <li><a href="#">Experience</a></li>
+                    <li><a href="#">Health</a></li>
+                    <li><a href="#">Music</a></li>
+                    <li><a href="#">Sport</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- menu end here -->
+        <div class="header-item item-right">
+          <a class="button-organizer" href="./pages organizer interface/index.html">For Organizer</a>
+          <a class="button-nav" href="login.html">Login</a>
+          <div class="profile">
+            <img src="img/profile.png" alt="">
+            <ul class="profile-link">
+              <li><a href="./EventDash/index.html"><i class='bx bxs-user-circle icon'></i> Events</a></li>
+              <li><a href="./EventDash/profile.html"><i class='bx bxs-cog'></i> Profile</a></li>
+              <li><a href="#"><i class='bx bxs-log-out-circle'></i> Logout</a></li>
+            </ul>
+          </div>
+          <!-- mobile menu trigger -->
+          <div class="mobile-menu-trigger">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- end header -->
+
+  <!-- start slider section -->
+  <section class="carousel">
+    <!-- list item -->
+    <div class="list">
+      <div class="item">
+        <div class="overlay"></div>
+        <img src="img/slide-3.jpg">
+        <div class="content">
+          <div class="author">Music</div>
+          <div class="title">DESIGN SLIDER</div>
+          <div class="topic">Music</div>
+          <div class="des">
+            <!-- lorem 50 -->
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat,
+            itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut
+            doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut,
+            exercitationem eum aperiam illo illum laudantium?
+          </div>
+          <div class="buttons">
+            <a href="#">Get Started</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="overlay"></div>
+        <img src="img/slide-2.jpg">
+        <div class="content">
+          <div class="author">Sports</div>
+          <div class="title">DESIGN SLIDER</div>
+          <div class="topic">Culture</div>
+          <div class="des">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat,
+            itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut
+            doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut,
+            exercitationem eum aperiam illo illum laudantium?
+          </div>
+          <div class="buttons">
+            <a href="#">Get Started</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="overlay"></div>
+        <img src="img/sports.jpeg">
+        <div class="content">
+          <div class="author">Beauty</div>
+          <div class="title">DESIGN SLIDER</div>
+          <div class="topic">Sports</div>
+          <div class="des">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat,
+            itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut
+            doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut,
+            exercitationem eum aperiam illo illum laudantium?
+          </div>
+          <div class="buttons">
+            <a href="#">Get Started</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="overlay"></div>
+        <img src="img/slide-4.jpg">
+        <div class="content">
+          <div class="author">Culture</div>
+          <div class="title">DESIGN SLIDER</div>
+          <div class="topic">Culture</div>
+          <div class="des">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat,
+            itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut
+            doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut,
+            exercitationem eum aperiam illo illum laudantium?
+          </div>
+          <div class="buttons">
+            <a href="#">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- list thumnail -->
+    <div class="thumbnail">
+      <div class="item">
+        <img src="img/slide-3.jpg">
+        <div class="content">
+          <div class="title">
+            Name Slider
+          </div>
+          <div class="description">
+            Description
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/slide-2.jpg">
+        <div class="content">
+          <div class="title">
+            Name Slider
+          </div>
+          <div class="description">
+            Description
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/sports.jpeg">
+        <div class="content">
+          <div class="title">
+            Name Slider
+          </div>
+          <div class="description">
+            Description
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/slide-4.jpg">
+        <div class="content">
+          <div class="title">
+            Name Slider
+          </div>
+          <div class="description">
+            Description
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- next prev -->
+
+    <div class="arrows">
+      <button id="prev" aria-label="Previous">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+      <button id="next" aria-label="Next">
+        <i class="fa-solid fa-angle-right"></i>
+      </button>
+    </div>
+    <!-- time running -->
+    <div class="time"></div>
+  </section>
+  <!-- end slider section -->
+
+  <!-- start category section -->
+  <section class="category ">
+    <h1 class="text-center">Our Category</h1>
+    <div class="row-container d-flex flex-wrap my-5 mx-auto">
+      <a href="All_Event.html" class="col-lg-4 col-md-12 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-music fa-2x"></i>
+            <h5 class="card-title mt-3">Music</h5>
+            <p class="card-text">Afrobit, Alternative, Art Music, Bitbox Blues, Classic, Country, Disco, Drum & Bass,
+              etc.</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-spa fa-2x"></i>
+            <h5 class="card-title mt-3">Beauty</h5>
+            <p class="card-text">Makeup, SPA, Perfumery</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-briefcase fa-2x"></i>
+            <h5 class="card-title mt-3">Business</h5>
+            <p class="card-text">Startup, Networking, etc.</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-laugh fa-2x"></i>
+            <h5 class="card-title mt-3">Comedy</h5>
+            <p class="card-text">Comedy, Stand Up, etc.</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-landmark fa-2x"></i>
+            <h5 class="card-title mt-3">Culture</h5>
+            <p class="card-text">Art, Broadway, Circus, etc.</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-4 col-md-12 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-hiking fa-2x"></i>
+            <h5 class="card-title mt-3">Experience</h5>
+            <p class="card-text">Dolphinariu, Food, Drink, River Cruises, Theme Park, Paintball, Rope Park, Skydiving,
+              etc.</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-music fa-2x"></i>
+            <h5 class="card-title mt-3">Dance</h5>
+            <p class="card-text">Ballet, Dancing</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-graduation-cap fa-2x"></i>
+            <h5 class="card-title mt-3">Education</h5>
+            <p class="card-text">Conferences, Education, etc.</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-heartbeat fa-2x"></i>
+            <h5 class="card-title mt-3">Health</h5>
+            <p class="card-text">Medical Events, Fitness, etc.</p>
+          </div>
+        </div>
+      </a>
+      <a href="All_Event.html" class="col-lg-2 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <i class="fas fa-trophy fa-2x"></i>
+            <h5 class="card-title mt-3">Sports</h5>
+            <p class="card-text">Soul, Aerobics, Athletics, etc.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="text-center mt-4 mb-4">
+      <button class="btn btn-success">View All Events</button>
+    </div>
+  </section>
+  <!-- end category section -->
+
+
+  <!-- start Events section -->
+  <section class="CustomEvents pt-3">
+    <h1 class="text-center">Top Events </h1>
+    <p class="text-center">Show All Events </p>
+    <div class="custom-container swiper mySwiper ">
+      <div class="swiper-wrapper">
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card1.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+          </article>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <p class="sponsored">sponsored</p>
+        </div>
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card2.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+          </article>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <p class="sponsored">sponsored</p>
+        </div>
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card3.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+          </article>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <p class="sponsored">sponsored</p>
+        </div>
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card4.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+          </article>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <p class="sponsored">sponsored</p>
+        </div>
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card1.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+          </article>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <p class="sponsored">sponsored</p>
+        </div>
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card2.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+          </article>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <p class="sponsored">sponsored</p>
+        </div>
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card3.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+          </article>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <p class="sponsored">sponsored</p>
+        </div>
+        <!-- New Event -->
+        <div class="product swiper-slide">
+          <article class="card__article">
+            <a href="event_details.html"><img src="img/card4.png" alt="image" class="card__img"></a>
+            <div class="card__data">
+              <span class="card__description">23.02.2024</span>
+              <h2 class="card__title">afrotech-fest</h2>
+              <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+              <span
+                class="text-success bg-success bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">FreeEntry</span>
+            </div>
+            <a href="#" class="heart-icon">
+              <i class="fa-regular fa-heart"></i>
+            </a>
+            <p class="sponsored">sponsored</p>
+          </article>
+        </div>
+      </div>
+      <div class="swiper-button-next text-white"></div>
+      <div class="swiper-button-prev text-white"></div>
+    </div>
+    <div class="text-center mt-4 mb-4 pt-3">
+      <button class="btn btn-success">View More </button>
+    </div>
+  </section>
+  <!-- end Events section -->
+
+
+  <!-- start section Subscribe -->
+  <section id="subscribe" class="section-p1 section-ml">
+    <div class="newstext">
+      <h4>Subscribe to our newsletter!</h4>
+      <p>Get E-mail updates our latest shop and <span>special offers.</span></p>
+    </div>
+    <div class="form">
+      <input type="text" placeholder="Your email address">
+      <button class="btn-Noramal">Sign Up</button>
+    </div>
+  </section>
+  <!-- end section Subscribe -->
+
+  <!-- start New Event section -->
+  <section class="Events pt-3">
+    <h1>New Events </h1>
+    <p>Show New Events </p>
+    <!-- Events -->
+    <div class="custom-container container-new-events">
+      <div class="product card-event">
+        <a href="event_details.html">
+          <img src="img/sales3.jpeg" alt="" style="height: 200px;">
+          <div class="des">
+            <p class="date">23.02.2024</p>
+            <h5 class="product-name">Music Event</h5>
+            <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+              to Türkiye for various purposes.</p>
+            <div class="price">
+              <span class="text-dark">450 <span class="currency">EGP</span></span>
+              <div><i class="fa-regular fa-heart"></i></div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+      <div class="product card-event">
+        <a href="event_details.html">
+          <img src="img/sales2.jpeg" alt="" style="height: 200px;">
+          <div class="des">
+            <p class="date">23.02.2024</p>
+            <h5 class="product-name">Music Event</h5>
+            <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+              to Türkiye for various purposes.</p>
+            <div class="price">
+              <span class="text-dark">450 <span class="currency">EGP</span></span>
+              <div><i class="fa-regular fa-heart"></i></div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+      <div class="product card-event">
+        <a href="event_details.html">
+          <img src="img/sales1.jpeg" alt="" style="height: 200px;">
+          <div class="des">
+            <p class="date">23.02.2024</p>
+            <h5 class="product-name">Music Event</h5>
+            <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+              to Türkiye for various purposes.</p>
+            <div class="price">
+              <span class="text-dark">450 <span class="currency">EGP</span></span>
+              <div><i class="fa-regular fa-heart"></i></div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+      <div class="product card-event">
+        <a href="event_details.html">
+          <img src="img/sales4.jpeg" alt="" style="height: 200px;">
+          <div class="des">
+            <p class="date">23.02.2024</p>
+            <h5 class="product-name">Music Event</h5>
+            <p>It is important for foreign citizens to check the visa regime applied in our country before traveling
+              to Türkiye for various purposes.</p>
+            <div class="price">
+              <span class="text-dark">450 <span class="currency">EGP</span></span>
+              <div><i class="fa-regular fa-heart"></i></div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+    <div class="text-center mt-4 mb-4 pt-3">
+      <button class="btn btn-success">View More </button>
+    </div>
+  </section>
+  <!-- end New Event section -->
+
+  <!-- start Upcoming Event section -->
+  <section class="Events pt-3">
+    <h1>Upcoming Events</h1>
+    <p>Show New Events </p>
+    <div class="product-container">
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html">
+            <img src="img/card1.png" alt="image" class="card__img">
+          </a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime.</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html"><img src="img/card2.png" alt="image" class="card__img"></a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html"><img src="img/card3.png" alt="image" class="card__img"></a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+      <!-- New Event -->
+      <div class="product swiper-slide">
+        <article class="card__article">
+          <a href="event_details.html"><img src="img/card4.png" alt="image" class="card__img"></a>
+          <div class="card__data">
+            <span class="card__description">23.02.2024</span>
+            <h2 class="card__title">afrotech-fest</h2>
+            <span class="card__description">It is important for foreign citizens to check the visa regime .</span>
+            <span
+              class="text-dark bg-dark bg-opacity-10 rounded-2 text-capitalize px-2 py-1 mb-2 text-start d-inline-block fs-7">450
+              EGP</span>
+          </div>
+          <a href="#" class="heart-icon">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+        </article>
+      </div>
+    </div>
+    <div class="text-center mt-4 mb-4 pt-3">
+      <button class="btn btn-success">View More </button>
+    </div>
+  </section>
+  <!-- end Upcoming Event section -->
+
+  <!-- start elementor-section -->
+  <section class="elementor-section" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom"
+    data-aos-duration="1000" data-aos-once="false">
+    <div class="elementor">
+      <div class="elmentor-data">
+        <div class="elmentor-text">
+          <i class="fa-solid fa-people-group"></i>
+          <h1>50 <span class="plus">+</span></h1>
+          <p>staff</p>
+        </div>
+      </div>
+      <div class="elmentor-data">
+        <div class="elmentor-text">
+          <i class="fa-solid fa-city"></i>
+          <h1>16 <span class="plus">+</span></h1>
+          <p>Branches</p>
+        </div>
+      </div>
+      <div class="elmentor-data">
+        <div class="elmentor-text">
+          <i class="fa-regular fa-thumbs-up"></i>
+          <h1>6 <span class="plus">+</span></h1>
+          <p>Years Of Experience
+          </p>
+        </div>
+      </div>
+      <div class="elmentor-data">
+        <div class="elmentor-text">
+          <i class="fa-solid fa-earth-americas"></i>
+          <h1>150 <span class="plus">+</span></h1>
+          <p>Events
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end elementor-section -->
+
+  <!-- Start Footer section -->
+  <!-- Start Footer section -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="footer-cta pt-5 pb-5">
+        <div class="row">
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="cta-text">
+                <h4>Find us</h4>
+                <span>1010 Avenue, sw 54321, chandigarh</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="fas fa-phone"></i>
+              <div class="cta-text">
+                <h4>Call us</h4>
+                <span><a style="color: #878787;" href="tel:+201033993202">+20 10 3399 3202</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-4 mb-30">
+            <div class="single-cta">
+              <i class="far fa-envelope-open"></i>
+              <div class="cta-text">
+                <h4>Mail us</h4>
+                <span><a style="color: #878787;" href="mailto:info@innoworx.site">mail@info.com </a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-content pt-3 pb-3">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 mb-50">
+            <div class="footer-widget">
+              <div class="footer-logo d-flex justify-content-between align-items-baseline flex-wrap">
+                <!-- <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a> -->
+                <a href="home.html"><img src="img/logos/logo-white.png" alt="logo"></a>
+                <div class="footer-social-icon">
+                  <a href="{{ $setting->facebook }}"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                  <a href="{{ $setting->twitter }}"><i class="fa-solid fa-xmark x-bg"></i></a>
+                  <a href="{{ $setting->instagram }}"><i class="fab fa-instagram instagram-bg"></i></a>
+                </div>
+              </div>
+              <div class="footer-text">
+                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec
+                  tetur adipisicing
+                  elit,Lorem ipsum dolor sit amet.</p>
+              </div>
+              <!-- <div class="footer-social-icon">
+                  <span>Follow us</span>
+                  <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                  <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                  <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                </div> -->
+              <div class="footer-social-icon">
+                <span class="mb-1">Download Our App</span>
+                <p class="text-white mb-1">Now it’s simple, fast, and easy to scan tickets!</p>
+                <a href="#"><img class="logo-app" src="img/logos/app-store.svg" alt="app-store"></a>
+                <a href="#"><img class="logo-app" src="img/logos/google-play.svg" alt="google-play"></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Event Types</h3>
+              </div>
+              <ul>
+                <li><a href="#">Music</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Culture</a></li>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">View All</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-md-6 mb-30">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Useful Links</h3>
+              </div>
+              <ul>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">FAQS</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Contact us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Subscribe</h3>
+              </div>
+              <div class="footer-text mb-25">
+                <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+              </div>
+              <div class="subscribe-form">
+                <form action="#">
+                  <input type="text" placeholder="Email Address">
+                  <button><i class="fab fa-telegram-plane"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div class="copyright-text">
+              <p>Copyright &copy; 2024, All Right Reserved <a href="https://codepen.io/anupkumar92/">Event</a></p>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Policy</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end Footer section -->
+  <!-- end Footer section -->
+
+  <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/swiper-bundle.min.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,  // عدد العناصر المعروضة في الشاشة
+            spaceBetween: 10, // المسافة بين العناصر
+            loop: true, // تشغيل السلايدر بشكل متكرر
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,  // شريحتين في الشاشات المتوسطة
+                },
+                1024: {
+                    slidesPerView: 4, // ثلاث شرائح في الشاشات الكبيرة
+                }
+            }
+        });
+    });
+    // Step 1: Get DOM elements
+    let nextDom = document.getElementById("next");
+    let prevDom = document.getElementById("prev");
+    let carouselDom = document.querySelector(".carousel");
+    let SliderDom = carouselDom.querySelector(".carousel .list");
+    let thumbnailBorderDom = document.querySelector(".carousel .thumbnail");
+    let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll(".item");
+    let timeDom = document.querySelector(".carousel .time");
+    let parallaxContainer = document.querySelector(".parallax-container");
+    let parallaxImage = document.getElementById("parallax-image");
+
+    thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+    let timeRunning = 1000;
+    let timeAutoNext = 7000;
+
+    // Step 2: Add event listeners for next and prev buttons
+    nextDom.onclick = function () {
+      showSlider("next");
+    };
+
+    prevDom.onclick = function () {
+      showSlider("prev");
+    };
+
+    // Step 3: Add event listeners for thumbnail items
+    thumbnailItemsDom.forEach((thumbnail, index) => {
+      thumbnail.addEventListener("click", () => {
+        showSliderByIndex(index);
+        showParallaxImage(index); // Display the clicked image in parallax
+      });
+    });
+
+    let runTimeOut;
+    let runNextAuto = setTimeout(() => {
+      nextDom.click();
+    }, timeAutoNext);
+
+    // Step 4: Function to show slider based on type (next/prev)
+    function showSlider(type) {
+      let SliderItemsDom = SliderDom.querySelectorAll(".carousel .list .item");
+      let thumbnailItemsDom = document.querySelectorAll(
+        ".carousel .thumbnail .item"
+      );
+
+      if (type === "next") {
+        SliderDom.appendChild(SliderItemsDom[0]);
+        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+        carouselDom.classList.add("next");
+      } else {
+        SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
+        thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
+        carouselDom.classList.add("prev");
+      }
+
+      clearTimeout(runTimeOut);
+      runTimeOut = setTimeout(() => {
+        carouselDom.classList.remove("next");
+        carouselDom.classList.remove("prev");
+      }, timeRunning);
+
+      clearTimeout(runNextAuto);
+      runNextAuto = setTimeout(() => {
+        nextDom.click();
+      }, timeAutoNext);
+    }
+
+    // // Step 5: Function to show slider based on thumbnail index
+    // function showSliderByIndex(index) {
+    //   let SliderItemsDom = SliderDom.querySelectorAll(".carousel .list .item");
+    //   let thumbnailItemsDom = document.querySelectorAll(
+    //     ".carousel .thumbnail .item"
+    //   );
+
+    //   // Move the slider to the selected index
+    //   for (let i = 0; i < index; i++) {
+    //     SliderDom.appendChild(SliderItemsDom[0]);
+    //     thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+    //   }
+
+    //   carouselDom.classList.add("next");
+    //   clearTimeout(runTimeOut);
+    //   runTimeOut = setTimeout(() => {
+    //     carouselDom.classList.remove("next");
+    //   }, timeRunning);
+
+    //   clearTimeout(runNextAuto);
+    //   runNextAuto = setTimeout(() => {
+    //     nextDom.click();
+    //   }, timeAutoNext);
+    // }
+
+    // // Function to display the clicked image in parallax
+    // function showParallaxImage(index) {
+    //   let SliderItemsDom = SliderDom.querySelectorAll(".carousel .list .item");
+    //   let imageSrc = SliderItemsDom[index].querySelector("img").src;
+
+    //   parallaxImage.src = imageSrc;
+    //   parallaxContainer.style.display = "block";
+
+    //   // Add mousemove event for parallax effect
+    //   document.addEventListener("mousemove", (e) => {
+    //     let x = (window.innerWidth - e.pageX) / 20;
+    //     let y = (window.innerHeight - e.pageY) / 20;
+    //     parallaxImage.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+    //   });
+
+    //   // Hide parallax container on click
+    //   parallaxContainer.addEventListener("click", () => {
+    //     parallaxContainer.style.display = "none";
+    //     document.removeEventListener("mousemove", null); // Remove the mousemove event
+    //   });
+    // }
+
+  </script>
+</body>
+
+</html>

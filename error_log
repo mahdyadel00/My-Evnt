@@ -1,0 +1,1 @@
+[12-Aug-2024 12:26:24 UTC] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in /home/myevntai/public_html/config/api_versions.php on line 18
