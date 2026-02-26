@@ -365,6 +365,64 @@
                 observer.observe(item);
             });
         });
-        pas    </script>
+        </script>
+
+    {{-- Slider (carousel-neblue-event) JS --}}
+    <script>
+        (function () {
+            var NEBLUE_CONFIG = { swipeThreshold: 50 };
+
+            var neblueCurrentSlide = 0;
+            var neblueTouchStartX = null;
+            var neblueTouchEndX  = null;
+
+            var neblueCarousel   = document.querySelector('.carousel-neblue-event-carousel');
+            var neblueItems      = document.querySelectorAll('.carousel-neblue-event-item');
+            var nebluePrevBtn    = document.querySelector('.carousel-neblue-event-arrow-prev');
+            var neblueNextBtn    = document.querySelector('.carousel-neblue-event-arrow-next');
+
+            if (!neblueItems.length) return;
+
+            function neblueShowSlide(index) {
+                if (index >= neblueItems.length) index = 0;
+                else if (index < 0) index = neblueItems.length - 1;
+
+                neblueCurrentSlide = index;
+                neblueItems.forEach(function (item) {
+                    item.classList.remove('carousel-neblue-event-active');
+                });
+                neblueItems[index].classList.add('carousel-neblue-event-active');
+            }
+
+            if (nebluePrevBtn) {
+                nebluePrevBtn.addEventListener('click', function () {
+                    neblueShowSlide(neblueCurrentSlide - 1);
+                });
+            }
+            if (neblueNextBtn) {
+                neblueNextBtn.addEventListener('click', function () {
+                    neblueShowSlide(neblueCurrentSlide + 1);
+                });
+            }
+
+            if (neblueCarousel) {
+                neblueCarousel.addEventListener('touchstart', function (e) {
+                    neblueTouchStartX = e.touches[0].clientX;
+                }, { passive: true });
+                neblueCarousel.addEventListener('touchmove', function (e) {
+                    neblueTouchEndX = e.touches[0].clientX;
+                }, { passive: true });
+                neblueCarousel.addEventListener('touchend', function () {
+                    if (!neblueTouchStartX || !neblueTouchEndX) return;
+                    var dist = neblueTouchStartX - neblueTouchEndX;
+                    if (dist > NEBLUE_CONFIG.swipeThreshold) neblueShowSlide(neblueCurrentSlide + 1);
+                    else if (dist < -NEBLUE_CONFIG.swipeThreshold) neblueShowSlide(neblueCurrentSlide - 1);
+                    neblueTouchStartX = neblueTouchEndX = null;
+                });
+            }
+
+            neblueShowSlide(0);
+        })();
+    </script>
 
 @endpush

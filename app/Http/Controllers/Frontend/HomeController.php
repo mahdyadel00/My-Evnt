@@ -28,14 +28,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Fetch sliders (exclude past events)
-        $sliders = Slider::with('event.eventDates')
+        // Fetch sliders with images, exclude past events
+        $sliders = Slider::with(['media', 'event.eventDates'])
             ->get()
             ->filter(function ($slider) {
-                $firstDate = optional($slider->event?->eventDates->first());
-                // Exclude events that have already ended
+                // Show sliders that have no linked event, or whose event hasn't ended yet
+                if (!$slider->event) {
+                    return $slider->media->where('name', 'image')->isNotEmpty();
+                }
+                $firstDate = optional($slider->event->eventDates->first());
                 return $firstDate->start_date && $firstDate->start_date >= now()->toDateString();
-            });
+            })
+            ->values();
 
         $partners = Partner::all();
         // Fetch event categories
