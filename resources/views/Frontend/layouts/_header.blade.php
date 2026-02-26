@@ -737,9 +737,13 @@
         }
 
         // Clear filters and show all sections (for home page)
+        var clearFiltersInProgress = false;
         function clearFilters() {
-            // Clear search input
-            const searchInput = document.querySelector(".search_field .input");
+            if (clearFiltersInProgress) return;
+            clearFiltersInProgress = true;
+            try {
+                // Clear search input
+                const searchInput = document.querySelector(".search_field .input");
             if (searchInput) {
                 searchInput.value = "";
             }
@@ -792,8 +796,13 @@
                 resultsCount.textContent = '';
             }
 
-            // Scroll to top of page smoothly
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Scroll to top of page smoothly (after DOM updates)
+            requestAnimationFrame(function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            } finally {
+                clearFiltersInProgress = false;
+            }
         }
 
         // Refresh filters (retry search)
@@ -1042,6 +1051,11 @@
                             e.preventDefault();
                             // alert("App coming soon!");
                             window.location.href = "https://play.google.com/store/apps/details?id=com.abdallah.evnt&pli=1";
+                            break;
+                        case "clear-filters":
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (typeof clearFilters === 'function') clearFilters();
                             break;
                         default:
                             // Allow normal link behavior for other actions

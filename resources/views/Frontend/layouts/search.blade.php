@@ -6,9 +6,9 @@
             <p class="subtitle">Events matching your search criteria</p>
             <div class="search-results-bar">
                 <span id="resultsCount" class="search-results-count"></span>
-                <button id="clearFiltersBtn" type="button" class="New-card-event-details-btn search-clear-btn" onclick="clearFilters()">
+                <a href="{{ url('/') }}" id="clearFiltersBtn" class="New-card-event-details-btn search-clear-btn" role="button" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
                     <i class="fas fa-times"></i> Clear All Filters &amp; Show All Sections
-                </button>
+                </a>
             </div>
         </div>
 
@@ -31,7 +31,7 @@
                     <i class="fas fa-search" style="font-size: 64px; color: #999;"></i>
                     <h3 class="mt-3">No events match your search</h3>
                     <p class="text-muted">Try changing your search or filters</p>
-                    <button type="button" class="New-card-event-details-btn mt-3" onclick="clearFilters()">Clear Filters</button>
+                    <button type="button" class="New-card-event-details-btn mt-3" id="clearFiltersBtnNoResults">Clear Filters</button>
                 </div>
             </div>
 
@@ -41,12 +41,36 @@
                     <i class="fas fa-exclamation-triangle" style="font-size: 64px; color: #dc3545;"></i>
                     <h3 class="mt-3">Search error</h3>
                     <p class="text-muted" id="errorMessage">An error occurred while searching.</p>
-                    <button type="button" class="New-card-event-details-btn mt-3" onclick="clearFilters()">Try Again</button>
+                    <button type="button" class="New-card-event-details-btn mt-3" id="clearFiltersBtnError">Try Again</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+(function () {
+    function initClearFiltersBtn() {
+        var btn = document.getElementById('clearFiltersBtn');
+        if (!btn) return;
+        btn.addEventListener('click', function (e) {
+            if (typeof window.clearFilters !== 'function') return;
+            e.preventDefault();
+            e.stopPropagation();
+            window.clearFilters();
+            return false;
+        });
+        [document.getElementById('clearFiltersBtnNoResults'), document.getElementById('clearFiltersBtnError')].forEach(function (b) {
+            if (b) b.addEventListener('click', function (e) { e.preventDefault(); if (typeof window.clearFilters === 'function') window.clearFilters(); });
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initClearFiltersBtn);
+    } else {
+        initClearFiltersBtn();
+    }
+})();
+</script>
 
 <style>
 .search-results-bar {
