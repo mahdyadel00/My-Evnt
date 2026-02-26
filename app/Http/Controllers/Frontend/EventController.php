@@ -210,10 +210,9 @@ class EventController extends Controller
                 });
             }
 
-            // Filter by format (online/offline)
+            // Filter by format (online/offline) — 1 = online, 0 = offline
             if ($request->filled('format')) {
-                $format = $request->input('format');
-                $query->where('is_online', $format);
+                $query->where('format', $request->input('format'));
             }
 
             // Filter by price range
@@ -956,9 +955,9 @@ class EventController extends Controller
                 });
             }
 
-            // Filter by format (online/offline)
+            // Filter by format (online/offline) — 1 = online, 0 = offline
             if ($request->filled('format')) {
-                $query->where('is_online', $request->input('format'));
+                $query->where('format', $request->input('format'));
             }
 
             // Filter by price range

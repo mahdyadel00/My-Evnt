@@ -19,22 +19,15 @@
                     <div class="search_box">
                         <!-- location field -->
                         <div class="location_field">
-                            <div class="default_option"
-                                data-city-id="{{ Auth::check() && Auth::user()->city ? Auth::user()->city->id : (session('user_city_id') ?? '') }}">
+                            <div class="default_option" data-city-id="">
                                 <i class="fas fa-map-marker-alt"></i>
-                                @if(Auth::check() && Auth::user()->city)
-                                    {{ Auth::user()->city->name }}
-                                @elseif(session('user_location'))
-                                    {{ session('user_location') }}
-                                @else
-                                    Location
-                                @endif
+                                Location
                             </div>
                             <ul>
                                 @foreach($cities as $city)
                                     <li data-city-id="{{ $city->id }}">
                                         <i class="fas fa-map-marker-alt"></i>
-                                        <a href="{{ route('events_by_city', $city->id) }}">{{ $city->name }}</a>
+                                        <a href="#" data-city-id="{{ $city->id }}">{{ $city->name }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -379,7 +372,7 @@
 
             const query = searchInput.value.trim();
             const locationElement = document.querySelector(".location_field .default_option");
-            const cityId = locationElement?.getAttribute('data-city-id');
+            const cityId = locationElement?.getAttribute('data-city-id') || '';
             const dateInput = document.querySelector("#headerDateFilter");
             const date = dateInput?.value || null;
 
@@ -388,21 +381,25 @@
                 clearTimeout(searchTimeout);
             }
 
-            // Only search if text is provided (minimum 2 characters)
-            if (query.length < 2 && !cityId && !date) {
+            // Need at least: 2 chars text OR date OR explicit city selection
+            if (query.length < 2 && !date && cityId === '') {
+                return;
+            }
+
+            // If user clears the search and no other filter, clear results
+            if (query.length === 0 && !date && cityId === '') {
+                clearFilters();
                 return;
             }
 
             // Debounce search - wait 500ms after user stops typing
             searchTimeout = setTimeout(() => {
-                // Prepare filters with city_id if available
                 const filters = {};
-                if (cityId && cityId !== '') {
+                if (cityId !== '') {
                     filters.city_id = [cityId];
                 }
 
-                // Perform AJAX search
-                performAjaxSearch(query.length >= 2 ? query : null, null, date, filters);
+                performAjaxSearch(query.length >= 2 ? query : null, null, date || null, filters);
             }, 500);
         }
 
@@ -410,22 +407,26 @@
         function performDateFilter(date = null) {
             // If no date passed, try to get it from the input
             if (!date) {
-                date = document.querySelector("#headerDateFilter")?.value;
-            }
-
-            if (!date || date.trim() === '') {
-                return;
-            }
-
-            // Validate date format (YYYY-MM-DD)
-            const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-            if (!dateRegex.test(date)) {
-                return;
+                date = document.querySelector("#headerDateFilter")?.value || null;
             }
 
             // Get city_id from location field
             const locationElement = document.querySelector(".location_field .default_option");
             const cityId = locationElement?.getAttribute('data-city-id');
+
+            // If date is empty and no city selected, clear all filters and show sections
+            if ((!date || date.trim() === '') && (!cityId || cityId === '')) {
+                clearFilters();
+                return;
+            }
+
+            // Validate date format (YYYY-MM-DD) if date is provided
+            if (date && date.trim() !== '') {
+                const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                if (!dateRegex.test(date)) {
+                    return;
+                }
+            }
 
             // Prepare filters with city_id if available
             const filters = {};
@@ -433,8 +434,8 @@
                 filters.city_id = [cityId];
             }
 
-            // Perform AJAX search for date only
-            performAjaxSearch(null, null, date, filters);
+            // Perform AJAX search for date (may be null if cleared but city still selected)
+            performAjaxSearch(null, null, date && date.trim() !== '' ? date : null, filters);
         }
 
         // Unified AJAX Search Function
@@ -751,13 +752,11 @@
                 }
             }
 
-            // Reset location to default
+            // Reset location to default (no city pre-selected)
             const locationElement = document.querySelector(".location_field .default_option");
             if (locationElement) {
-                const defaultCityId = "{{ Auth::check() && Auth::user()->city ? Auth::user()->city->id : (session('user_city_id') ?? '') }}";
-                const defaultCityName = "@if(Auth::check() && Auth::user()->city){{ Auth::user()->city->name }}@elseif(session('user_location')){{ session('user_location') }}@else Location @endif";
-                locationElement.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${defaultCityName}`;
-                locationElement.setAttribute('data-city-id', defaultCityId);
+                locationElement.innerHTML = '<i class="fas fa-map-marker-alt"></i> Location';
+                locationElement.setAttribute('data-city-id', '');
             }
 
             // Hide search section
@@ -790,6 +789,9 @@
             if (resultsCount) {
                 resultsCount.textContent = '';
             }
+
+            // Scroll to top of page smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Refresh filters (retry search)
@@ -843,16 +845,13 @@
                 searchInput.value = "";
             }
 
-            // Reset location to default (keep detected city if available)
+            // Reset location to default (no city pre-selected)
             const locationDefault = document.querySelector(
                 ".location_field .default_option"
             );
             if (locationDefault) {
-                const defaultCityId = "{{ Auth::check() && Auth::user()->city ? Auth::user()->city->id : (session('user_city_id') ?? '') }}";
-                const defaultCityName = "@if(Auth::check() && Auth::user()->city){{ Auth::user()->city->name }}@elseif(session('user_location')){{ session('user_location') }}@else Location @endif";
-
-                locationDefault.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${defaultCityName}`;
-                locationDefault.setAttribute('data-city-id', defaultCityId);
+                locationDefault.innerHTML = '<i class="fas fa-map-marker-alt"></i> Location';
+                locationDefault.setAttribute('data-city-id', '');
             }
 
             // Reset date input
