@@ -350,7 +350,7 @@ class EventController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Events retrieved successfully',
-                'html' => view('Frontend.events.partials.cards', compact('events'))->render(),
+                'html' => view('Frontend.events.partials.cards_new_style', compact('events'))->render(),
                 'total' => $events->total(),
                 'pagination' => (string) $events->links('pagination::bootstrap-4'),
             ]);
@@ -506,7 +506,7 @@ class EventController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Events retrieved successfully',
-                'html' => view('Frontend.events.partials.cards', compact('events'))->render(),
+                'html' => view('Frontend.events.partials.cards_new_style', compact('events'))->render(),
                 'total' => $events->total(),
                 'pagination' => (string) $events->links('pagination::bootstrap-4'),
                 'filters_applied' => array_filter($validated, fn($value) => !is_null($value) && $value !== '')
