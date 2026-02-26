@@ -112,7 +112,7 @@
                                 style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; grid-column: 1 / -1;">
                                 <div class="filteration-event-empty-icon">🔍</div>
                                 <p class="filteration-event-empty-text">No events found.</p>
-                                <button type="button" class="filteration-event-empty-reset">Clear Filters</button>
+                                <button type="button" class="filteration-event-empty-reset" onclick="window.resetAllFilters ? window.resetAllFilters() : (window.location.href = '{{ route('events') }}')">Clear Filters</button>
                             </div>
                         @endif
                     </div>

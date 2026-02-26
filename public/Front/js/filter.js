@@ -45,8 +45,42 @@
       });
 
       bindEvents();
+      initFromUrl();       // read URL params → populate activeFilters
       renderCards();       // initial render
+      renderActiveTags();  // show any URL-based active filters as tags
   });
+
+  // ─── INIT FROM URL PARAMS ─────────────────────────────────────
+  function initFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+
+      const category = params.get('category');
+      if (category && category !== 'all') {
+          activeFilters.category = [category];
+          pendingFilters.category = [category];
+      }
+
+      const city = params.get('city');
+      if (city) {
+          activeFilters.city = [city];
+          pendingFilters.city = [city];
+      }
+
+      const date = params.get('date');
+      if (date) {
+          activeFilters.date = date;
+          pendingFilters.date = date;
+          if (dateInput) dateInput.value = date;
+      }
+
+      const search = params.get('search') || params.get('q');
+      if (search) {
+          activeFilters.search = search.toLowerCase();
+          pendingFilters.search = search.toLowerCase();
+          if (searchInput) searchInput.value = search;
+          if (headerSearchInput) headerSearchInput.value = search;
+      }
+  }
 
   // ─── EVENTS ──────────────────────────────────────────────────
   function bindEvents() {
@@ -140,18 +174,31 @@
   }
 
   function resetAllFilters() {
+      // If there are URL params (server-side filters), redirect to clean URL
+      if (window.location.search && window.location.search !== '') {
+          window.location.href = window.location.pathname;
+          return;
+      }
+
       activeFilters  = { search: "", category: [], city: [], date: "", price: [] };
       pendingFilters = deepClone(activeFilters);
 
       // Clear UI
       if (searchInput) searchInput.value = "";
       if (dateInput)   dateInput.value   = "";
+      if (headerSearchInput) headerSearchInput.value = "";
       filterForm?.querySelectorAll("input[type='checkbox']").forEach((cb) => (cb.checked = false));
 
       currentPage = 1;
       renderCards();
       renderActiveTags();
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Expose globally so inline onclick handlers work
+  window.resetAllFilters = resetAllFilters;
 
   // ─── FILTER LOGIC ────────────────────────────────────────────
   function getFilteredCards() {
