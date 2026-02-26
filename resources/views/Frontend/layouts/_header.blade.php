@@ -12,7 +12,7 @@
                 @endforeach
             </a>
             <!-- search container -->
-            <div class="event-search-container {{ request()->is('event/*', 'events', 'events/new', 'events/top', 'events/upcoming', 'events/plan-of-month', 'events/category/*', 'checkout/user/*', 'checkout/survey/*', 'checkout/survey/hr/*')
+            <div class="event-search-container {{ request()->is('event/*', 'events', 'events/new', 'events/top', 'events/upcoming', 'events/plan-of-month', 'events/category/*', 'checkout/user/*', 'checkout/survey/*', 'checkout/survey/hr/*', 'login/*', 'register/*')
     ? 'eventSearchContainer-header' : '' }}">
                 <div class="wrapper">
                     <!-- search box -->
@@ -115,7 +115,7 @@
                                     class="fas fa-history"></i> Booking
                                 history</a>
                             <!-- <a href="{{ route('profile') }}" class="event-dropdown-item" data-action="viewInbox" role="menuitem"><i
-                                                                            class="fas fa-inbox"></i> Inbox</a> -->
+                                                                                class="fas fa-inbox"></i> Inbox</a> -->
                             <a href="{{ route('my_wishlist') }}" class="event-dropdown-item" role="menuitem"><i
                                     class="fas fa-heart"></i> Interested
                                 events</a>
@@ -148,45 +148,47 @@
             </div>
         </nav>
 
-        <!-- main navigation -->
-        <nav class="event-main-nav" id="eventMainNav" role="navigation" aria-label="Main navigation">
-            <!-- all category -->
-            <ul class="event-nav-list">
-                <!-- item category -->
-                <li class="event-nav-item">
-                    <a href="#" class="event-nav-link event-active" data-category="all" role="menuitem">ALL</a>
-                </li>
-                @foreach($event_category as $category)
-                    <li class="event-nav-item event-dropdown">
-                        <a href="#" class="event-nav-link" data-category="{{ $category->id }}" role="menuitem"
-                            aria-expanded="false">
-                            {{ $category->name }}
-                            <i class="fas fa-chevron-down event-dropdown-arrow"></i>
-                        </a>
-                        <div class="event-dropdown-menu" role="menu">
-                            @foreach($category->child as $child)
-                                <a href="{{ route('events_category', $child->id) }}" class="event-dropdown-item"
-                                    role="menuitem">
-                                    <!-- <i class="fas fa-music"></i> -->
-                                    <!-- @foreach($child->media as $media)
-                                                                                        @if($media->path)
-                                                                                            <img src="{{ asset('storage/' . $media->path) }}" alt="{{ $child->name }}"
-                                                                                                class="category-image-event" />
-                                                                                        @endif
-                                                                                    @endforeach -->
-                                    {{ $child->name }}
-                                </a>
-                            @endforeach
-                        </div>
+        <!-- main navigation (hidden on auth pages) -->
+        @unless(request()->is('login', 'register', 'forgot-password', 'reset-password/*', 'confirmation-email/*'))
+            <nav class="event-main-nav" id="eventMainNav" role="navigation" aria-label="Main navigation">
+                <!-- all category -->
+                <ul class="event-nav-list">
+                    <!-- item category -->
+                    <li class="event-nav-item">
+                        <a href="#" class="event-nav-link event-active" data-category="all" role="menuitem">ALL</a>
                     </li>
-                @endforeach
-                <li class="event-nav-item event-create-btn-mobile">
-                    <a href="{{ route('login') }}" class="event-nav-link">
-                        <i class="fas fa-sign-in-alt pe-2"></i> Sign in
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                    @foreach($event_category as $category)
+                        <li class="event-nav-item event-dropdown">
+                            <a href="#" class="event-nav-link" data-category="{{ $category->id }}" role="menuitem"
+                                aria-expanded="false">
+                                {{ $category->name }}
+                                <i class="fas fa-chevron-down event-dropdown-arrow"></i>
+                            </a>
+                            <div class="event-dropdown-menu" role="menu">
+                                @foreach($category->child as $child)
+                                    <a href="{{ route('events_category', $child->id) }}" class="event-dropdown-item"
+                                        role="menuitem">
+                                        <!-- <i class="fas fa-music"></i> -->
+                                        <!-- @foreach($child->media as $media)
+                                                                                                    @if($media->path)
+                                                                                                        <img src="{{ asset('storage/' . $media->path) }}" alt="{{ $child->name }}"
+                                                                                                            class="category-image-event" />
+                                                                                                    @endif
+                                                                                                @endforeach -->
+                                        {{ $child->name }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </li>
+                    @endforeach
+                    <li class="event-nav-item event-create-btn-mobile">
+                        <a href="{{ route('login') }}" class="event-nav-link">
+                            <i class="fas fa-sign-in-alt pe-2"></i> Sign in
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        @endunless
     </div>
 </header>
 <!-- end header -->
@@ -447,15 +449,15 @@
             }
 
             // Check if we have any search criteria
-            const hasSearchCriteria = (query && query.length >= 2) || date || 
-                                     (additionalFilters.city_id && additionalFilters.city_id.length > 0) ||
-                                     (location && location !== "Location" && location !== "");
+            const hasSearchCriteria = (query && query.length >= 2) || date ||
+                (additionalFilters.city_id && additionalFilters.city_id.length > 0) ||
+                (location && location !== "Location" && location !== "");
 
             // Find the appropriate container for results
-            let eventsContainer = document.getElementById('event-container') || 
-                                 document.querySelector('.all-event') ||
-                                 document.getElementById('filteredEventsGrid') ||
-                                 document.getElementById('CardsContainer');
+            let eventsContainer = document.getElementById('event-container') ||
+                document.querySelector('.all-event') ||
+                document.getElementById('filteredEventsGrid') ||
+                document.getElementById('CardsContainer');
 
             // If on home page and no container found, use the search section
             if (!eventsContainer) {
@@ -471,7 +473,7 @@
                 if (filterSection) {
                     filterSection.style.display = 'block';
                     eventsContainer = document.getElementById('filteredEventsGrid');
-                    
+
                     // Hide other sections on home page
                     document.querySelectorAll('.js-hide-on-search').forEach(section => {
                         section.style.display = 'none';
@@ -486,17 +488,17 @@
             }
 
             isSearching = true;
-            
+
             // Show loading indicator
             const loadingState = document.getElementById('loadingState');
             const noResultsState = document.getElementById('noResultsState');
             const errorState = document.getElementById('errorState');
-            
+
             if (loadingState) loadingState.style.display = 'block';
             if (noResultsState) noResultsState.style.display = 'none';
             if (errorState) errorState.style.display = 'none';
-            
-            eventsContainer.innerHTML = '<div class="col-12 text-center py-5"><i class="fas fa-spinner fa-spin fa-3x text-primary"></i><p class="mt-3">جاري البحث...</p></div>';
+
+            eventsContainer.innerHTML = '<div class="col-12 text-center py-5"><i class="fas fa-spinner fa-spin fa-3x text-primary"></i><p class="mt-3">Searching...</p></div>';
 
             // Build search parameters
             const params = new URLSearchParams();
@@ -543,12 +545,12 @@
                 })
                 .then(data => {
                     isSearching = false;
-                    
+
                     if (loadingState) loadingState.style.display = 'none';
-                    
+
                     if (data.success) {
                         displaySearchResults(data);
-                        
+
                         // Update results count
                         const resultsCount = document.getElementById('resultsCount');
                         if (resultsCount && data.total !== undefined) {
@@ -560,27 +562,27 @@
                             errorState.style.display = 'block';
                             const errorMessage = document.getElementById('errorMessage');
                             if (errorMessage) {
-                                errorMessage.textContent = data.message || 'حدث خطأ أثناء البحث';
+                                errorMessage.textContent = data.message || 'Error searching';
                             }
                         } else {
-                            eventsContainer.innerHTML = `<div class="col-12 text-center py-5"><div class="alert alert-warning">${data.message || 'حدث خطأ أثناء البحث'}</div></div>`;
+                            eventsContainer.innerHTML = `<div class="col-12 text-center py-5"><div class="alert alert-warning">${data.message || 'Error searching'}</div></div>`;
                         }
                     }
                 })
                 .catch(error => {
                     isSearching = false;
                     console.error('Search error:', error);
-                    
+
                     if (loadingState) loadingState.style.display = 'none';
-                    
+
                     if (errorState) {
                         errorState.style.display = 'block';
                         const errorMessage = document.getElementById('errorMessage');
                         if (errorMessage) {
-                            errorMessage.textContent = 'حدث خطأ أثناء البحث. يرجى المحاولة مرة أخرى.';
+                            errorMessage.textContent = 'Error searching. Please try again.';
                         }
                     } else {
-                        eventsContainer.innerHTML = `<div class="col-12 text-center py-5"><div class="alert alert-danger">حدث خطأ أثناء البحث. يرجى المحاولة مرة أخرى.</div></div>`;
+                        eventsContainer.innerHTML = `<div class="col-12 text-center py-5"><div class="alert alert-danger">Error searching. Please try again.</div></div>`;
                     }
                 });
         }
@@ -645,19 +647,19 @@
 
         // Display search results
         function displaySearchResults(data) {
-            let eventsContainer = document.getElementById('event-container') || 
-                                 document.querySelector('.all-event') ||
-                                 document.getElementById('filteredEventsGrid') ||
-                                 document.getElementById('CardsContainer');
+            let eventsContainer = document.getElementById('event-container') ||
+                document.querySelector('.all-event') ||
+                document.getElementById('filteredEventsGrid') ||
+                document.getElementById('CardsContainer');
 
             if (eventsContainer) {
                 // If on home page (filteredEventsGrid), ensure search section is visible
                 const filterSection = document.getElementById('filterSection');
                 const isHomePage = eventsContainer.id === 'filteredEventsGrid';
-                
+
                 if (isHomePage && filterSection) {
                     filterSection.style.display = 'block';
-                    
+
                     // Hide other sections
                     document.querySelectorAll('.js-hide-on-search').forEach(section => {
                         section.style.display = 'none';
@@ -668,7 +670,7 @@
                 if (data.html) {
                     // For home page, the container already has the correct structure
                     eventsContainer.innerHTML = data.html;
-                    
+
                     // Scroll to search section on home page
                     if (isHomePage && filterSection) {
                         setTimeout(() => {
@@ -677,7 +679,7 @@
                     }
                 } else if (data.data && Array.isArray(data.data)) {
                     // Handle JSON data format if needed
-                    eventsContainer.innerHTML = '<div class="col-12 text-center py-5"><div class="alert alert-info">تم العثور على ' + data.total + ' حدث</div></div>';
+                    eventsContainer.innerHTML = '<div class="col-12 text-center py-5"><div class="alert alert-info">Found ' + data.total + ' event</div></div>';
                 }
 
                 // Update pagination if available
@@ -716,9 +718,9 @@
                 // Scroll to results section smoothly (if not home page)
                 if (!isHomePage) {
                     setTimeout(() => {
-                        const resultsSection = document.querySelector('.filteration-event-results-section') || 
-                                              document.querySelector('.all-event') || 
-                                              eventsContainer;
+                        const resultsSection = document.querySelector('.filteration-event-results-section') ||
+                            document.querySelector('.all-event') ||
+                            eventsContainer;
                         if (resultsSection) {
                             resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
@@ -945,10 +947,10 @@
                 if (typeof flatpickr !== 'undefined') {
                     flatpickr(dateInput, {
                         dateFormat: "Y-m-d",
-                        onChange: function(selectedDates, dateStr, instance) {
+                        onChange: function (selectedDates, dateStr, instance) {
                             performDateFilter(dateStr);
                         },
-                        onClose: function(selectedDates, dateStr, instance) {
+                        onClose: function (selectedDates, dateStr, instance) {
                             // Also trigger on close if date was cleared
                             if (!dateStr) {
                                 performDateFilter(null);
