@@ -7258,7 +7258,6 @@ textarea::-webkit-scrollbar-thumb {
     transform: translateY(-1px);
     background-color: #ed7326;
     color:#fff;
-    /* box-shadow: 0 8px 25px rgba(237, 115, 38, 0.4); */
 }
 
 .event-create-btn-mobile {
@@ -7932,6 +7931,7 @@ textarea::-webkit-scrollbar-thumb {
     border-right: 1px solid #e0e3ee;
     color: #5a5f73;
     cursor: pointer;
+    display: none;
 }
 
 .event-search-container .wrapper .search_box .location_field .default_option {
@@ -7990,7 +7990,7 @@ textarea::-webkit-scrollbar-thumb {
 .event-search-container .wrapper .search_box .location_field ul li:hover {
     color: #fff !important;
     padding-left: 3px;
-    /* Reduced hover padding */
+    
 }
 
 .event-search-container .wrapper .search_box .location_field:before {
@@ -8006,26 +8006,24 @@ textarea::-webkit-scrollbar-thumb {
     padding-right: 6px;
 }
 
-.event-search-container .wrapper .search_box .search_field {
+/* .event-search-container .wrapper .search_box .search_field {
     flex: 1;
     min-width: 180px;
-    /* Reduced min-width */
-    /* height: 45px; */
-    /* Reduced height */
+
     position: relative;
     padding: 0 8px;
     font-size: 18px;
-    /* Reduced padding */
-}
 
-.event-search-container .wrapper .search_box .search_field .input::placeholder {
+} */
+
+/* .event-search-container .wrapper .search_box .search_field .input::placeholder {
     font-size: 12px;
     font-weight: bold;
-}
+} */
 
-.event-search-container .wrapper .search_box .search_field .input:focus {
+/* .event-search-container .wrapper .search_box .search_field .input:focus {
     outline: none;
-}
+} */
 
 .wrapper .search_box .search_field .fas {
     position: absolute;
@@ -8053,8 +8051,8 @@ textarea::-webkit-scrollbar-thumb {
     height: 45px;
     /* Reduced height */
     border: 0;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 13px;
+    /* font-weight: 600; */
     /* Smaller font */
     padding: 0 25px 0 8px;
     /* Adjusted padding */
@@ -8228,7 +8226,6 @@ input[type="date"]::-webkit-clear-button {
     }
 
     .event-search-container .wrapper .search_box .location_field,
-    .event-search-container .wrapper .search_box .search_field,
     .event-search-container .wrapper .search_box .date_field {
         flex: 1;
         min-width: 0;
@@ -8246,12 +8243,11 @@ input[type="date"]::-webkit-clear-button {
         overflow-y: auto;
     }
 
-    .event-search-container .wrapper .search_box .search_field {
-        min-width: 0;
-    }
+
 
     .event-search-container .wrapper .search_box .date_field {
         border-bottom: 1px solid #e0e3ee;
+        display: none;
     }
 
     .autocomplete-suggestions {
@@ -8267,10 +8263,7 @@ input[type="date"]::-webkit-clear-button {
         /* Smaller font */
     }
 
-    .event-search-container .wrapper .search_box .search_field .input {
-        font-size: 13px;
-        /* Smaller font */
-    }
+
 
     .event-search-container .wrapper .search_box .date_field .date_input {
         font-size: 15px;
@@ -8302,12 +8295,6 @@ input[type="date"]::-webkit-clear-button {
         min-width: 0;
     }
 
-    .event-search-container .wrapper .search_box .search_field .input {
-        font-size: 12px;
-        /* Smaller font */
-        padding: 0 20px 0 6px;
-        /* Reduced padding */
-    }
 
     .event-search-container .wrapper .search_box .search_field .fas {
         font-size: 13px;
@@ -8514,25 +8501,22 @@ input[type="date"]::-webkit-clear-button {
     border: 2px solid transparent;
     border-radius: 25px;
     background: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
-    color: #333;
+    font-size: 13px;
+    color: #777;
     transition: all 0.3s ease;
+}
+
+.search_field .input:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .search_field .input::placeholder {
     color: #666;
-    font-style: italic;
 }
 
-.search_field i {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #667eea;
-    font-size: 16px;
-    pointer-events: none;
-}
+
 
 /* Enhanced Autocomplete Suggestions */
 .autocomplete-suggestions {
@@ -8734,10 +8718,7 @@ input[type="date"]::-webkit-clear-button {
     }
 }
 
-/* Search Field Focus Animation */
-.search_field.focused {
-    animation: searchPulse 0.6s ease-out;
-}
+
 
 @keyframes searchPulse {
     0% {
@@ -8761,10 +8742,7 @@ input[type="date"]::-webkit-clear-button {
     border-radius: 2px;
 }
 
-/* Search Results Dropdown Styles */
-.search_field {
-    position: relative;
-}
+
 
 .search-results-dropdown {
     position: absolute;

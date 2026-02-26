@@ -12,7 +12,7 @@
         <div class="New-card-event-cards-container">
             <div class="filter-controls">
                 <button id="clearFiltersBtn" class="btn btn-danger" onclick="eventFilter.clearFilters()">
-                    <i class="fas fa-times"></i> Clear All Filters & Show All Sections
+                    <i class="fas fa-times"></i> Clear Filter
                 </button>
                 <span id="resultsCount" class="results-count"></span>
             </div>
@@ -100,28 +100,6 @@
     margin-bottom: 20px;
 }
 
-/* #filterSection {
-    transition: all 0.3s ease-in-out;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 15px;
-    margin: 20px 0;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    position: relative;
-    z-index: 1000;
-    scroll-margin-top: 20px; 
-}
-
-#filterSection[style*="display: block"] {
-    display: block !important;
-}
-
-#filterSection[style*="display: none"] {
-    display: none !important;
-}
-
-html {
-    scroll-behavior: smooth;
-} */
 
 .events-grid {
     min-height: 200px;
