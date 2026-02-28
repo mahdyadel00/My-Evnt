@@ -455,11 +455,17 @@
                 (location && location !== "Location" && location !== "");
 
             // Find the appropriate container for results
-            let eventsContainer = document.getElementById('event-container') ||
-                document.querySelector('.all-event') ||
-                document.getElementById('filteredEventsGrid') ||
-                document.getElementById('CardsContainer') ||
-                document.getElementById('cardsContainer');
+            let eventsContainer = null;
+            if (window.location.pathname.indexOf('/events') !== -1 && document.getElementById('cardsContainer')) {
+                eventsContainer = document.getElementById('cardsContainer');
+            }
+            if (!eventsContainer) {
+                eventsContainer = document.getElementById('event-container') ||
+                    document.querySelector('.all-event') ||
+                    document.getElementById('filteredEventsGrid') ||
+                    document.getElementById('CardsContainer') ||
+                    document.getElementById('cardsContainer');
+            }
 
             // If on home page and no container found, use the search section
             if (!eventsContainer) {
@@ -645,11 +651,17 @@
 
         // Display search results
         function displaySearchResults(data) {
-            let eventsContainer = document.getElementById('event-container') ||
-                document.querySelector('.all-event') ||
-                document.getElementById('filteredEventsGrid') ||
-                document.getElementById('CardsContainer') ||
-                document.getElementById('cardsContainer');
+            let eventsContainer = null;
+            if (window.location.pathname.indexOf('/events') !== -1 && document.getElementById('cardsContainer')) {
+                eventsContainer = document.getElementById('cardsContainer');
+            }
+            if (!eventsContainer) {
+                eventsContainer = document.getElementById('event-container') ||
+                    document.querySelector('.all-event') ||
+                    document.getElementById('filteredEventsGrid') ||
+                    document.getElementById('CardsContainer') ||
+                    document.getElementById('cardsContainer');
+            }
 
             if (eventsContainer) {
                 // If on home page (filteredEventsGrid), ensure search section is visible

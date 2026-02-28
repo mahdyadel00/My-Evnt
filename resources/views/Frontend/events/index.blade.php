@@ -55,7 +55,7 @@
                                     ? asset('storage/' . $firstMedia->path)
                                     : asset('Front/img/category/' . $catSlug . '.svg');
                             @endphp
-                            <a href="#" class="filteration-event-category-item filteration-event-category-item-ajax" data-category-id="{{ $category->id }}" role="button">
+                            <a href="#" class="filteration-event-category-item filteration-event-category-item-ajax" data-category-id="{{ $category->id }}" data-category-slug="{{ $catSlug }}" role="button">
                         <div class="filteration-event-category-icon">
                                     <img src="{{ $iconPath }}" alt="{{ $category->name }}" />
                         </div>
@@ -198,7 +198,7 @@
                                 @foreach($categories ?? [] as $cat)
                                     <label class="nebule-event-filter-check">
                                         <input type="checkbox" value="{{ \Illuminate\Support\Str::slug($cat->name) }}"
-                                            data-filter="category">
+                                            data-filter="category" data-category-id="{{ $cat->id }}">
                                         {{ $cat->name }}
                                     </label>
                                 @endforeach
@@ -217,7 +217,7 @@
                                 @foreach($cities ?? [] as $city)
                                     <label class="nebule-event-filter-check">
                                         <input type="checkbox" value="{{ \Illuminate\Support\Str::slug($city->name) }}"
-                                            data-filter="city">
+                                            data-filter="city" data-city-id="{{ $city->id }}">
                                         {{ $city->name }}
                                     </label>
                                 @endforeach

@@ -31,7 +31,7 @@
   // active  = what is actually applied to the card list
   let activeFilters  = { search: "", category: [], city: [], date: "", price: [] };
 
-  // Refresh cards from DOM (e.g. after AJAX category search)
+  // Refresh cards from DOM (e.g. after AJAX category search). Keeps activeFilters so horizontal bar and offcanvas stay in sync.
   function refreshCardsFromContainer() {
       if (!cardsContainer) return;
       allCards = Array.from(cardsContainer.querySelectorAll(".filteration-event-card"));
@@ -41,8 +41,6 @@
           if (!card.dataset.eventDate)     card.dataset.eventDate     = "";
           if (!card.dataset.eventPrice)    card.dataset.eventPrice    = "";
       });
-      activeFilters  = { search: "", category: [], city: [], date: "", price: [] };
-      pendingFilters = deepClone(activeFilters);
       currentPage = 1;
       renderCards();
       renderActiveTags();
@@ -65,6 +63,7 @@
       initFromUrl();       // read URL params → populate activeFilters
       renderCards();       // initial render
       renderActiveTags();  // show any URL-based active filters as tags
+      syncHorizontalCategorySelection();
 
       // After AJAX category search updates the container, refresh local card list
       window.addEventListener("eventsContainerUpdated", refreshCardsFromContainer);
@@ -158,9 +157,67 @@
           pendingFilters.date = dateInput.value || "";
       });
 
-      // When the offcanvas is about to show, sync checkboxes to activeFilters
-      document.addEventListener("bs:offcanvasShow", () => {
-          syncOffcanvasToActive();
+      // When the offcanvas is about to show, sync checkboxes to activeFilters (Bootstrap 5: show.bs.offcanvas)
+      const offcanvasEl = document.getElementById("offcanvasScrolling");
+      if (offcanvasEl) {
+          offcanvasEl.addEventListener("show.bs.offcanvas", () => {
+              syncOffcanvasToActive();
+          });
+      }
+
+      // Outer category bar: click filters by category via AJAX and keeps offcanvas in sync
+      document.querySelectorAll(".filteration-event-category-item-ajax").forEach((item) => {
+          item.addEventListener("click", function (e) {
+              e.preventDefault();
+              var categoryId = this.getAttribute("data-category-id");
+              if (!categoryId) return;
+
+              var slug = this.getAttribute("data-category-slug");
+              if (categoryId === "all") {
+                  activeFilters.category = [];
+                  pendingFilters.category = [];
+              } else if (slug) {
+                  activeFilters.category = [slug];
+                  pendingFilters.category = [slug];
+              }
+
+              // Update selected state (CSS uses .selected)
+              document.querySelectorAll(".filteration-event-category-item-ajax").forEach(function (el) {
+                  el.classList.remove("selected");
+              });
+              this.classList.add("selected");
+
+              if (typeof window.performAjaxSearch !== "function") return;
+              if (categoryId === "all") {
+                  window.performAjaxSearch(null, null, null, {});
+              } else {
+                  window.performAjaxSearch(null, null, null, { category: [categoryId] });
+              }
+          });
+      });
+  }
+
+  /**
+   * Sync the horizontal category bar (outside) with activeFilters.category.
+   * When user applies filter from the sidebar, the matching category pill gets "selected".
+   */
+  function syncHorizontalCategorySelection() {
+      const items = document.querySelectorAll(".filteration-event-category-item-ajax");
+      if (!items.length) return;
+
+      const categorySlugs = activeFilters.category || [];
+      items.forEach((el) => {
+          el.classList.remove("selected");
+          if (categorySlugs.length === 1) {
+              const slug = el.getAttribute("data-category-slug");
+              if (slug && categorySlugs[0] && slug === categorySlugs[0]) {
+                  el.classList.add("selected");
+              }
+          } else {
+              if (el.getAttribute("data-category-id") === "all") {
+                  el.classList.add("selected");
+              }
+          }
       });
   }
 
@@ -191,6 +248,32 @@
       currentPage = 1;
       renderCards();
       renderActiveTags();
+      syncHorizontalCategorySelection();
+
+      // When sidebar has filters, request filtered results from server (supports multiple categories)
+      if (typeof window.performAjaxSearch !== "function") return;
+      const categoryIds = [];
+      filterForm?.querySelectorAll('input[data-filter="category"]:checked').forEach(function (cb) {
+          if (cb.dataset.categoryId) categoryIds.push(cb.dataset.categoryId);
+      });
+      const cityIds = [];
+      filterForm?.querySelectorAll('input[data-filter="city"]:checked').forEach(function (cb) {
+          if (cb.dataset.cityId) cityIds.push(cb.dataset.cityId);
+      });
+      const search = (headerSearchInput?.value || searchInput?.value || "").trim();
+      const date = dateInput?.value || "";
+      const hasFilters = categoryIds.length > 0 || cityIds.length > 0 || date || (search.length >= 2);
+      const additionalFilters = {};
+      if (categoryIds.length > 0) additionalFilters.category = categoryIds;
+      if (cityIds.length > 0) additionalFilters.city_id = cityIds;
+      if (hasFilters) {
+          window.performAjaxSearch(
+              search.length >= 2 ? search : null,
+              null,
+              date || null,
+              additionalFilters
+          );
+      }
   }
 
   function resetAllFilters() {
@@ -212,6 +295,7 @@
       currentPage = 1;
       renderCards();
       renderActiveTags();
+      syncHorizontalCategorySelection();
 
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -482,27 +566,6 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Category AJAX: prevent page reload, filter by category
-  const categoryAjaxItems = document.querySelectorAll(".filteration-event-category-item-ajax");
-  categoryAjaxItems.forEach((item) => {
-      item.addEventListener("click", function (e) {
-          e.preventDefault();
-          var categoryId = this.getAttribute("data-category-id");
-          if (!categoryId) return;
-
-          // Update selected state (CSS uses .selected)
-          categoryAjaxItems.forEach(function (el) { el.classList.remove("selected"); });
-          this.classList.add("selected");
-
-          if (typeof window.performAjaxSearch !== "function") return;
-          if (categoryId === "all") {
-              window.performAjaxSearch(null, null, null, {});
-          } else {
-              window.performAjaxSearch(null, null, null, { category: [categoryId] });
-          }
-      });
-  });
-
   // Add hover effects for category items
   const categoryItems = document.querySelectorAll(
       ".filteration-event-category-item"
