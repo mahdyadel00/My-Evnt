@@ -346,11 +346,11 @@ class EventController extends Controller
                 ]);
             }
 
-            // Return JSON response
+            // Return JSON response (use same cards partial as events index for consistency)
             return response()->json([
                 'success' => true,
                 'message' => 'Events retrieved successfully',
-                'html' => view('Frontend.events.partials.cards_new_style', compact('events'))->render(),
+                'html' => view('Frontend.events.partials.cards', compact('events'))->render(),
                 'total' => $events->total(),
                 'pagination' => (string) $events->links('pagination::bootstrap-4'),
             ]);

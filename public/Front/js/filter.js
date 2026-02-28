@@ -31,6 +31,23 @@
   // active  = what is actually applied to the card list
   let activeFilters  = { search: "", category: [], city: [], date: "", price: [] };
 
+  // Refresh cards from DOM (e.g. after AJAX category search)
+  function refreshCardsFromContainer() {
+      if (!cardsContainer) return;
+      allCards = Array.from(cardsContainer.querySelectorAll(".filteration-event-card"));
+      allCards.forEach((card) => {
+          if (!card.dataset.eventCategory) card.dataset.eventCategory = "";
+          if (!card.dataset.eventCity)     card.dataset.eventCity     = "";
+          if (!card.dataset.eventDate)     card.dataset.eventDate     = "";
+          if (!card.dataset.eventPrice)    card.dataset.eventPrice    = "";
+      });
+      activeFilters  = { search: "", category: [], city: [], date: "", price: [] };
+      pendingFilters = deepClone(activeFilters);
+      currentPage = 1;
+      renderCards();
+      renderActiveTags();
+  }
+
   // ─── INIT ────────────────────────────────────────────────────
   document.addEventListener("DOMContentLoaded", () => {
       // Grab every card once and store references
@@ -48,6 +65,9 @@
       initFromUrl();       // read URL params → populate activeFilters
       renderCards();       // initial render
       renderActiveTags();  // show any URL-based active filters as tags
+
+      // After AJAX category search updates the container, refresh local card list
+      window.addEventListener("eventsContainerUpdated", refreshCardsFromContainer);
   });
 
   // ─── INIT FROM URL PARAMS ─────────────────────────────────────
@@ -462,6 +482,27 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Category AJAX: prevent page reload, filter by category
+  const categoryAjaxItems = document.querySelectorAll(".filteration-event-category-item-ajax");
+  categoryAjaxItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+          e.preventDefault();
+          var categoryId = this.getAttribute("data-category-id");
+          if (!categoryId) return;
+
+          // Update selected state (CSS uses .selected)
+          categoryAjaxItems.forEach(function (el) { el.classList.remove("selected"); });
+          this.classList.add("selected");
+
+          if (typeof window.performAjaxSearch !== "function") return;
+          if (categoryId === "all") {
+              window.performAjaxSearch(null, null, null, {});
+          } else {
+              window.performAjaxSearch(null, null, null, { category: [categoryId] });
+          }
+      });
+  });
+
   // Add hover effects for category items
   const categoryItems = document.querySelectorAll(
       ".filteration-event-category-item"

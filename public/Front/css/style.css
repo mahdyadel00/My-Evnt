@@ -8948,6 +8948,29 @@ input[type="date"]::-webkit-clear-button {
   border-color: #e67e22; /* Change border color on hover */
 }
 
+/* Category Item – Active state (selected filter) */
+.categories-list-event .category-item-event.active {
+  border-color: var(--orange, #e8642c);
+  box-shadow: 0 4px 12px rgba(232, 100, 44, 0.25);
+  position: relative;
+}
+.categories-list-event .category-item-event.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: var(--orange, #e8642c);
+  border-radius: 2px;
+}
+.categories-list-event .category-item-event.active .category-name-event,
+.categories-list-event .category-item-event.active .category-image-event {
+  color: var(--orange, #e8642c);
+  filter: none;
+}
+
 /* Category Icon */
 .categories-list-event .category-item-event .category-icon-event {
   width: 50px;

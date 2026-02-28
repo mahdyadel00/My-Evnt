@@ -40,6 +40,13 @@
             <!-- Universal Slider Layout -->
                 <div class="filteration-event-categories-slider" id="categorySlider">
                 <div class="filteration-event-categories-row">
+                        {{-- All categories (no filter) --}}
+                        <a href="#" class="filteration-event-category-item filteration-event-category-item-ajax selected" data-category-id="all" role="button">
+                            <div class="filteration-event-category-icon">
+                                <span class="filteration-event-category-icon-all" aria-hidden="true">◉</span>
+                            </div>
+                            <div class="filteration-event-category-label">All</div>
+                        </a>
                         @foreach($categories ?? [] as $category)
                             @php
                                 $catSlug = \Illuminate\Support\Str::slug($category->name);
@@ -48,7 +55,7 @@
                                     ? asset('storage/' . $firstMedia->path)
                                     : asset('Front/img/category/' . $catSlug . '.svg');
                             @endphp
-                            <a href="{{ route('events_category', $category->id) }}" class="filteration-event-category-item">
+                            <a href="#" class="filteration-event-category-item filteration-event-category-item-ajax" data-category-id="{{ $category->id }}" role="button">
                         <div class="filteration-event-category-icon">
                                     <img src="{{ $iconPath }}" alt="{{ $category->name }}" />
                         </div>

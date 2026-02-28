@@ -451,13 +451,15 @@
             // Check if we have any search criteria
             const hasSearchCriteria = (query && query.length >= 2) || date ||
                 (additionalFilters.city_id && additionalFilters.city_id.length > 0) ||
+                (additionalFilters.category && additionalFilters.category.length > 0) ||
                 (location && location !== "Location" && location !== "");
 
             // Find the appropriate container for results
             let eventsContainer = document.getElementById('event-container') ||
                 document.querySelector('.all-event') ||
                 document.getElementById('filteredEventsGrid') ||
-                document.getElementById('CardsContainer');
+                document.getElementById('CardsContainer') ||
+                document.getElementById('cardsContainer');
 
             // If on home page and no container found, use the search section
             if (!eventsContainer) {
@@ -467,18 +469,14 @@
                 }
             }
 
-            // If still no container and we have search criteria, show search section on home page
-            if (!eventsContainer && hasSearchCriteria) {
-                const filterSection = document.getElementById('filterSection');
-                if (filterSection) {
-                    filterSection.style.display = 'block';
-                    eventsContainer = document.getElementById('filteredEventsGrid');
-
-                    // Hide other sections on home page
-                    document.querySelectorAll('.js-hide-on-search').forEach(section => {
-                        section.style.display = 'none';
-                    });
-                }
+            // On home page with search criteria, show search section and hide other sections
+            const filterSection = document.getElementById('filterSection');
+            if (filterSection && hasSearchCriteria) {
+                filterSection.style.display = 'block';
+                eventsContainer = document.getElementById('filteredEventsGrid') || eventsContainer;
+                document.querySelectorAll('.js-hide-on-search').forEach(section => {
+                    section.style.display = 'none';
+                });
             }
 
             // If no container at all, don't proceed
@@ -650,7 +648,8 @@
             let eventsContainer = document.getElementById('event-container') ||
                 document.querySelector('.all-event') ||
                 document.getElementById('filteredEventsGrid') ||
-                document.getElementById('CardsContainer');
+                document.getElementById('CardsContainer') ||
+                document.getElementById('cardsContainer');
 
             if (eventsContainer) {
                 // If on home page (filteredEventsGrid), ensure search section is visible
@@ -670,6 +669,11 @@
                 if (data.html) {
                     // For home page, the container already has the correct structure
                     eventsContainer.innerHTML = data.html;
+
+                    // Notify events page filter.js to refresh its card list after AJAX
+                    if (eventsContainer.id === 'cardsContainer') {
+                        window.dispatchEvent(new CustomEvent('eventsContainerUpdated', { detail: { total: data.total } }));
+                    }
 
                     // Scroll to search section on home page
                     if (isHomePage && filterSection) {
@@ -770,6 +774,11 @@
             if (filterSection) {
                 filterSection.style.display = 'none';
             }
+
+            // Remove active state from category filters
+            document.querySelectorAll('.categories-list-event .category-item-event').forEach(function (el) {
+                el.classList.remove('active');
+            });
 
             // Show all hidden sections
             document.querySelectorAll('.js-hide-on-search').forEach(section => {
@@ -895,6 +904,24 @@
             ) {
                 // User came back using browser back button
                 clearInputsOnReturn();
+            }
+        });
+
+        // Category links (Our Categories section) – AJAX filter + active state (vanilla JS)
+        document.addEventListener("click", function (e) {
+            var link = e.target.closest(".category-link-event");
+            if (!link) return;
+            e.preventDefault();
+            var categoryId = link.getAttribute("data-category-id");
+            if (!categoryId) return;
+            var list = link.closest(".categories-list-event");
+            if (list) {
+                list.querySelectorAll(".category-item-event").forEach(function (el) { el.classList.remove("active"); });
+                var item = link.querySelector(".category-item-event");
+                if (item) item.classList.add("active");
+            }
+            if (typeof performAjaxSearch === "function") {
+                performAjaxSearch(null, null, null, { category: [categoryId] });
             }
         });
 
@@ -1231,14 +1258,7 @@
                 }
             });
 
-            // Category Links in New Categories Section
-            $(".category-link-event").click(function (e) {
-                e.preventDefault();
-                const href = $(this).attr("href");
-                if (href && href !== "#") {
-                    window.location.href = href;
-                }
-            });
+            // Category links are handled by vanilla JS listener above (same script)
 
             // Mobile optimizations
             $(window).on("resize", function () {

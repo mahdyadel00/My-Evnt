@@ -301,6 +301,17 @@
     filter: brightness(0) saturate(100%) invert(42%) sepia(6%) saturate(6%) hue-rotate(349deg) brightness(95%) contrast(88%);
   }
 
+  .filteration-event-category-icon-all {
+    font-size: 22px;
+    line-height: 1;
+    display: inline-block;
+    filter: brightness(0) saturate(100%) invert(42%) sepia(6%) saturate(6%) hue-rotate(349deg) brightness(95%) contrast(88%);
+  }
+
+  .filteration-event-category-item.selected .filteration-event-category-icon-all {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+  }
+
   .filteration-event-category-label {
     font-size: 14px;
     font-weight: 500;

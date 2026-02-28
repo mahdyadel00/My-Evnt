@@ -5,7 +5,7 @@
         <div class="categories-list-event">
             <!-- Example Category Items -->
             @foreach ($event_category as $category)
-                <a href="{{ route('events_category', $category->id) }}" class="category-link-event">
+                <a href="#" class="category-link-event" data-category-id="{{ $category->id }}" aria-pressed="false">
                     <div class="category-item-event">
                         <div class="category-icon-event">
                             @foreach ($category->media as $media)
