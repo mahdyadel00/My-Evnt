@@ -27,9 +27,7 @@ class EventController extends Controller
 
         // Start with base query - only show events that haven't ended
         $query = Event::active()
-            ->whereHas('eventDates', function ($q) {
-                $q->where('end_date', '>', now()->toDateString());
-            })
+            ->notEnded()
             ->latest();
 
         $events = $query->with([
@@ -60,9 +58,7 @@ class EventController extends Controller
 
         // Start with base query - only show events that haven't ended
         $query = Event::active()
-            ->whereHas('eventDates', function ($q) {
-                $q->where('end_date', '>', now()->toDateString());
-            });
+            ->notEnded();
 
         // Load events with all necessary relationships
         $events = $query->with([
@@ -94,9 +90,7 @@ class EventController extends Controller
         try {
             // Build query with eager loading - only show events that haven't ended
             $query = Event::active()
-                ->whereHas('eventDates', function ($q) {
-                    $q->where('end_date', '>', now()->toDateString());
-                })
+                ->notEnded()
                 ->with([
                     'city',
                     'category',
@@ -382,9 +376,7 @@ class EventController extends Controller
 
             // Build query with eager loading - only show events that haven't ended
             $query = Event::active()
-                ->whereHas('eventDates', function ($q) {
-                    $q->where('end_date', '>', now()->toDateString());
-                })
+                ->notEnded()
                 ->with([
                     'city',
                     'category',
@@ -854,10 +846,7 @@ class EventController extends Controller
     public function filterEvents(Request $request)
     {
         try {
-            $query = Event::active()->with(['media', 'tickets', 'currency', 'category', 'city', 'eventDates'])
-                ->whereHas('eventDates', function ($query) {
-                    $query->where('end_date', '>', now()->toDateString());
-                });
+            $query = Event::active()->notEnded()->with(['media', 'tickets', 'currency', 'category', 'city', 'eventDates']);
 
             // Search by event name, description, summary, location, category, city, organized_by, company
             if ($request->filled('search')) {
@@ -1113,9 +1102,7 @@ class EventController extends Controller
 
     public function eventsByCity($id)
     {
-        $events = Event::active()->where('city_id', $id)->whereHas('eventDates', function ($query) {
-            $query->where('end_date', '>', now()->toDateString());
-        })->paginate(config('app.pagination'));
+        $events = Event::active()->notEnded()->where('city_id', $id)->paginate(config('app.pagination'));
         $categories = EventCategory::where('parent_id', null)->get();
         $setting = Setting::first();
         $city = City::where('id', $id)->first();

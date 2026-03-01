@@ -224,6 +224,24 @@ class Event extends Model
         }
     }
 
+    /**
+     * Scope: only events whose last end_date (max of all event_dates) is still in the future (not ended).
+     * So an event is hidden once all its dates have passed.
+     */
+    public function scopeNotEnded($query)
+    {
+        $today = now()->toDateString();
+        $eventsTable = $this->getTable();
+        $datesTable = (new EventDate())->getTable();
+
+        return $query->whereHas('eventDates')
+            ->whereRaw(
+                "(SELECT MAX(ed.end_date) FROM {$datesTable} ed WHERE ed.event_id = {$eventsTable}.id AND ed.end_date IS NOT NULL) > ?",
+                [$today]
+            );
+            
+    }
+
     //past event
     public function scopePast($query)
     {
