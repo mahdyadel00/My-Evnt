@@ -134,6 +134,7 @@ class EventCategoryController extends Controller
                 ->with('success', __('Event Category updated successfully'));
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             $this->logError('update', $e);
             return redirect()->back()->with('error', __('Something went wrong'));
         }

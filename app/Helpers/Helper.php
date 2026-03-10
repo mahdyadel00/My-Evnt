@@ -96,7 +96,8 @@ function storeOptimizedMedia(UploadedFile $file, $model): array
 
     $mime = $file->getMimeType() ?? 'application/octet-stream';
 
-    if (str_starts_with($mime, 'image/')) {
+    // Optimise only raster images; store SVG and other images as-is
+    if (str_starts_with($mime, 'image/') && $mime !== 'image/svg+xml') {
         // Ensure the target directory exists before writing (fixes "Directory does not exist" error)
         $disk->makeDirectory($directory);
 
