@@ -408,7 +408,7 @@
 
           .nebule-event-details .nebule-event-details__interested-benefits {
               list-style: none;
-              margin: 0 0 20px 0;
+              margin: 0 0 10px 0;
               padding-top: 10px;
               display: flex;
               flex-wrap: wrap;
@@ -582,7 +582,7 @@
               position: relative;
               display: flex;
               flex-direction: column;
-              gap: 12px;
+              gap: 8px;
               padding: 20px 20px 20px 24px;
               background: linear-gradient(145deg, #fff 0%, #fafafa 100%);
               border: 1px solid #e8e8e8;
@@ -1320,7 +1320,7 @@
               font-size: 1.5rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 10px;
+              margin: 10px 0 ;
           }
 
           .nebule-event-details .nebule-event-details__explore-list {
@@ -1933,7 +1933,7 @@
           }
           .related-events-container-nebule .related-events-title {
               font-size: 1.4rem;
-              font-weight: 600;
+              font-weight: 500;
               color: #1a1a1a;
               margin-bottom: 10px;
           }
@@ -2055,7 +2055,8 @@
               }
 
               .nebule-event-details .nebule-event-details__ticket-item {
-                  padding: 14px;
+                  padding: 10px;
+                  gap: 4px;
               }
 
               .nebule-event-details .nebule-event-details__ticket-item-name {
@@ -2117,7 +2118,7 @@
 
               .nebule-event-details .nebule-event-details__explore-title {
                   font-size: 1.2rem;
-                  margin-bottom: 10px;
+                  margin: 7px 0;
               }
 
               .nebule-event-details .nebule-event-details__explore-card {
