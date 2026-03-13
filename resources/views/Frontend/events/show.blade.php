@@ -234,7 +234,7 @@
         <div class="New-card-event-cards-container related-events-container-nebule">
             <h2 class="related-events-title">You May Also Like</h2>
             <div class="New-card-event-cards-grid">
-                @foreach($event_related as $relatedEvent)
+                @foreach($event_related->take(3) as $relatedEvent)
                     @php
                         $relBanner = $relatedEvent->media->where('name', 'banner')->first() ?? $relatedEvent->media->first();
                         $relFirstDate = $relatedEvent->eventDates->first();

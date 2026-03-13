@@ -2011,6 +2011,9 @@
               .nebule-event-details .nebule-event-details__container {
                   padding: 10px 16px;
               }
+              .nebule-event-details .nebule-event-details__section {
+                margin-bottom: 12px;
+              }
               .related-events-container-nebule {
                   padding: 12px 16px;
                   margin-top: 20px;
@@ -2094,7 +2097,7 @@
                   font-size: 0.8rem;
               }
               .nebule-event-details .nebule-event-details__event-meta-block {
-                  margin-bottom: 12px;
+                  margin-bottom: 10px;
               }
 
               .nebule-event-details .nebule-event-details__organizer-badge {
@@ -2140,7 +2143,7 @@
               }
 
               .nebule-event-details .nebule-event-details__facilities-grid {
-                  gap: 6px;
+                  gap: 0px;
               }
 
               .nebule-event-details .nebule-event-details__facilities-title {
@@ -2148,7 +2151,7 @@
               }
 
               .nebule-event-details .nebule-event-details__facility-item {
-                  min-height: 44px;
+                  min-height: 38px;
               }
 
               .nebule-event-details .nebule-event-details__modal-footer {
@@ -2328,7 +2331,7 @@
           @media (max-width: 575px) {
               .related-events-container-nebule {
                   padding: 10px 12px;
-                  margin-top: 16px;
+                  margin-top: 0px;
                   margin-bottom: 10px;
               }
               .related-events-container-nebule .New-card-event-cards-grid {
