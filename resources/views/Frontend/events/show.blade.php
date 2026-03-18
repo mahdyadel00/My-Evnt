@@ -846,7 +846,7 @@
                             $('#guestSurveyModal').modal('hide');
 
                             // Show promo code with copy button
-                            const promoCode = 'MyeventX50Engineerex25';
+                            const promoCode = 'Myevnt-ECSG';
 
                             Swal.fire({
                                 title: '<strong style="color: #667eea;">🎉 Registration Successful!</strong>',
