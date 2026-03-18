@@ -492,11 +492,20 @@ class UserController extends Controller
 
             $totalUsers = $users->count();
 
-            // Dispatch one job per user with a small delay between each
+            // In local/dev environments, send synchronously so emails work without a queue worker.
+            // In production, keep queueing to avoid blocking the request.
+            $sendSync = app()->environment(['local', 'testing']);
+
+            // Dispatch one job per user with a small delay between each (queue mode only)
             $delaySeconds = 0;
             $delayStep    = 5; // 5 seconds between each email
 
             foreach ($users as $user) {
+                if ($sendSync) {
+                    SendUserEmailJob::dispatchSync($user->id, $subject, $message);
+                    continue;
+                }
+
                 SendUserEmailJob::dispatch($user->id, $subject, $message)
                     ->delay(now()->addSeconds($delaySeconds));
 
@@ -506,15 +515,19 @@ class UserController extends Controller
             Log::info('User emails queued for sending', [
                 'total_users' => $totalUsers,
                 'delay_step_seconds' => $delayStep,
+                'mode' => $sendSync ? 'sync' : 'queue',
             ]);
 
-            $message = __('Emails queued successfully! :count email(s) will be sent in the background.', [
-                'count' => $totalUsers
-            ]);
+            $message = $sendSync
+                ? __('Emails sent successfully! :count email(s) were sent immediately.', ['count' => $totalUsers])
+                : __('Emails queued successfully! :count email(s) will be sent in the background.', ['count' => $totalUsers]);
 
             return redirect()->route('admin.users.index')
                 ->with('success', $message)
-                ->with('info', __('The emails are being processed in the background. Please check the logs for detailed results.'));
+                ->with('info', $sendSync
+                    ? __('Emails were sent during the request. Check logs for details if needed.')
+                    : __('The emails are being processed in the background. Please check the logs for detailed results.')
+                );
         } catch (\Exception $e) {
             $this->logError('sendEmail', $e);
             
