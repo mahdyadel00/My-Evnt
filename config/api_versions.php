@@ -15,7 +15,7 @@ return [
         'v1' => [
             'name'        => 'v1',
             'description' => 'First version of the API',
-            'status'      => strtolower(env('API_VERSION')) === 'v1' ? 'active' : 'inactive',
+            'status'      => strtolower(env('API_VERSION', 'v1') ?? 'v1') === 'v1' ? 'active' : 'inactive',
             'date'        => '15-08-2024',
             'middlewares' => ['api', 'lang'],
             'files'       => [

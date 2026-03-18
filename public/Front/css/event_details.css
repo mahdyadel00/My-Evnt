@@ -45,7 +45,7 @@
               margin: 0 auto;
               /* aspect-ratio: 21/9; */
               border-radius: 7px;
-              margin-bottom: 20px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__hero-actions {
@@ -214,7 +214,7 @@
           .nebule-event-details .nebule-event-details__container {
               max-width: 1200px;
               margin: 0 auto;
-              padding: 40px 20px;
+              padding:  20px;
           }
 
           .nebule-event-details .nebule-event-details__layout {
@@ -230,19 +230,19 @@
 
           .nebule-event-details .nebule-event-details__mobile-title {
               display: none;
-              margin-bottom: 30px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__desktop-title {
               display: block;
-              margin-bottom: 24px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__title {
               font-size: 2rem;
-              font-weight: 700;
+              font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
               line-height: 1.2;
           }
 
@@ -260,8 +260,8 @@
               display: flex;
               align-items: center;
               gap: 12px;
-              margin-bottom: 20px;
-              padding-bottom: 20px;
+              margin-bottom: 10px;
+              padding-bottom: 14px;
               border-bottom: 1px solid #e5e5e5;
           }
 
@@ -298,10 +298,12 @@
 
           .nebule-event-details .nebule-event-details__organizer-badge-info {
               display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 2px;
+              flex-direction: row;
+              flex-wrap: wrap;
+              align-items: center;
+              gap: 6px 10px;
               flex: 1;
+              min-width: 0;
           }
 
           .nebule-event-details .nebule-event-details__organizer-badge-name {
@@ -309,14 +311,14 @@
               color: #1a1a1a;
               font-weight: 600;
               line-height: 1.3;
-              display: block;
+              display: inline;
           }
 
           .nebule-event-details .nebule-event-details__organizer-badge-by {
               font-size: 0.9rem;
               color: #6c757d;
               font-weight: 400;
-              display: block;
+              display: inline;
           }
 
           .nebule-event-details
@@ -354,7 +356,7 @@
 
           /* Section Styles */
           .nebule-event-details .nebule-event-details__section {
-              margin-bottom: 48px;
+              margin-bottom: 22px;
           }
 
           .nebule-event-details .nebule-event-details__section:last-child {
@@ -365,14 +367,14 @@
               font-size: 1.4rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__overview-title {
               font-size: 1.4rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__section-content {
@@ -382,7 +384,7 @@
           }
 
           .nebule-event-details .nebule-event-details__section-content p {
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details
@@ -393,20 +395,20 @@
 
           /* I am interested section */
           .nebule-event-details .nebule-event-details__interested-section {
-              margin-bottom: 25px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__interested-desc {
               font-size: 0.875rem;
               color: #5a5a5a;
               line-height: 1.55;
-              /* margin-bottom: 16px; */
+              /* margin-bottom: 10px; */
               max-width: 480px;
           }
 
           .nebule-event-details .nebule-event-details__interested-benefits {
               list-style: none;
-              margin: 0 0 20px 0;
+              margin: 0 0 10px 0;
               padding-top: 10px;
               display: flex;
               flex-wrap: wrap;
@@ -544,17 +546,17 @@
               font-weight: 600;
               color: #1a1a1a;
               margin-top: 24px;
-              margin-bottom: 12px;
+              margin-bottom: 2px;
           }
 
           /* Lists */
           .nebule-event-details .nebule-event-details__list {
               margin-left: 20px;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__list li {
-              margin-bottom: 8px;
+              margin-bottom: 2px;
               color: #4a4a4a;
               line-height: 1.6;
           }
@@ -580,7 +582,7 @@
               position: relative;
               display: flex;
               flex-direction: column;
-              gap: 12px;
+              gap: 8px;
               padding: 20px 20px 20px 24px;
               background: linear-gradient(145deg, #fff 0%, #fafafa 100%);
               border: 1px solid #e8e8e8;
@@ -629,7 +631,7 @@
               border: none;
               border-radius: 8px;
               font-size: 0.95rem;
-              font-weight: 600;
+              font-weight: 400;
               cursor: pointer;
               transition: background-color 0.2s, transform 0.15s;
               text-decoration: none;
@@ -645,7 +647,7 @@
 
           /* Choose dates section (multiple dates / locations) */
           .nebule-event-details .nebule-event-details__dates-section {
-              margin-bottom: 40px;
+              margin-bottom: 26px;
           }
 
           .nebule-event-details .nebule-event-details__dates-grid {
@@ -706,14 +708,14 @@
 
           /* Event name + meta block (under hero) */
           .nebule-event-details .nebule-event-details__event-meta-block {
-              margin-bottom: 32px;
+              margin-bottom: 22px;
           }
 
           .nebule-event-details .nebule-event-details__event-meta-row {
               display: flex;
               align-items: flex-start;
               gap: 10px;
-              margin-bottom: 14px;
+              margin-bottom: 10px;
               font-size: 0.95rem;
               color: #4a4a4a;
               line-height: 1.5;
@@ -778,7 +780,7 @@
               font-weight: 500;
               font-size: 0.95rem;
               display: inline-block;
-              margin-top: 10px;
+              margin-top: 5px;
               cursor: pointer;
               background: none;
               border: none;
@@ -806,7 +808,7 @@
               font-size: 1.1rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__highlights-list {
@@ -833,14 +835,14 @@
  ============================================ */
 
           .nebule-event-details .nebule-event-details__facilities-section {
-              margin-bottom: 28px;
+              margin: 12px 0;
           }
 
           .nebule-event-details .nebule-event-details__facilities-title {
               font-size: 1.4rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
 
               letter-spacing: 0.02em;
           }
@@ -912,7 +914,7 @@
               justify-content: space-between;
               gap: 16px;
               flex-wrap: wrap;
-              margin-bottom: 12px;
+              margin-bottom: 2px;
           }
 
           .nebule-event-details .nebule-event-details__organizer-name {
@@ -961,7 +963,7 @@
 
           .nebule-event-details .nebule-event-details__organizer-description {
               color: #6c757d;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
               line-height: 1.6;
               font-size: 0.9rem;
           }
@@ -994,7 +996,7 @@
               height: 400px;
               border-radius: 8px;
               overflow: hidden;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
               border: 1px solid #e5e5e5;
           }
 
@@ -1016,12 +1018,12 @@
               font-size: 1rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 8px;
+              margin-bottom: 2px;
           }
 
           .nebule-event-details .nebule-event-details__location-address {
               color: #4a4a4a;
-              margin-bottom: 8px;
+              margin-bottom: 2px;
               display: flex;
               align-items: start;
               gap: 8px;
@@ -1104,7 +1106,7 @@
               font-size: 1rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 12px;
+              margin-bottom: 2px;
               line-height: 1.3;
           }
 
@@ -1112,7 +1114,7 @@
           .nebule-event-details .nebule-event-details__related-location {
               color: #6c757d;
               font-size: 0.85rem;
-              margin-bottom: 6px;
+              margin-bottom: 2px;
               display: flex;
               align-items: center;
               gap: 6px;
@@ -1140,7 +1142,7 @@
           .nebule-event-details .nebule-event-details__info-card {
               border-radius: 8px;
               padding: 0;
-              margin-bottom: 20px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__info-card-body {
@@ -1152,7 +1154,7 @@
               display: flex;
               gap: 10px;
               justify-content: flex-end;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__icon-btn {
@@ -1180,13 +1182,13 @@
 
           /* Price Display */
           .nebule-event-details .nebule-event-details__price-display {
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__price-label {
               font-size: 0.85rem;
               color: #6c757d;
-              margin-bottom: 4px;
+              margin-bottom: 2px;
           }
 
           .nebule-event-details .nebule-event-details__price-value {
@@ -1203,12 +1205,12 @@
 
           /* Tickets Section (sidebar - ticket-style card) */
           .nebule-event-details .nebule-event-details__tickets-section {
-              margin-bottom: 28px;
+              margin-bottom: 2px;
           }
 
           .nebule-event-details .nebule-event-details__ticket-card {
               position: relative;
-              margin-bottom: 18px;
+              margin-bottom: 2px;
               border-radius: 14px;
               overflow: hidden;
               transition: box-shadow 0.25s ease, border-color 0.25s ease;
@@ -1248,8 +1250,8 @@
           .nebule-event-details .nebule-event-details__ticket-date-label {
               font-size: 0.95rem;
               color: #6c757d;
-              font-weight: 500;
-              line-height: 1.4;
+              font-weight: 400;
+              line-height: 1.2;
               display: inline-flex;
               align-items: center;
               gap: 8px;
@@ -1298,7 +1300,7 @@
           .nebule-event-details .nebule-event-details__info-item-label {
               font-size: 0.85rem;
               color: #6c757d;
-              margin-bottom: 6px;
+              margin-bottom: 2px;
               display: flex;
               align-items: center;
               gap: 6px;
@@ -1318,7 +1320,7 @@
               font-size: 1.5rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 24px;
+              margin: 10px 0 ;
           }
 
           .nebule-event-details .nebule-event-details__explore-list {
@@ -1369,7 +1371,7 @@
               color: #1a1a1a;
               line-height: 1.3;
               display: block;
-              margin-bottom: 6px;
+              margin-bottom: 2px;
           }
 
           .nebule-event-details__explore-name i {
@@ -1404,7 +1406,7 @@
               font-size: 1rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 14px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__share-buttons {
@@ -1472,7 +1474,7 @@
           .nebule-event-details__share-modal-header {
               border-bottom-width: 2px;
               border-bottom-color: #f0f0f0;
-              padding-bottom: 20px;
+              padding-bottom: 14px;
           }
 
           .nebule-event-details__share-modal-header
@@ -1488,7 +1490,7 @@
               align-items: center;
               gap: 20px;
               border-radius: 12px;
-              margin-bottom: 24px;
+              margin-bottom: 10px;
               transition: border-color 0.2s, box-shadow 0.2s;
           }
 
@@ -1538,7 +1540,7 @@
           .nebule-event-details__share-link-wrap {
               display: flex;
               gap: 12px;
-              margin-bottom: 20px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details__share-link-input {
@@ -1589,7 +1591,7 @@
               font-size: 1.05rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 18px;
+              margin-bottom: 2px;
               display: block;
               letter-spacing: -0.01em;
           }
@@ -1715,20 +1717,20 @@
               border: 1px solid #e5e5e5;
               padding: 16px;
               border-radius: 8px;
-              margin-bottom: 24px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__modal-event-name {
               font-size: 1.05rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 8px;
+              margin-bottom: 2px;
           }
 
           .nebule-event-details .nebule-event-details__modal-event-info {
               font-size: 0.85rem;
               color: #6c757d;
-              margin-bottom: 4px;
+              margin-bottom: 2px;
               display: flex;
               align-items: center;
               gap: 8px;
@@ -1745,7 +1747,7 @@
 
           /* Modal Form Sections */
           .nebule-event-details .nebule-event-details__modal-section {
-              margin-bottom: 20px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__modal-label {
@@ -1753,7 +1755,7 @@
               font-size: 0.9rem;
               font-weight: 600;
               color: #1a1a1a;
-              margin-bottom: 8px;
+              margin-bottom: 2px;
           }
 
           .nebule-event-details .nebule-event-details__modal-input {
@@ -1814,14 +1816,14 @@
               border: 1px solid #e5e5e5;
               padding: 22px;
               border-radius: 8px;
-              margin-bottom: 22px;
+              margin-bottom: 10px;
           }
 
           .nebule-event-details .nebule-event-details__price-row {
               display: flex;
               justify-content: space-between;
               align-items: center;
-              margin-bottom: 12px;
+              margin-bottom: 2px;
               color: #4a4a4a;
               font-size: 0.9rem;
           }
@@ -1926,15 +1928,14 @@
           .related-events-container-nebule {
               width: 100%;
               max-width: 1200px;
-              margin: 30px auto;
-              padding: 20px;
+              margin: 15px auto;
               box-sizing: border-box;
           }
           .related-events-container-nebule .related-events-title {
               font-size: 1.4rem;
-              font-weight: 600;
+              font-weight: 500;
               color: #1a1a1a;
-              margin-bottom: 16px;
+              margin-bottom: 10px;
           }
           .related-events-container-nebule .New-card-event-cards-grid {
               display: grid;
@@ -1961,7 +1962,7 @@
               .related-events-container-nebule {
                   padding: 16px;
                   margin-top: 24px;
-                  margin-bottom: 24px;
+                  margin-bottom: 10px;
               }
               .related-events-container-nebule .New-card-event-cards-grid {
                   grid-template-columns: repeat(2, 1fr);
@@ -2008,12 +2009,15 @@
 
           @media (max-width: 767px) {
               .nebule-event-details .nebule-event-details__container {
-                  padding: 20px 16px;
+                  padding: 10px 16px;
+              }
+              .nebule-event-details .nebule-event-details__section {
+                margin-bottom: 12px;
               }
               .related-events-container-nebule {
                   padding: 12px 16px;
                   margin-top: 20px;
-                  margin-bottom: 20px;
+                  margin-bottom: 10px;
                   max-width: 100%;
               }
               .related-events-container-nebule .New-card-event-cards-grid {
@@ -2022,7 +2026,7 @@
               }
               .related-events-container-nebule .related-events-title {
                   font-size: 1.2rem;
-                  margin-bottom: 12px;
+                  margin-bottom: 8px;
               }
 
               .nebule-event-details .nebule-event-details__layout {
@@ -2054,7 +2058,8 @@
               }
 
               .nebule-event-details .nebule-event-details__ticket-item {
-                  padding: 14px;
+                  padding: 10px;
+                  gap: 4px;
               }
 
               .nebule-event-details .nebule-event-details__ticket-item-name {
@@ -2066,7 +2071,7 @@
               }
 
               .nebule-event-details .nebule-event-details__ticket-item-btn {
-                  padding: 7px 12px;
+                  padding: 6px 12px;
               }
 
               .nebule-event-details .nebule-event-details__hero {
@@ -2092,12 +2097,12 @@
                   font-size: 0.8rem;
               }
               .nebule-event-details .nebule-event-details__event-meta-block {
-                  margin-bottom: 20px;
+                  margin-bottom: 10px;
               }
 
               .nebule-event-details .nebule-event-details__organizer-badge {
-                  margin-bottom: 16px;
-                  padding-bottom: 16px;
+                  margin-bottom: 5px;
+                  padding-bottom: 5px;
               }
 
               .nebule-event-details .nebule-event-details__organizer {
@@ -2116,7 +2121,7 @@
 
               .nebule-event-details .nebule-event-details__explore-title {
                   font-size: 1.2rem;
-                  margin-bottom: 16px;
+                  margin: 7px 0;
               }
 
               .nebule-event-details .nebule-event-details__explore-card {
@@ -2138,7 +2143,7 @@
               }
 
               .nebule-event-details .nebule-event-details__facilities-grid {
-                  gap: 12px;
+                  gap: 0px;
               }
 
               .nebule-event-details .nebule-event-details__facilities-title {
@@ -2146,7 +2151,7 @@
               }
 
               .nebule-event-details .nebule-event-details__facility-item {
-                  min-height: 44px;
+                  min-height: 38px;
               }
 
               .nebule-event-details .nebule-event-details__modal-footer {
@@ -2158,8 +2163,12 @@
                   justify-content: center;
               }
 
+              .nebule-event-details .nebule-event-details__reserve-btn {
+                padding: 10px 20px;
+              }
+
               .nebule-event-details .nebule-event-details__action-buttons {
-                  margin-bottom: 12px;
+                  margin-bottom: 2px;
               }
 
               /* Modals - tablet/mobile */
@@ -2209,7 +2218,7 @@
               .nebule-event-details .nebule-event-details__share-event-card {
                   padding: 16px;
                   gap: 14px;
-                  margin-bottom: 18px;
+                  margin-bottom: 2px;
               }
 
               .nebule-event-details .nebule-event-details__share-event-thumb {
@@ -2228,7 +2237,7 @@
               .nebule-event-details .nebule-event-details__share-link-wrap {
                   flex-direction: column;
                   gap: 10px;
-                  margin-bottom: 12px;
+                  margin-bottom: 2px;
               }
 
               .nebule-event-details .nebule-event-details__share-link-input {
@@ -2271,8 +2280,8 @@
 
               .nebule-event-details
                   .nebule-event-details__ticket-modal-summary {
-                  margin-bottom: 20px;
-                  padding-bottom: 18px;
+                  margin-bottom: 10px;
+                  padding-bottom: 12px;
               }
 
               .nebule-event-details .nebule-event-details__ticket-modal-row {
@@ -2303,7 +2312,7 @@
               .nebule-event-details
                   .nebule-event-details__modal-price-summary {
                   padding: 18px;
-                  margin-bottom: 18px;
+                  margin-bottom: 2px;
               }
 
               .nebule-event-details .nebule-event-details__organizer--modal {
@@ -2322,15 +2331,15 @@
           @media (max-width: 575px) {
               .related-events-container-nebule {
                   padding: 10px 12px;
-                  margin-top: 16px;
-                  margin-bottom: 16px;
+                  margin-top: 0px;
+                  margin-bottom: 10px;
               }
               .related-events-container-nebule .New-card-event-cards-grid {
                   grid-template-columns: 1fr;
                   gap: 12px;
               }
               .related-events-container-nebule .related-events-title {
-                  font-size: 1.1rem;
+                  font-size: 1.2rem;
               }
 
               .nebule-event-details
