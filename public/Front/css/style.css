@@ -7382,7 +7382,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .event-dropdown-item:last-child {
-    border-bottom: none;
+    border-bottom: none !important;
 }
 
 .event-dropdown-item:hover {
@@ -7968,17 +7968,17 @@ textarea::-webkit-scrollbar-thumb {
     }
 
     .event-user-name {
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .event-user-profile {
-        padding: 6px;
+        padding: 5px;
     }
 
     .event-user-avatar {
-        width: 28px;
-        height: 28px;
-        font-size: 11px;
+        width: 22px;
+        height: 22px;
+        font-size: 9px;
         margin-right: 4px;
     }
 }

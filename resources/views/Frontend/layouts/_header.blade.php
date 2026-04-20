@@ -1112,7 +1112,7 @@
                         ".event-signin-btn, .event-user-name, button, a"
                     );
                     const hasMenu = !!dropdown.querySelector(
-                        ".event-dropdown-menu"
+                        ".event-dropdown-menu, .event-user-dropdown"
                     );
 
                     if (trigger) {
