@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <title>Details Event</title>
@@ -21,7 +21,7 @@
             type="text/css"
             href="css/swiper-bundle.min.css"
         />
-
+  
     </head>
 
     <body>
@@ -555,10 +555,7 @@
                     </div>
 
                     <div class="carousel-neblue-event-item">
-                        <a
-                            href="#"
-                            class="carousel-neblue-event-link"
-                        >
+                        <a href="#" class="carousel-neblue-event-link">
                             <img
                                 src="img/slider-neblue3.jpg"
                                 alt="Event 3"
@@ -568,10 +565,7 @@
                     </div>
 
                     <div class="carousel-neblue-event-item">
-                        <a
-                            href="#"
-                            class="carousel-neblue-event-link"
-                        >
+                        <a href="#" class="carousel-neblue-event-link">
                             <img
                                 src="img/slider-neblue4.png"
                                 alt="Event 4"
@@ -581,10 +575,7 @@
                     </div>
 
                     <div class="carousel-neblue-event-item">
-                        <a
-                            href="#"
-                            class="carousel-neblue-event-link"
-                        >
+                        <a href="#" class="carousel-neblue-event-link">
                             <img
                                 src="img/slider-neblue5.png"
                                 alt="Event 5"
@@ -608,6 +599,92 @@
                 </div>
             </div>
         </article>
+
+        <!-- ══════════════════════════
+       POPUP OVERLAY BACKDROP
+       ══════════════════════════ -->
+        <div
+            class="popup-overlay-backdrop"
+            id="jsPopupBackdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="jsPopupTitle"
+        >
+            <!-- keep for JS (script expects this id) -->
+            <button id="jsOpenModal" type="button" style="display: none"></button>
+            <!-- POPUP CONTAINER WRAPPER -->
+            <div class="popup-container-wrapper">
+                <!-- IMAGE BANNER AREA -->
+                <div class="popup-image-banner-area">
+                    <a href="event_details_new.html" class="banner-photo-link">
+                        <img
+                            class="banner-photo-img"
+                            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop&auto=format&q=80"
+                            alt="Mountain landscape at golden hour — 800×500 px"
+                            width="800"
+                            height="500"
+                        />
+                    </a>
+
+                    <div class="popup-banner-topbar">
+                        <div class="banner-type-label">Trade show</div>
+
+                        <button
+                            class="banner-x-close-btn"
+                            id="jsCloseBanner"
+                            type="button"
+                            aria-label="Close popup"
+                        >
+                            ✕
+                        </button>
+                    </div>
+                </div>
+                <!-- /IMAGE BANNER AREA -->
+
+                <!-- BODY CONTENT AREA -->
+                <div class="popup-body-content-area">
+                    <!-- Title -->
+                    <div class="body-title-rating-row">
+                        <h2 class="body-main-title-text" id="jsPopupTitle">
+                            Mountain Serenity Collection
+                        </h2>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="body-description-paragraph">
+                        Breathtaking high-resolution photography from the
+                        world's most stunning alpine landscapes. Each image is
+                        professionally graded and ready for print or digital
+                        use.
+                    </p>
+
+                    <div class="popup-meta-row" aria-label="Event details">
+                        <div class="popup-meta-item">
+                            <i class="fas fa-location-dot" aria-hidden="true"></i>
+                            <span>Nasr City</span>
+                        </div>
+                        <div class="popup-meta-item">
+                            <i class="fas fa-calendar-days" aria-hidden="true"></i>
+                            <span>Mon, May 04, 11:00 AM</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /BODY CONTENT AREA -->
+
+                <!-- FOOTER ACTIONS BAR -->
+                <div class="popup-footer-actions-bar">
+                    <button class="footer-ghost-dismiss-btn" id="jsDismissBtn" type="button">
+                        Maybe Later
+                    </button>
+                    <a class="footer-primary-cta-btn" id="jsConfirmBtn" href="event_details_new.html">
+                        Get Ticket
+                    </a>
+                </div>
+                <!-- /FOOTER ACTIONS BAR -->
+            </div>
+            <!-- /POPUP CONTAINER WRAPPER -->
+        </div>
+        <!-- /POPUP OVERLAY BACKDROP -->
 
         <!-- Start Footer section -->
         <footer class="footer-section">
@@ -837,15 +914,15 @@
 
             // Elements
             const neblueEventCarousel = document.querySelector(
-                ".carousel-neblue-event-carousel"
+                ".carousel-neblue-event-carousel",
             );
             const neblueEventItems = document.querySelectorAll(
-                ".carousel-neblue-event-item"
+                ".carousel-neblue-event-item",
             );
             const neblueEventPrevBtn = document.getElementById("prev");
             const neblueEventNextBtn = document.getElementById("next");
             const neblueEventProgressBar = document.querySelector(
-                ".carousel-neblue-event-progress-bar"
+                ".carousel-neblue-event-progress-bar",
             );
 
             // Start - No automatic playback, only by pressing the buttons
@@ -871,7 +948,7 @@
                 });
 
                 neblueEventItems[index].classList.add(
-                    "carousel-neblue-event-active"
+                    "carousel-neblue-event-active",
                 );
             }
 
@@ -927,29 +1004,29 @@
                 if (neblueEventPrevBtn) {
                     neblueEventPrevBtn.addEventListener(
                         "click",
-                        neblueEventPrevSlide
+                        neblueEventPrevSlide,
                     );
                 }
                 if (neblueEventNextBtn) {
                     neblueEventNextBtn.addEventListener(
                         "click",
-                        neblueEventNextSlide
+                        neblueEventNextSlide,
                     );
                 }
                 if (neblueEventCarousel) {
                     neblueEventCarousel.addEventListener(
                         "touchstart",
                         neblueEventHandleTouchStart,
-                        { passive: true }
+                        { passive: true },
                     );
                     neblueEventCarousel.addEventListener(
                         "touchmove",
                         neblueEventHandleTouchMove,
-                        { passive: true }
+                        { passive: true },
                     );
                     neblueEventCarousel.addEventListener(
                         "touchend",
-                        neblueEventHandleTouchEnd
+                        neblueEventHandleTouchEnd,
                     );
                 }
                 document.addEventListener("keydown", neblueEventHandleKeyboard);
@@ -969,6 +1046,47 @@
                 goTo: neblueEventShowSlide,
                 getCurrentSlide: () => neblueEventCurrentSlide,
             };
+        </script>
+
+        <!-- popup overlay backdrop action  -->
+        <script>
+            (function () {
+                var backdrop = document.getElementById("jsPopupBackdrop");
+                var openBtn = document.getElementById("jsOpenModal");
+                var closeBtn = document.getElementById("jsCloseBanner");
+                var dismissBtn = document.getElementById("jsDismissBtn");
+                var confirmBtn = document.getElementById("jsConfirmBtn");
+
+                function openPopup() {
+                    backdrop.classList.add("is-open");
+                    document.body.style.overflow = "hidden";
+                }
+
+                function closePopup() {
+                    backdrop.classList.remove("is-open");
+                    document.body.style.overflow = "";
+                }
+
+                /* Auto-open on page load */
+                window.addEventListener("load", function () {
+                    setTimeout(openPopup, 300);
+                });
+
+                openBtn.addEventListener("click", openPopup);
+                closeBtn.addEventListener("click", closePopup);
+                dismissBtn.addEventListener("click", closePopup);
+                confirmBtn.addEventListener("click", closePopup);
+
+                /* Click outside modal */
+                backdrop.addEventListener("click", function (e) {
+                    if (e.target === backdrop) closePopup();
+                });
+
+                /* Escape key */
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") closePopup();
+                });
+            })();
         </script>
     </body>
 </html>
