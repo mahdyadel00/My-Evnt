@@ -34,7 +34,7 @@
                             <i class="fas fa-medal"></i>
                         </div>
                         <span class="counter-number" data-target="4">4</span>
-                        <div class="counter-label">Years Of Experience</div>
+                        <div class="counter-label">Experience Years</div>
                     </div>
 
                     <div class="counter-item">

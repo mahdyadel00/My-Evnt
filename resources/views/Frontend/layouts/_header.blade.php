@@ -107,7 +107,7 @@
                                         </h5>
                                         <span id="eventProfileEvents">{{ auth()->user()->events->count() }} events
                                             attended</span>
-                                        <i class="fas fa-chevron-right" style="float: right; margin-top: 2px;"></i>
+                                        <!-- <i class="fas fa-chevron-right" style="float: right; margin-top: 2px;"></i> -->
                                     </div>
                                 </div>
                             </div>
@@ -120,9 +120,9 @@
                                     class="fas fa-heart"></i> Interested
                                 events</a>
                             <div class="event-app-promo" data-action="getEventApp" role="button">
-                                <div>
+                                <div >
                                     <a href="https://play.google.com/store/apps/details?id=com.abdallah.evnt&pli=1">
-                                        <i class="fas fa-mobile-alt"></i> Get App
+                                        <i class="fas fa-mobile-alt me-1 text-white"></i> <span class ="text-white">Get App </span>
                                     </a>
                                 </div>
                                 <span class="event-new-badge">New</span>
