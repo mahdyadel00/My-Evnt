@@ -17,6 +17,9 @@
                     <input type="email" name="email" id="email" placeholder="Enter email address" required />
                 </div>
                 <button type="submit" class="subscribe-btn">Reset Password</button>
+                <p class="sign_up" style="margin-top: 4px;">
+                    Remembered your password? <a class="sign" href="{{ route('login') }}">Return to login</a>
+                </p>
             </form>
         </div>
     </section>

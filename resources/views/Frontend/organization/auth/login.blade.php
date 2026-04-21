@@ -29,7 +29,7 @@
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <i class="fas fa-eye toggle-password"></i>
+                    <!-- <i class="fas fa-eye toggle-password"></i> -->
                 </div>
 
                 <div class="password_title" style="padding: 10px 0;">

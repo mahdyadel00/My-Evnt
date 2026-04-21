@@ -19,12 +19,12 @@
                 <div class="input_box">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter password" required />
-                    <i class="fas fa-eye toggle-password"></i>
+                    <!-- <i class="fas fa-eye toggle-password"></i> -->
                 </div>
                 <div class="input_box">
                     <label for="password_confirmation">Confirm Password</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Enter confirm password" required />
-                    <i class="fas fa-eye toggle-password"></i>
+                    <!-- <i class="fas fa-eye toggle-password"></i> -->
                 </div>
                 <button type="submit" class="subscribe-btn">Reset Password</button>
             </form>

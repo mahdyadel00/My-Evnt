@@ -37,10 +37,16 @@
                         <label for="password">Password</label>
                     </div>
                     <input class="mb-0" type="password" id="password" name="password" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
-                    <i class="fas fa-eye toggle-password"></i>
+                    <!-- <i class="fas fa-eye toggle-password"></i> -->
                 </div>
 
-                <div class="password_title" style="padding: 10px 0;">
+                <div class="password_title" style="padding: 10px 0; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                    <div class="form-check" style="margin:0;">
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember" />
+                        <label class="form-check-label" for="remember" style="margin:0;">
+                            Remember me
+                        </label>
+                    </div>
                     <a class="forget" href="{{ route('forget_password') }}">Forgot Password?</a>
                 </div>
                 <!-- Login button -->

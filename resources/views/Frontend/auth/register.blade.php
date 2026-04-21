@@ -19,6 +19,69 @@
             color: #333;
         }
 
+        /* Password rules as a tooltip/notification (not under the input) */
+        .input_box.has-hint .input-hint {
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform: translateY(-110%);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+            background: rgba(6, 69, 84, 0.96);
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+            width: min(320px, 92vw);
+            font-size: .78rem;
+            line-height: 1.35;
+            z-index: 5;
+        }
+
+        .input_box.has-hint .input-hint strong {
+            display: block;
+            font-size: .8rem;
+            margin-bottom: 4px;
+        }
+
+        .input_box.has-hint .input-hint::after {
+            content: "";
+            position: absolute;
+            right: 14px;
+            bottom: -7px;
+            width: 14px;
+            height: 14px;
+            background: rgba(6, 69, 84, 0.96);
+            transform: rotate(45deg);
+            border-radius: 3px;
+        }
+
+        .input_box.has-hint:focus-within .input-hint {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-120%);
+        }
+
+        @media (max-width: 768px) {
+            .input_box.has-hint .input-hint {
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                transform: translateY(-105%);
+                width: min(360px, 92vw);
+            }
+
+            .input_box.has-hint .input-hint::after {
+                left: 22px;
+                right: auto;
+            }
+
+            .input_box.has-hint:focus-within .input-hint {
+                transform: translateY(-112%);
+            }
+        }
     </style>
 @endpush
 @section('content')
@@ -53,34 +116,32 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="input_box">
+                <div class="input_box has-hint">
                     <div class="password_title">
                         <label for="password">Password</label>
                     </div>
                     <input class="mb-0" type="password" id="password" name="password" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
-                    <small class="text-muted">
-                        Password must be at least 8 char and /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
-                    </small>
+                    <div class="input-hint" role="note" aria-live="polite">
+                        <strong>Password rules</strong>
+                        At least 8 characters, includes 1 uppercase letter, 1 lowercase letter, and 1 number.
+                    </div>
                     <!-- <i class="fas fa-eye toggle-password"></i> -->
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="input_box mt-2">
-                    <div class="password_title">
+                <div class="input_box">
+                    <div class="password_title mt-1">
                         <label for="Confirm-password">Confirm Password</label>
                     </div>
                     <input class="mb-0" type="password" id="Confirm-password" name="password_confirmation" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
-                    <small class="text-muted">
-                        Password must be at least 8 char and /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
-                    </small>
                     <!-- <i class="fas fa-eye toggle-password"></i> -->
                     @error('password_confirmation')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="input_box">
-                    <label for="category_id">Category</label>
+                    <label for="category_id mt-1">Category</label>
                     <select name="category_id" id="category_id" required>
                         <option value="">Select Category</option>
                         @foreach ($categories as $category)
@@ -92,7 +153,7 @@
                     @enderror
                 </div>
                 <div class="input_box">
-                    <label for="sub_category_id">Sub Category</label>
+                    <label for="sub_category_id mt-1">Sub Category</label>
                     <select name="sub_category_id" id="sub_category_id" required>
                         <option value="">Select Sub Category</option>
                     </select>
