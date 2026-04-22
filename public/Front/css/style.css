@@ -13078,6 +13078,17 @@ input[type="date"]::-webkit-clear-button {
                 width: 100%;
             }
         }
+                /* Landscape mode for tablets */
+                @media screen and (min-width: 768px) and (max-height: 600px) and (orientation: landscape) {
+                  .carousel-neblue-event-carousel {
+                      height: 70vh;
+                  }
+              }
+              @media screen and (max-width: 950px) {
+                .carousel-neblue-event-carousel {
+                  height: 40vh;
+                }
+              }
         /* Large Mobile Phones */
         @media screen and (max-width: 576px) {
             .carousel-neblue-event-body {
@@ -13105,17 +13116,7 @@ input[type="date"]::-webkit-clear-button {
             }
         }
 
-        /* Landscape mode for tablets */
-        @media screen and (min-width: 768px) and (max-height: 600px) and (orientation: landscape) {
-            .carousel-neblue-event-carousel {
-                height: 70vh;
-            }
-        }
-        @media screen and (max-width: 950px) {
-          .carousel-neblue-event-carousel {
-            height: 40vh;
-          }
-        }
+
 
                 /* ════════════════════════════════════════
        OVERLAY BACKDROP
