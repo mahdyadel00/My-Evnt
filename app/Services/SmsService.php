@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Event;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Twilio\Rest\Client;
 use Twilio\Exceptions\RestException;
@@ -715,259 +717,195 @@ class SmsService
     }
 
     /**
-     * Send custom message via SMS Misr
+     * Send custom message via SMS Misr (POST {base}/SMS per official API).
      *
      * @param string $phoneNumber
      * @param string $message
-     * @return array
+     * @return array{success: bool, message?: string, response?: mixed, full_response?: mixed, http_code?: int}
      */
     private function sendCustomViaSmsMisr(string $phoneNumber, string $message): array
     {
         try {
-            $senderToken = config('services.sms_misr.sender_token');
-            $apiUrl = config('services.sms_misr.api_url', 'https://smsmisr.com/api/webapi');
+            $environment = (int) config('services.sms_misr.environment', 1);
+            $language = (int) config('services.sms_misr.language', 2);
+            $sender = trim((string) (config('services.sms_misr.sender') ?? ''));
+            $token = trim((string) (config('services.sms_misr.token') ?? ''));
+            $username = trim((string) (config('services.sms_misr.username') ?? ''));
+            $password = trim((string) (config('services.sms_misr.password') ?? ''));
+            $legacySenderToken = trim((string) (config('services.sms_misr.sender_token') ?? ''));
 
-            if (!$senderToken || $senderToken === '') {
+            $credentials = [];
+            if ($token !== '') {
+                $credentials = ['environment' => $environment, 'token' => $token];
+            } elseif ($username !== '' && $password !== '') {
+                $credentials = ['environment' => $environment, 'username' => $username, 'password' => $password];
+            } elseif ($legacySenderToken !== '') {
+                $credentials = [
+                    'environment' => $environment,
+                    'username' => $legacySenderToken,
+                    'password' => $legacySenderToken,
+                ];
+                if ($sender === '') {
+                    $sender = $legacySenderToken;
+                }
+            } else {
                 return [
                     'success' => false,
-                    'message' => 'SMS Misr sender token not configured. Please add SMS_MISR_SENDER_TOKEN to your .env file.'
+                    'message' => 'SMS Misr is not configured. Set SMS_MISR_TOKEN or SMS_MISR_USERNAME and SMS_MISR_PASSWORD (or legacy SMS_MISR_SENDER_TOKEN).',
                 ];
             }
 
-            // Format phone number (remove + and keep only digits)
+            if ($sender === '') {
+                return [
+                    'success' => false,
+                    'message' => 'SMS Misr sender is missing. Set SMS_MISR_SENDER in .env to your approved sender name.',
+                ];
+            }
+
             $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
-            
-            // Remove leading 0 if exists, then add country code if needed
             if (str_starts_with($phoneNumber, '0')) {
                 $phoneNumber = substr($phoneNumber, 1);
             }
-            
-            // If it doesn't start with country code, add 2 for Egypt
             if (!str_starts_with($phoneNumber, '2')) {
                 $phoneNumber = '2' . $phoneNumber;
             }
-
-            // SMS Misr API expects phone number without +
             $to = $phoneNumber;
 
-            // SMS Misr API format - using sender token as username/password or in URL
-            $postData = [
-                'username' => $senderToken,
-                'password' => $senderToken,
-                'language' => 2, // 1 for English, 2 for Arabic
+            $base = $this->smsMisrResolveApiBaseUrl();
+            $endpoint = $base . '/SMS';
+
+            $query = array_merge($credentials, [
+                'sender' => $sender,
+                'language' => $language,
                 'message' => $message,
                 'mobile' => $to,
-                'sender' => $senderToken
-            ];
-
-            Log::info("SMS Misr: Sending SMS", [
-                'url' => $apiUrl,
-                'to' => $to,
-                'message_length' => strlen($message),
-                'post_data' => array_merge($postData, ['password' => '***']) // Hide password in log
             ]);
 
-            $response = $this->sendSmsMisrRequest($apiUrl, $postData);
+            $logQuery = $query;
+            if (isset($logQuery['password'])) {
+                $logQuery['password'] = '***';
+            }
+            if (isset($logQuery['token'])) {
+                $logQuery['token'] = '***';
+            }
+            Log::info('SMS Misr: POST /SMS', ['endpoint' => $endpoint, 'query' => $logQuery]);
 
-            return $response;
-        } catch (\Exception $e) {
+            $httpResponse = Http::timeout(30)
+                ->acceptJson()
+                ->withQueryParameters($query)
+                ->post($endpoint);
+
+            if ($httpResponse->status() === 404) {
+                $httpResponse = Http::timeout(30)
+                    ->acceptJson()
+                    ->asForm()
+                    ->post($endpoint, $query);
+            }
+
+            return $this->interpretSmsMisrHttpResponse($httpResponse);
+        } catch (\Throwable $e) {
             Log::error("SMS Misr Exception: {$e->getMessage()}", [
                 'file' => $e->getFile(),
-                'line' => $e->getLine()
+                'line' => $e->getLine(),
             ]);
 
             return [
                 'success' => false,
-                'message' => 'Error sending message: ' . $e->getMessage()
+                'message' => 'Error sending message: ' . $e->getMessage(),
             ];
         }
     }
 
     /**
-     * Send SMS Misr HTTP request
-     *
-     * @param string $url
-     * @param array $postData
-     * @return array
+     * Normalize configured API root (strip legacy /webapi suffix).
      */
-    private function sendSmsMisrRequest(string $url, array $postData): array
+    private function smsMisrResolveApiBaseUrl(): string
     {
-        $senderToken = $postData['sender'] ?? $postData['username'] ?? '';
-        
-        // Try different URL formats and request methods
-        $urlsToTry = [
-            $url, // Original URL
-            'https://smsmisr.com/api/SendSMS', // Alternative URL 1
-            'https://smsmisr.com/api/v2/SendSMS', // Alternative URL 2
-            'https://smsmisr.com/api/webapi', // Alternative URL 3
-        ];
+        $base = rtrim((string) config('services.sms_misr.api_url', 'https://smsmisr.com/api'), '/');
+        if (str_ends_with($base, '/webapi')) {
+            $base = rtrim(substr($base, 0, -strlen('/webapi')), '/');
+        }
 
-        foreach ($urlsToTry as $tryUrl) {
-            // Try 1: Form-data POST
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $tryUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/x-www-form-urlencoded',
-                'Accept: application/json'
+        return $base !== '' ? $base : 'https://smsmisr.com/api';
+    }
+
+    /**
+     * @return array{success: bool, message?: string, response?: mixed, full_response?: mixed, http_code?: int}
+     */
+    private function interpretSmsMisrHttpResponse(Response $httpResponse): array
+    {
+        $httpCode = $httpResponse->status();
+        $decodedResponse = $httpResponse->json();
+        $rawBody = $httpResponse->body();
+
+        if (!is_array($decodedResponse)) {
+            Log::error('SMS Misr: non-JSON or invalid response', [
+                'http_code' => $httpCode,
+                'raw' => substr($rawBody, 0, 500),
             ]);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
-            $response = curl_exec($ch);
-            $error = curl_error($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-
-            if ($httpCode === 200) {
-                Log::info("SMS Misr: Success with form-data", ['url' => $tryUrl]);
-                break; // Success, exit loop
-            }
-
-            if ($httpCode !== 404) {
-                Log::warning("SMS Misr: HTTP {$httpCode} with form-data", ['url' => $tryUrl]);
-                break; // Not 404, might be different error, try to process
-            }
-
-            // Try 2: JSON POST
-            Log::info("SMS Misr: Trying JSON format", ['url' => $tryUrl]);
-            $jsonData = json_encode($postData);
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $tryUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Accept: application/json'
-            ]);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-            $response = curl_exec($ch);
-            $error = curl_error($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-
-            if ($httpCode === 200) {
-                Log::info("SMS Misr: Success with JSON", ['url' => $tryUrl]);
-                break; // Success, exit loop
-            }
-
-            // Try 3: GET with query string
-            if ($httpCode === 404) {
-                Log::info("SMS Misr: Trying GET method", ['url' => $tryUrl]);
-                $queryString = http_build_query($postData);
-                $getUrl = $tryUrl . '?' . $queryString;
-                
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $getUrl);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    'Accept: application/json'
-                ]);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-                $response = curl_exec($ch);
-                $error = curl_error($ch);
-                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                curl_close($ch);
-
-                if ($httpCode === 200) {
-                    Log::info("SMS Misr: Success with GET", ['url' => $getUrl]);
-                    break; // Success, exit loop
-                }
-            }
+            return [
+                'success' => false,
+                'message' => 'Invalid JSON response from SMS Misr API (HTTP: ' . $httpCode . ')',
+                'http_code' => $httpCode,
+            ];
         }
 
-        if ($error) {
-            Log::error("SMS Misr cURL Error: $error", ['request_data' => $postData]);
-            return ['success' => false, 'message' => "cURL Error: $error"];
-        }
-
-        if ($httpCode === 0) {
-            Log::error("SMS Misr Connection Failed", ['request_data' => $postData]);
-            return ['success' => false, 'message' => 'Connection failed to SMS Misr API'];
-        }
-
-        $decodedResponse = json_decode($response, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            Log::error("SMS Misr JSON Error", [
-                'json_error' => json_last_error_msg(),
-                'raw_response' => $response
-            ]);
-            return ['success' => false, 'message' => 'Invalid JSON response from SMS Misr API'];
-        }
-
-        // Log full response for debugging
-        Log::info("SMS Misr API Response", [
+        Log::info('SMS Misr API Response', [
             'http_code' => $httpCode,
             'response' => $decodedResponse,
-            'raw_response' => substr($response, 0, 500)
         ]);
 
-        // Check for successful response
-        // SMS Misr typically returns success in different formats
+        $code = $decodedResponse['code'] ?? null;
+        $codeStr = $code === null ? '' : (string) $code;
+
         if (
-            $httpCode === 200 && $decodedResponse &&
+            $httpCode === 200 &&
             (
-                (isset($decodedResponse['code']) && $decodedResponse['code'] === '1901') ||
-                (isset($decodedResponse['status']) && $decodedResponse['status'] === 'success') ||
-                (isset($decodedResponse['success']) && $decodedResponse['success'] === true) ||
-                (isset($decodedResponse['Type']) && $decodedResponse['Type'] === 'success') ||
-                (isset($decodedResponse['message_id']) && !empty($decodedResponse['message_id']))
+                $codeStr === '1901'
+                || (isset($decodedResponse['status']) && $decodedResponse['status'] === 'success')
+                || (isset($decodedResponse['success']) && $decodedResponse['success'] === true)
+                || (isset($decodedResponse['Type']) && $decodedResponse['Type'] === 'success')
+                || (isset($decodedResponse['message_id']) && !empty($decodedResponse['message_id']))
             )
         ) {
-            $responseId = $decodedResponse['message_id'] ?? 
-                         $decodedResponse['id'] ?? 
-                         $decodedResponse['Code'] ?? 
-                         'N/A';
+            $responseId = $decodedResponse['message_id']
+                ?? $decodedResponse['id']
+                ?? $decodedResponse['Code']
+                ?? 'N/A';
 
-            Log::info("SMS Misr API Success", [
+            Log::info('SMS Misr API Success', [
                 'response_id' => $responseId,
-                'full_response' => $decodedResponse
+                'full_response' => $decodedResponse,
             ]);
 
             return [
                 'success' => true,
                 'response' => $responseId,
                 'full_response' => $decodedResponse,
-                'message' => 'SMS sent successfully via SMS Misr'
+                'message' => 'SMS sent successfully via SMS Misr',
             ];
         }
 
-        // Log the error for debugging
-        Log::error("SMS Misr API Error", [
+        Log::error('SMS Misr API Error', [
             'http_code' => $httpCode,
             'response' => $decodedResponse,
-            'raw_response' => $response
         ]);
 
-        // Return detailed error message
         $errorMessage = 'SMS Misr API returned error';
         if (isset($decodedResponse['message'])) {
-            $errorMessage = $decodedResponse['message'];
+            $errorMessage = (string) $decodedResponse['message'];
         } elseif (isset($decodedResponse['error'])) {
-            $errorMessage = $decodedResponse['error'];
+            $errorMessage = (string) $decodedResponse['error'];
         } elseif (isset($decodedResponse['Msg'])) {
-            $errorMessage = $decodedResponse['Msg'];
+            $errorMessage = (string) $decodedResponse['Msg'];
         }
 
         return [
             'success' => false,
             'message' => $errorMessage . ' (HTTP: ' . $httpCode . ')',
             'response' => $decodedResponse,
-            'http_code' => $httpCode
+            'http_code' => $httpCode,
         ];
     }
 }

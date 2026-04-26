@@ -10,8 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use App\Traits\OrderByLatest;
 use App\Observers\AuditObserver;
+use App\Traits\OrderByLatest;
+use Illuminate\Support\Collection;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -153,5 +154,80 @@ class User extends Authenticatable implements MustVerifyEmail
     public function notifications()
     {
         return $this->hasMany(Notification::class);
+    }
+
+    /**
+     * Minimum national / international digit count to treat a phone as valid for messaging pickers.
+     */
+    private const OUTBOUND_MESSAGING_MIN_PHONE_DIGITS = 10;
+
+    /**
+     * User has a non-empty display name and a phone line long enough to send SMS/WhatsApp.
+     */
+    public function isEligibleForOutboundMessaging(): bool
+    {
+        if (!$this->hasOutboundMessagingDisplayName()) {
+            return false;
+        }
+
+        $digits = preg_replace('/\D/u', '', (string) ($this->getAttribute('phone') ?? ''));
+
+        return strlen($digits) >= self::OUTBOUND_MESSAGING_MIN_PHONE_DIGITS;
+    }
+
+    /**
+     * Whether first / middle / last name produce a non-empty label (excludes placeholder-only rows).
+     */
+    public function hasOutboundMessagingDisplayName(): bool
+    {
+        $parts = array_filter(
+            [
+                trim((string) ($this->getAttribute('first_name') ?? '')),
+                trim((string) ($this->getAttribute('middle_name') ?? '')),
+                trim((string) ($this->getAttribute('last_name') ?? '')),
+            ],
+            static fn (string $part): bool => $part !== ''
+        );
+
+        return implode(' ', $parts) !== '';
+    }
+
+    /**
+     * Key used to treat one phone line as one recipient (digits only; users without phone stay distinct by id).
+     */
+    private static function outboundMessagingPhoneKey(self $user): string
+    {
+        $digits = preg_replace('/\D/u', '', (string) ($user->getAttribute('phone') ?? ''));
+
+        return $digits !== '' ? $digits : 'nophone-' . $user->id;
+    }
+
+    /**
+     * Users for admin SMS/WhatsApp picker: one row per phone number (lowest user id kept).
+     *
+     * @return Collection<int, self>
+     */
+    public static function collectionForMessagingPicker(): Collection
+    {
+        return static::query()
+            ->orderBy('id')
+            ->get()
+            ->filter(static fn (self $user): bool => $user->isEligibleForOutboundMessaging())
+            ->unique(static fn (self $user): string => self::outboundMessagingPhoneKey($user))
+            ->values();
+    }
+
+    /**
+     * Drop duplicate phone lines so the same number is not messaged twice in one batch.
+     *
+     * @param Collection<int, self> $users
+     *
+     * @return Collection<int, self>
+     */
+    public static function dedupeForMessaging(Collection $users): Collection
+    {
+        return $users
+            ->unique(static fn (self $user): string => self::outboundMessagingPhoneKey($user))
+            ->values();
     }
 }

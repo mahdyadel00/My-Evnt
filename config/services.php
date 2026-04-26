@@ -62,8 +62,16 @@ return [
     ],
 
     'sms_misr' => [
+        // Base URL only (no /webapi). SMS Misr expects POST {base}/SMS — see https://smsmisr.com/Api_SMSMisr.pdf
+        'api_url' => env('SMS_MISR_API_URL', 'https://smsmisr.com/api'),
+        'environment' => (int) env('SMS_MISR_ENVIRONMENT', 1),
+        'language' => (int) env('SMS_MISR_LANGUAGE', 2),
+        'username' => env('SMS_MISR_USERNAME'),
+        'password' => env('SMS_MISR_PASSWORD'),
+        'token' => env('SMS_MISR_TOKEN'),
+        'sender' => env('SMS_MISR_SENDER'),
+        /** @deprecated Use username/password or token + sender; kept for older .env files */
         'sender_token' => env('SMS_MISR_SENDER_TOKEN'),
-        'api_url' => env('SMS_MISR_API_URL', 'https://smsmisr.com/api/webapi'),
     ],
 
     'instapay' => [

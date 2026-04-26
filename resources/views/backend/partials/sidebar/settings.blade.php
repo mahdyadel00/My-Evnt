@@ -64,11 +64,11 @@
     </a>
 </li>
 
-<!--Send Whatsapp-->
+<!--Send SMS / WhatsApp-->
 <li class="menu-item {{ request()->is('admin/send-whatsapp*') ? 'active' : '' }}">
     <a href="{{ route('admin.send.whatsapp') }}" class="menu-link">
-        <i class="menu-icon tf-icons ti ti-brand-whatsapp"></i>
-        <div data-i18n="Send Whatsapp">Send Whatsapp</div>
+        <i class="menu-icon tf-icons ti ti-messages"></i>
+        <div data-i18n="Send SMS / WhatsApp">Send SMS / WhatsApp</div>
     </a>
 </li>
 

@@ -3,30 +3,20 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\Setting\SendUserOutboundMessageRequest;
 use App\Http\Requests\Backend\Setting\UpdateSettingRequest;
 use App\Http\Requests\Backend\TermsCondition\UpdateTermsConditionRequest;
+use App\Enums\OutboundMessageChannel;
 use App\Mail\SubscriptionEmail;
-use App\Models\Contact;
-use App\Models\Setting;
-use App\Models\Subscribe;
-use App\Models\TermsCondittion;
-use App\Models\User;
-use App\Models\VisitorSession;
-use App\Repositories\SettingRepository;
+use App\Models\{Contact, Subscribe, Setting, TermsCondittion, User, VisitorSession};
+use App\Services\Messaging\AdminUserOutboundMessageService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Twilio\Rest\Client;
-
+use Illuminate\Support\Facades\{DB, Log, Mail};
 
 class SettingController extends Controller
 {
-    public function __construct(SettingRepository $settingRepository)
-    {
-        $this->settingRepository = $settingRepository;
-    }
-
     public function edit()
     {
         $setting = Setting::first();
@@ -57,7 +47,6 @@ class SettingController extends Controller
             return redirect()->route('admin.settings.edit');
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
             Log::channel('error')->error('Error in SettingController@update: ' . $e->getMessage() . ' on line ' . $e->getLine() . ' in file ' . $e->getFile());
             session()->flash('error', __('Something went wrong'));
             return redirect()->back();
@@ -186,49 +175,93 @@ class SettingController extends Controller
 
     public function sendWhatsapp()
     {
-        $users = User::all();
+        $users = User::collectionForMessagingPicker();
+
         return view('backend.settings.send-whatsapp', compact('users'));
     }
 
-    public function sendWhatsappPost(Request $request)
-    {
+    /**
+     * @return JsonResponse|RedirectResponse
+     */
+    public function sendWhatsappPost(
+        SendUserOutboundMessageRequest $request,
+        AdminUserOutboundMessageService $outboundMessageService
+    ) {
+        $wantsJson = $request->ajax() || $request->wantsJson();
+
         try {
-            $user = User::find($request->user_id);
-            $message = $request->message;
-            $receiver_number =  $user->phone;
-            $whatsapp_response = $this->sendWhatsAppMessage($receiver_number, $message);
-            session()->flash('success', __('Whatsapp sent successfully'));
+            $userIds = $request->validated('user_ids');
+            $users = User::whereIn('id', $userIds)->orderBy('id')->get();
+
+            if ($users->count() !== count($userIds)) {
+                $msg = __('One or more selected users could not be loaded.');
+                if ($wantsJson) {
+                    return response()->json([
+                        'success' => false,
+                        'alert_type' => 'error',
+                        'message' => $msg,
+                    ], 422);
+                }
+                session()->flash('error', $msg);
+
+                return redirect()->back();
+            }
+
+            $users = User::dedupeForMessaging($users);
+
+            $message = $request->validated('message');
+            $channel = OutboundMessageChannel::from($request->validated('channel'));
+
+            $summary = $outboundMessageService->sendBulk($users, $message, $channel);
+            $label = $channel === OutboundMessageChannel::Sms ? __('SMS') : __('WhatsApp');
+
+            if ($summary['failed'] === 0) {
+                $alertType = 'success';
+                $userMessage = __(':channel: sent to :count user(s).', ['channel' => $label, 'count' => $summary['sent']]);
+                session()->flash('success', $userMessage);
+            } elseif ($summary['sent'] > 0) {
+                $alertType = 'warning';
+                $preview = collect($summary['failures'])->take(3)->map(
+                    fn (array $f) => $f['label'] . ': ' . $f['message']
+                )->implode(' | ');
+                $userMessage = __(':channel: :sent succeeded, :failed failed. :preview', [
+                    'channel' => $label,
+                    'sent' => $summary['sent'],
+                    'failed' => $summary['failed'],
+                    'preview' => $preview,
+                ]);
+                session()->flash('warning', $userMessage);
+            } else {
+                $alertType = 'error';
+                $first = $summary['failures'][0]['message'] ?? __('Something went wrong');
+                $userMessage = __(':channel: all sends failed. :detail', ['channel' => $label, 'detail' => $first]);
+                session()->flash('error', $userMessage);
+            }
+
+            if ($wantsJson) {
+                return response()->json([
+                    'success' => $summary['failed'] === 0 || $summary['sent'] > 0,
+                    'alert_type' => $alertType,
+                    'message' => $userMessage,
+                    'sent' => $summary['sent'],
+                    'failed' => $summary['failed'],
+                ]);
+            }
+
             return redirect()->back();
         } catch (\Exception $e) {
             Log::channel('error')->error('Error in SettingController@sendWhatsappPost: ' . $e->getMessage() . ' on line ' . $e->getLine() . ' in file ' . $e->getFile());
-            session()->flash('error', __('Something went wrong'));
+            $msg = __('Something went wrong');
+            if ($wantsJson) {
+                return response()->json([
+                    'success' => false,
+                    'alert_type' => 'error',
+                    'message' => $msg,
+                ], 500);
+            }
+            session()->flash('error', $msg);
+
             return redirect()->back();
-        }
-    }
-
-    private function sendWhatsAppMessage($phone, $message)
-    {
-        // dd($phone, $message);
-        try {
-            $sid = config('services.twilio.sid');
-            $token = config('services.twilio.token');
-            $from = config('services.twilio.sim_from');
-
-            $client = new Client($sid, $token);
-
-            $message = $client->messages->create(
-                "whatsapp:$phone",
-                [
-                    "from" => $from,
-                    "body" => $message
-                ]
-            );
-            dd($message);
-
-            return ['success' => true, 'response' => $message->sid];
-        } catch (\Exception $e) {
-            Log::error("Twilio WhatsApp Error: {$e->getMessage()}");
-            return ['success' => false, 'message' => $e->getMessage()];
         }
     }
 
