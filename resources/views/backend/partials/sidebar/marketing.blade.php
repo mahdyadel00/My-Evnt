@@ -3,6 +3,14 @@
     <span class="menu-header-text">Marketing & Media</span>
 </li>
 
+<!-- Homepage promotional popup (always visible; not tied to Settings permission) -->
+<li class="menu-item {{ request()->is('admin/home-popup-features*') ? 'active' : '' }}">
+    <a href="{{ route('admin.home-popup-features.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons ti ti-layout-navbar"></i>
+        <div data-i18n="Features">Features</div>
+    </a>
+</li>
+
 <!--Our Partners-->
 @can('view partners')
     <li class="menu-item {{ request()->is('admin/partners*') ? 'active' : '' }}">

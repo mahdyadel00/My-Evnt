@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,10 +17,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $cityId = City::query()->orderBy('id')->value('id');
+
         $user = User::firstOrCreate(
             ['email' => 'admin@email.com'],
             [
-                'city_id'        => 1,
+                'city_id'        => $cityId,
                 'first_name'     => 'Super',
                 'middle_name'    => 'Admin',
                 'last_name'      => 'User',
@@ -41,7 +44,7 @@ class UserSeeder extends Seeder
         $user_2 = User::firstOrCreate(
             ['email' => 'mahdyadel00@email.com'],
             [
-                'city_id'        => 1,
+                'city_id'        => $cityId,
                 'first_name'     => 'Mahdy',
                 'middle_name'    => 'Adel',
                 'last_name'      => 'Mahdy',

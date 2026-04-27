@@ -83,7 +83,12 @@
             cancelButtonText: 'No, cancel!'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('delete-form-' + id).submit();
+                const deleteForm = document.getElementById('delete-form-' + id);
+                if (!deleteForm) {
+                    Swal.fire('Error', 'Delete form not found. Please refresh the page.', 'error');
+                    return;
+                }
+                deleteForm.submit();
                 Swal.fire(
                     'Deleted!',
                     `"${name}" has been deleted successfully.`,
@@ -93,7 +98,8 @@
         });
     }
     // SweetAlert2 for form submission confirmation
-    document.getElementById('edit').addEventListener('submit', function (e) {
+    const editFormEl = document.getElementById('edit');
+    if (editFormEl) editFormEl.addEventListener('submit', function (e) {
         e.preventDefault();
         Swal.fire({
             title: 'Are you sure?',
@@ -117,7 +123,8 @@
     });
 
     // SweetAlert2 for form submission confirmation
-    document.getElementById('add').addEventListener('submit', function (e) {
+    const addFormEl = document.getElementById('add');
+    if (addFormEl) addFormEl.addEventListener('submit', function (e) {
         e.preventDefault();
         Swal.fire({
             title: 'Are you sure?',

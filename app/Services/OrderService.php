@@ -131,7 +131,6 @@ class OrderService
             throw $e;
         }
 
-        // Send confirmation email
         $this->sendConfirmationEmail($event, $user, $order);
 
         // Handle free tickets
@@ -176,15 +175,17 @@ class OrderService
     }
 
     /**
-     * Send confirmation email to user
-     * 
-     * @param Event $event The event
-     * @param User $user The user
-     * @param Order $order The order
-     * @return void
+     * Send confirmation email only when the booking is already finalised for the customer.
+     *
+     * Paid card / InstaPay flows persist the order as `pending` until the gateway (or staff)
+     * confirms payment. `OrderMail` is sent from PaymobController or the API callback after success.
      */
     private function sendConfirmationEmail(Event $event, User $user, Order $order): void
     {
+        if ($order->status === 'pending') {
+            return;
+        }
+
         try {
             if ($event->format == 1) {
                 Mail::to($user->email)->send(new SurveyBookingMail($event, $user));

@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Artical;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\HomePopupFeature;
 use App\Models\Slider;
 use App\Models\Company;
 use App\Models\Partner;
@@ -100,6 +101,19 @@ class HomeController extends Controller
         // Fetch settings
         $setting = Setting::first();
         $cities = City::where('is_available', true)->get();
+
+        $home_popup_features = HomePopupFeature::query()
+            ->active()
+            ->ordered()
+            ->with([
+                'event.media',
+                'event.category',
+                'event.city',
+                'event.eventDates' => static function ($query): void {
+                    $query->orderBy('start_date');
+                },
+            ])
+            ->get();
 
         // Return the view with all data
         return view('Frontend.layouts.index', get_defined_vars());

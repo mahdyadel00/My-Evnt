@@ -13,6 +13,10 @@
     @if($sliders->count() > 0)
         @include('Frontend.layouts.sections.sliders')
     @endif
+
+    @if($home_popup_features->count() > 0)
+        @include('Frontend.layouts.sections.home_popup_features')
+    @endif
     <!-- end slider section -->
     <!-- Start New Category Section -->
     @if($event_category->count() > 0)
@@ -365,6 +369,58 @@
                 observer.observe(item);
             });
         });
+        </script>
+
+         <!-- popup overlay backdrop action  -->
+         <script>
+            (function () {
+                var backdrop = document.getElementById("jsPopupBackdrop");
+                if (!backdrop) {
+                    return;
+                }
+                var openBtn = document.getElementById("jsOpenModal");
+                var closeBtn = document.getElementById("jsCloseBanner");
+                var dismissBtn = document.getElementById("jsDismissBtn");
+                var confirmBtn = document.getElementById("jsConfirmBtn");
+
+                function openPopup() {
+                    backdrop.classList.add("is-open");
+                    document.body.style.overflow = "hidden";
+                }
+
+                function closePopup() {
+                    backdrop.classList.remove("is-open");
+                    document.body.style.overflow = "";
+                }
+
+                /* Auto-open on page load */
+                window.addEventListener("load", function () {
+                    setTimeout(openPopup, 300);
+                });
+
+                if (openBtn) {
+                    openBtn.addEventListener("click", openPopup);
+                }
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", closePopup);
+                }
+                if (dismissBtn) {
+                    dismissBtn.addEventListener("click", closePopup);
+                }
+                if (confirmBtn) {
+                    confirmBtn.addEventListener("click", closePopup);
+                }
+
+                /* Click outside modal */
+                backdrop.addEventListener("click", function (e) {
+                    if (e.target === backdrop) closePopup();
+                });
+
+                /* Escape key */
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") closePopup();
+                });
+            })();
         </script>
 
     {{-- Slider (carousel-neblue-event) JS --}}

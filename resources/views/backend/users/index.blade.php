@@ -188,16 +188,10 @@
                                         @endcan
                                         @can('delete user')
                                             <button type="button" class="btn btn-xs btn-outline-danger"
-                                                onclick="confirmDelete({{ $user->id }}, '{{ $user->user_name }}')"
+                                                onclick='confirmDelete({{ $user->id }}, @json($user->user_name ?? ""))'
                                                 title="Delete">
                                                 <i class="ti ti-trash ti-sm"></i>
                                             </button>
-                                            <form id="delete-form-{{ $user->id }}"
-                                                action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
                                         @endcan
                                     </div>
                                 </td>
@@ -206,6 +200,15 @@
                     </tbody>
                 </table>
                 </form>
+                @foreach ($users as $user)
+                    @can('delete user')
+                        <form id="delete-form-{{ $user->id }}"
+                            action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-none">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    @endcan
+                @endforeach
                 <form id="usersEmailForm" action="{{ route('admin.users.send-email') }}" method="GET" style="display: none;">
                 </form>
             </div>

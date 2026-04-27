@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use App\Models\Event;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,10 +14,12 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
+        $cityId = City::query()->orderBy('id')->value('id');
+
         $event = Event::create([
             'category_id' => 1,
             'sub_category_id' => 1,
-            'city_id' => 1,
+            'city_id' => $cityId,
             'currency_id' => 1,
             'company_id' => 1,
             'name' => 'Event 1',

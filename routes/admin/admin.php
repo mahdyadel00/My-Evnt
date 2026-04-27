@@ -21,6 +21,7 @@ use App\Http\Controllers\BackEnd\{
     EventController,
     EventGalleryController,
     FeatureController,
+    HomePopupFeatureController,
     PackageController,
     PartnerController,
     RoleController,
@@ -84,6 +85,8 @@ Route::prefix('admin')
             Route::resource('packages', PackageController::class);
             //Route Pricing
             Route::resource('features', FeatureController::class);
+            // Homepage promotional popup (optional event or manual copy)
+            Route::resource('home-popup-features', HomePopupFeatureController::class)->except(['show']);
             //Route Customers
             Route::resource('customers', CustomerController::class);
             //Route Blog
