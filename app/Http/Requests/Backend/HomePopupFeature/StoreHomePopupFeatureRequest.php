@@ -55,7 +55,7 @@ class StoreHomePopupFeatureRequest extends FormRequest
             'event_id'                      => ['nullable', 'integer', 'exists:events,id'],
             'title'                         => ['nullable', 'string', 'max:255'],
             'description'                   => ['nullable', 'string', 'max:20000'],
-            'image'                         => ['nullable', 'image', 'max:4096'],
+            'image'                         => ['required', 'image', 'max:4096'],
             'manual_location'               => ['nullable', 'string', 'max:255'],
             'manual_datetime_label'         => ['nullable', 'string', 'max:255'],
             'cta_label'                     => ['required', 'string', 'max:80'],

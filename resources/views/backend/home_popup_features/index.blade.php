@@ -99,7 +99,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Popup image</label>
-                                <input type="file" name="image" id="jsHomePopupImage" class="form-control" accept="image/*">
+                                <input type="file" name="image" id="jsHomePopupImage" class="form-control" accept="image/*" required>
                                 <div class="small text-muted mt-1 d-none" id="jsHomePopupCurrentImageWrap">
                                     Current: <a href="#" id="jsHomePopupCurrentImageLink" target="_blank">view</a>
                                 </div>

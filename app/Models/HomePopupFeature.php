@@ -232,22 +232,6 @@ class HomePopupFeature extends Model
         if ($manual !== null) {
             return $manual;
         }
-        if ($this->event) {
-            $event = $this->event;
-            $collection = $event->relationLoaded('media')
-                ? $event->media
-                : $event->media()->get();
-
-            $pick = $collection->firstWhere('name', 'poster')
-                ?? $collection->firstWhere('name', 'image')
-                ?? $collection->where('type', 'gallery')->sortBy('order')->firstWhere('is_main', true)
-                ?? $collection->where('type', 'gallery')->sortBy('order')->first()
-                ?? $collection->first();
-
-            if ($pick?->path) {
-                return self::publicStorageUrlFromRelativePath((string) $pick->path);
-            }
-        }
 
         return 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop&auto=format&q=80';
     }
