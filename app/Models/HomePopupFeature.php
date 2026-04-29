@@ -288,6 +288,10 @@ class HomePopupFeature extends Model
 
     public function resolveBannerLinkUrl(): string
     {
-        return $this->resolveCtaUrl();
+        if ($this->event) {
+            return route('event', $this->event->uuid);
+        }
+
+        return route('events');
     }
 }

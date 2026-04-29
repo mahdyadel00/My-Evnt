@@ -13439,7 +13439,7 @@ POPUP FOOTER ACTIONS BAR
       padding: 16px 16px 12px;
   }
 
-  .popup-container-wrapper--home-feature .body-main-title-text {
+  .popup-container-wrapper--home-feature .body-title-rating-row .body-main-title-text {
       color: #ffffff;
       line-height: 1.28;
       letter-spacing: -0.01em;
