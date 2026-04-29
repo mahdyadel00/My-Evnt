@@ -288,7 +288,7 @@ class HomePopupFeature extends Model
             return route('event', $this->event->uuid);
         }
 
-        return '#';
+        return route('events');
     }
 
     public function resolveBannerLinkUrl(): string
