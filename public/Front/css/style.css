@@ -13419,9 +13419,6 @@ POPUP FOOTER ACTIONS BAR
 RESPONSIVE
 ════════════════════════════════════════ */
   @media (max-width: 380px) {
-      .popup-footer-actions-bar {
-          flex-direction: column;
-      }
       .popup-footer-actions-bar .footer-ghost-dismiss-btn,
       .popup-footer-actions-bar .footer-primary-cta-btn {
           flex: unset;
