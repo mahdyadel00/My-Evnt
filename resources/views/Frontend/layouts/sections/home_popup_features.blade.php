@@ -25,7 +25,7 @@
             <div class="popup-body-content-area">
                 <div class="body-title-rating-row">
                     <h2 class="body-main-title-text" id="jsPopupTitle">
-                        {{ e($popup->resolveTitleDisplay()) }}
+                        {!! $popup->resolveTitleDisplay() !!}
                     </h2>
                 </div>
 
@@ -33,7 +33,7 @@
                     $descPreview = $popup->resolveDescriptionPreview(200);
                 @endphp
                 @if (filled($descPreview))
-                    <p class="body-description-paragraph">{{ e($descPreview) }}</p>
+                    <p class="body-description-paragraph">{!! nl2br($descPreview) !!}</p>
                 @endif
 
                 <div class="popup-meta-row" aria-label="Event details">

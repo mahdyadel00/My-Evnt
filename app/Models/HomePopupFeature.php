@@ -285,6 +285,17 @@ class HomePopupFeature extends Model
     public function resolveCtaUrl(): string
     {
         if ($this->event) {
+            $eventDateId = null;
+            if ($this->event->relationLoaded('eventDates')) {
+                $eventDateId = $this->event->eventDates->sortBy('start_date')->value('id');
+            } else {
+                $eventDateId = $this->event->eventDates()->orderBy('start_date')->value('id');
+            }
+
+            if ($eventDateId) {
+                return route('checkout_user', ['event_date_id' => $eventDateId]);
+            }
+
             return route('event', $this->event->uuid);
         }
 
