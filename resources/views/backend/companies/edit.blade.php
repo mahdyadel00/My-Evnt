@@ -73,6 +73,25 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="category_id" class="form-label">Category</label>
+                                <select class="form-control" id="category_id" name="category_id">
+                                    <option value="">{{ __('Select category (optional)') }}</option>
+                                    @foreach ($eventCategories as $cat)
+                                        <option value="{{ $cat->id }}" @selected((string) old('category_id', $company->category_id) === (string) $cat->id)>
+                                            @if ($cat->parent)
+                                                {{ $cat->parent->name }} /
+                                            @endif
+                                            {{ $cat->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="email" class="form-label">Company Email</label>
                                 <input type="email" class="{{ $errors->has('email') ? 'form-control is-invalid' : 'form-control' }}"
                                  id="email" name="email" value="{{ old('email', $company->email) }}" placeholder="Enter Company Email">

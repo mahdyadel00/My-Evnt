@@ -31,6 +31,11 @@ class EventCategory extends Model
         return $this->hasMany(Event::class, 'category_id');
     }
 
+    public function companies()
+    {
+        return $this->hasMany(Company::class, 'category_id');
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'category_users');

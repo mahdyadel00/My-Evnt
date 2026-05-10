@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackEnd;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Company\CompanyRequest;
 use App\Models\Company;
+use App\Models\EventCategory;
 use App\Models\User;
 use App\Repositories\CompanyRepository;
 use Illuminate\Support\Facades\DB;
@@ -30,8 +31,9 @@ class CompanyController extends Controller
     public function create()
     {
         $users = User::get();
+        $eventCategories = EventCategory::query()->with('parent')->orderBy('name')->get();
 
-        return view('backend.companies.create', compact('users'));
+        return view('backend.companies.create', compact('users', 'eventCategories'));
     }
 
     public function store(CompanyRequest $request)
@@ -76,7 +78,9 @@ class CompanyController extends Controller
     {
         try {
             $company = Company::findOrFail($id);
-            return view('backend.companies.edit', compact('company'));
+            $eventCategories = EventCategory::query()->with('parent')->orderBy('name')->get();
+
+            return view('backend.companies.edit', compact('company', 'eventCategories'));
         } catch (\Exception $e) {
             $this->logError('edit', $e);
             return redirect()->route('admin.companies.index')->with('error', 'Company not found');

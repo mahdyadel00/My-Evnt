@@ -13,7 +13,7 @@ class Company extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, OrderByLatest;
     protected $observables = ['logging'];
-    protected $fillable = ['first_name', 'last_name', 'user_name', 'company_name', 'email', 'phone', 'whats_app', 'password', 'website', 'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'snapchat', 'tiktok', 'status', 'description', 'address', 'type', 'api_token', 'city_id', 'country_id'];
+    protected $fillable = ['first_name', 'last_name', 'user_name', 'company_name', 'category_id', 'email', 'phone', 'whats_app', 'password', 'website', 'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'snapchat', 'tiktok', 'status', 'description', 'address', 'type', 'api_token', 'city_id', 'country_id'];
 
     protected $casts = [
         'status' => 'boolean',
@@ -43,6 +43,11 @@ class Company extends Authenticatable
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(EventCategory::class, 'category_id');
     }
 
     public function events()

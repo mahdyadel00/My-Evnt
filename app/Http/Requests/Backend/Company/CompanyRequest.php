@@ -21,6 +21,20 @@ namespace App\Http\Requests\Backend\Company;
         }
 
         /**
+         * Normalize optional foreign keys before validation.
+         */
+        protected function prepareForValidation(): void
+        {
+            $categoryId = $this->input('category_id');
+
+            $this->merge([
+                'category_id' => $categoryId === '' || $categoryId === null
+                    ? null
+                    : (int) $categoryId,
+            ]);
+        }
+
+        /**
          * Get the validation rules that apply to the request.
          *
          * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -41,6 +55,7 @@ namespace App\Http\Requests\Backend\Company;
                 'last_name'                                 => ['nullable', 'string', 'max:255'],
                 'user_name'                                 => ['nullable', 'string', 'max:255', Rule::unique('companies', 'user_name')->ignore($companyId)],
                 'company_name'                              => [$requiredOnCreateOrSometimes, 'string', 'max:255', Rule::unique('companies', 'company_name')->ignore($companyId)],
+                'category_id'                               => ['nullable', 'integer', 'exists:event_categories,id'],
                 'email'                                     => ['nullable', 'string', 'email', 'max:255', Rule::unique('companies', 'email')->ignore($companyId)],
                 'phone'                                     => ['nullable', 'string', 'max:255', Rule::unique('companies', 'phone')->ignore($companyId)],
                 'whats_app'                                 => ['nullable', 'string', 'max:255', Rule::unique('companies', 'whats_app')->ignore($companyId)],
@@ -74,6 +89,7 @@ namespace App\Http\Requests\Backend\Company;
                 'last_name'                                 => 'Last Name',
                 'user_name'                                 => 'User Name',
                 'company_name'                              => 'Company Name',
+                'category_id'                               => 'Category',
                 'email'                                     => 'Company Email',
                 'phone'                                     => 'Company Phone', // Add this line to the file
                 'whats_app'                                 => 'Company WhatsApp',

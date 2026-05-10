@@ -544,6 +544,7 @@ class SmsService
             // For WhatsApp: Use Twilio
             $twilioSid = config('services.twilio.sid');
             $twilioToken = config('services.twilio.token');
+            $twilioResult = null;
             
             if ($twilioSid && $twilioToken) {
                 $twilioResult = $this->sendCustomViaTwilio($phoneNumber, $message, 'whatsapp');
@@ -571,6 +572,13 @@ class SmsService
                 return [
                     'success' => false,
                     'message' => 'Sending failed via both methods. Twilio: ' . ($twilioResult['message'] ?? 'Not configured') . ' | WhatsApp Egypt: ' . ($whatsappResult['message'] ?? 'Unknown error')
+                ];
+            }
+
+            if (is_array($twilioResult)) {
+                return [
+                    'success' => false,
+                    'message' => 'Twilio send failed: ' . ($twilioResult['message'] ?? 'Unknown error'),
                 ];
             }
             
@@ -735,9 +743,11 @@ class SmsService
             $legacySenderToken = trim((string) (config('services.sms_misr.sender_token') ?? ''));
 
             $credentials = [];
+            $isPlaceholderPassword = $password === '' || str_starts_with(strtoupper($password), 'YOUR_');
+
             if ($token !== '') {
                 $credentials = ['environment' => $environment, 'token' => $token];
-            } elseif ($username !== '' && $password !== '') {
+            } elseif ($username !== '' && !$isPlaceholderPassword) {
                 $credentials = ['environment' => $environment, 'username' => $username, 'password' => $password];
             } elseif ($legacySenderToken !== '') {
                 $credentials = [
@@ -745,9 +755,8 @@ class SmsService
                     'username' => $legacySenderToken,
                     'password' => $legacySenderToken,
                 ];
-                if ($sender === '') {
-                    $sender = $legacySenderToken;
-                }
+                // Legacy SMS Misr mode expects sender token to be used as sender value as well.
+                $sender = $legacySenderToken;
             } else {
                 return [
                     'success' => false,
@@ -856,16 +865,19 @@ class SmsService
             'response' => $decodedResponse,
         ]);
 
-        $code = $decodedResponse['code'] ?? null;
+        $code = $decodedResponse['code'] ?? $decodedResponse['Code'] ?? null;
+        $status = strtolower((string) ($decodedResponse['status'] ?? $decodedResponse['Status'] ?? ''));
+        $type = strtolower((string) ($decodedResponse['Type'] ?? $decodedResponse['type'] ?? ''));
+        $successFlag = $decodedResponse['success'] ?? $decodedResponse['Success'] ?? null;
         $codeStr = $code === null ? '' : (string) $code;
 
         if (
             $httpCode === 200 &&
             (
                 $codeStr === '1901'
-                || (isset($decodedResponse['status']) && $decodedResponse['status'] === 'success')
-                || (isset($decodedResponse['success']) && $decodedResponse['success'] === true)
-                || (isset($decodedResponse['Type']) && $decodedResponse['Type'] === 'success')
+                || $status === 'success'
+                || $successFlag === true || $successFlag === 'true' || $successFlag === 1 || $successFlag === '1'
+                || $type === 'success'
                 || (isset($decodedResponse['message_id']) && !empty($decodedResponse['message_id']))
             )
         ) {
@@ -895,10 +907,24 @@ class SmsService
         $errorMessage = 'SMS Misr API returned error';
         if (isset($decodedResponse['message'])) {
             $errorMessage = (string) $decodedResponse['message'];
+        } elseif (isset($decodedResponse['Message'])) {
+            $errorMessage = (string) $decodedResponse['Message'];
         } elseif (isset($decodedResponse['error'])) {
             $errorMessage = (string) $decodedResponse['error'];
+        } elseif (isset($decodedResponse['Error'])) {
+            $errorMessage = (string) $decodedResponse['Error'];
         } elseif (isset($decodedResponse['Msg'])) {
             $errorMessage = (string) $decodedResponse['Msg'];
+        }
+
+        if ($codeStr === '1903') {
+            $errorMessage = 'SMS Misr rejected credentials (Code 1903). Verify API auth mode: use valid SMS_MISR_TOKEN or valid username/password from SMS Misr settings.';
+        } elseif ($codeStr === '1904') {
+            $errorMessage = 'SMS Misr rejected the request (Code 1904). Verify SMS_MISR_SENDER is an approved Sender ID on your account and that API credentials match the same account.';
+        }
+
+        if ($codeStr !== '') {
+            $errorMessage .= ' (Code: ' . $codeStr . ')';
         }
 
         return [
