@@ -11,6 +11,13 @@
     </a>
 </li>
 
+<li class="menu-item {{ request()->is('admin/organizer-feature-slides*') ? 'active' : '' }}">
+    <a href="{{ route('admin.organizer-feature-slides.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons ti ti-slideshow"></i>
+        <div data-i18n="Organizer carousel">{{ __('Organizer carousel') }}</div>
+    </a>
+</li>
+
 <!--Our Partners-->
 @can('view partners')
     <li class="menu-item {{ request()->is('admin/partners*') ? 'active' : '' }}">

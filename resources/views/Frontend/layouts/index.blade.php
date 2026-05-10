@@ -26,7 +26,7 @@
     @endif
     <!-- end New Category Section -->
     <!-- plan of month -->
-     @if($plan_month->count() > 0)
+    @if($plan_month->count() > 0)
         <div class="js-hide-on-search">
             @include('Frontend.layouts.sections.plan_of_month')
         </div>
@@ -65,7 +65,9 @@
     <!-- end New Event section -->
 
     <!-- Are you owner -->
-    @include('Frontend.layouts.sections.are_you_organize')
+    @if (isset($organizer_feature_slides) && $organizer_feature_slides->isNotEmpty())
+        @include('Frontend.layouts.sections.are_you_organize')
+    @endif
     <!-- Are you owner -->
 
     <!-- trusted companies -->
@@ -369,59 +371,59 @@
                 observer.observe(item);
             });
         });
-        </script>
+    </script>
 
-         <!-- popup overlay backdrop action  -->
-         <script>
-            (function () {
-                var backdrop = document.getElementById("jsPopupBackdrop");
-                if (!backdrop) {
-                    return;
-                }
-                var openBtn = document.getElementById("jsOpenModal");
-                var closeBtn = document.getElementById("jsCloseBanner");
-                var dismissBtn = document.getElementById("jsDismissBtn");
-                var confirmBtn = document.getElementById("jsConfirmBtn");
+    <!-- popup overlay backdrop action  -->
+    <script>
+        (function () {
+            var backdrop = document.getElementById("jsPopupBackdrop");
+            if (!backdrop) {
+                return;
+            }
+            var openBtn = document.getElementById("jsOpenModal");
+            var closeBtn = document.getElementById("jsCloseBanner");
+            var dismissBtn = document.getElementById("jsDismissBtn");
+            var confirmBtn = document.getElementById("jsConfirmBtn");
 
-                function openPopup() {
-                    backdrop.classList.add("is-open");
-                    document.body.style.overflow = "hidden";
-                }
+            function openPopup() {
+                backdrop.classList.add("is-open");
+                document.body.style.overflow = "hidden";
+            }
 
-                function closePopup() {
-                    backdrop.classList.remove("is-open");
-                    document.body.style.overflow = "";
-                }
+            function closePopup() {
+                backdrop.classList.remove("is-open");
+                document.body.style.overflow = "";
+            }
 
-                /* Auto-open on page load */
-                window.addEventListener("load", function () {
-                    setTimeout(openPopup, 300);
-                });
+            /* Auto-open on page load */
+            window.addEventListener("load", function () {
+                setTimeout(openPopup, 300);
+            });
 
-                if (openBtn) {
-                    openBtn.addEventListener("click", openPopup);
-                }
-                if (closeBtn) {
-                    closeBtn.addEventListener("click", closePopup);
-                }
-                if (dismissBtn) {
-                    dismissBtn.addEventListener("click", closePopup);
-                }
-                if (confirmBtn) {
-                    confirmBtn.addEventListener("click", closePopup);
-                }
+            if (openBtn) {
+                openBtn.addEventListener("click", openPopup);
+            }
+            if (closeBtn) {
+                closeBtn.addEventListener("click", closePopup);
+            }
+            if (dismissBtn) {
+                dismissBtn.addEventListener("click", closePopup);
+            }
+            if (confirmBtn) {
+                confirmBtn.addEventListener("click", closePopup);
+            }
 
-                /* Click outside modal */
-                backdrop.addEventListener("click", function (e) {
-                    if (e.target === backdrop) closePopup();
-                });
+            /* Click outside modal */
+            backdrop.addEventListener("click", function (e) {
+                if (e.target === backdrop) closePopup();
+            });
 
-                /* Escape key */
-                document.addEventListener("keydown", function (e) {
-                    if (e.key === "Escape") closePopup();
-                });
-            })();
-        </script>
+            /* Escape key */
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") closePopup();
+            });
+        })();
+    </script>
 
     {{-- Slider (carousel-neblue-event) JS --}}
     <script>
@@ -430,12 +432,12 @@
 
             var neblueCurrentSlide = 0;
             var neblueTouchStartX = null;
-            var neblueTouchEndX  = null;
+            var neblueTouchEndX = null;
 
-            var neblueCarousel   = document.querySelector('.carousel-neblue-event-carousel');
-            var neblueItems      = document.querySelectorAll('.carousel-neblue-event-item');
-            var nebluePrevBtn    = document.querySelector('.carousel-neblue-event-arrow-prev');
-            var neblueNextBtn    = document.querySelector('.carousel-neblue-event-arrow-next');
+            var neblueCarousel = document.querySelector('.carousel-neblue-event-carousel');
+            var neblueItems = document.querySelectorAll('.carousel-neblue-event-item');
+            var nebluePrevBtn = document.querySelector('.carousel-neblue-event-arrow-prev');
+            var neblueNextBtn = document.querySelector('.carousel-neblue-event-arrow-next');
 
             if (!neblueItems.length) return;
 
@@ -480,5 +482,4 @@
             neblueShowSlide(0);
         })();
     </script>
-
 @endpush

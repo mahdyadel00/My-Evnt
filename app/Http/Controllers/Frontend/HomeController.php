@@ -8,6 +8,7 @@ use App\Models\Artical;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\HomePopupFeature;
+use App\Models\OrganizerFeatureSlide;
 use App\Models\Slider;
 use App\Models\Company;
 use App\Models\Partner;
@@ -113,6 +114,11 @@ class HomeController extends Controller
                     $query->orderBy('start_date');
                 },
             ])
+            ->get();
+
+        $organizer_feature_slides = OrganizerFeatureSlide::query()
+            ->active()
+            ->ordered()
             ->get();
 
         // Return the view with all data

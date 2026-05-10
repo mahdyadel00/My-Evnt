@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\{
+    OrganizerFeatureSlideController,
     AdFeeController,
     CityController,
     Controller\BlogController,
@@ -87,6 +88,7 @@ Route::prefix('admin')
             Route::resource('features', FeatureController::class);
             // Homepage promotional popup (optional event or manual copy)
             Route::resource('home-popup-features', HomePopupFeatureController::class)->except(['show']);
+            Route::resource('organizer-feature-slides', OrganizerFeatureSlideController::class)->except(['show']);
             //Route Customers
             Route::resource('customers', CustomerController::class);
             //Route Blog
