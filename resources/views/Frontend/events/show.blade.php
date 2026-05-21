@@ -846,7 +846,7 @@
                             $('#guestSurveyModal').modal('hide');
 
                             // Show promo code with copy button
-                            const promoCode = 'MYEVNT-50';
+                            const promoCode = 'MyEvnt-SMEs';
 
                             Swal.fire({
                                 title: '<strong style="color: #667eea;">🎉 Registration Successful!</strong>',
