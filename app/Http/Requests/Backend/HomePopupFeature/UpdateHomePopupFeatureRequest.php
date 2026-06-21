@@ -55,13 +55,13 @@ class UpdateHomePopupFeatureRequest extends FormRequest
             'event_id'                      => ['nullable', 'integer', 'exists:events,id'],
             'title'                         => ['nullable', 'string', 'max:255'],
             'description'                   => ['nullable', 'string', 'max:20000'],
-            'image'                         => ['required', 'image', 'max:4096'],
+            'image'                         => ['nullable', 'image', 'max:4096'],
             'manual_location'               => ['nullable', 'string', 'max:255'],
             'manual_datetime_label'         => ['nullable', 'string', 'max:255'],
-            'cta_label'                     => ['required', 'string', 'max:80'],
-            'dismiss_label'                 => ['required', 'string', 'max:80'],
-            'show_action_buttons'           => ['required', 'boolean'],
-            'is_active'                     => ['required', 'boolean'],
+            'cta_label'                     => ['nullable', 'string', 'max:80'],
+            'dismiss_label'                 => ['nullable', 'string', 'max:80'],
+            'show_action_buttons'           => ['nullable', 'boolean'],
+            'is_active'                     => ['nullable', 'boolean'],
             'sort_order'                    => ['nullable', 'integer', 'min:0', 'max:999999'],
         ];
     }
