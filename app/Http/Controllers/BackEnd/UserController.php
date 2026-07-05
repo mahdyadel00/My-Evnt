@@ -300,7 +300,7 @@ class UserController extends Controller
     /**
      * Send messages to selected users.
      */
-    public function sendMessage(Request $request)
+    public function sendMessage(Request $request, SmsService $smsService)
     {
         $request->validate([
             'user_ids'          => ['required', 'array', 'min:1'],
@@ -324,7 +324,6 @@ class UserController extends Controller
                     ->with('error', __('No users with phone numbers found'));
             }
 
-            $smsService = new SmsService();
             $successCount = 0;
             $failedCount = 0;
             $errors = [];

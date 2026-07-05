@@ -44,6 +44,18 @@
                             </div>
                         </div>
 
+                        @if (filled(config('services.waapi.app_key')) && filled(config('services.waapi.auth_key')))
+                            <div class="alert alert-success mb-4">
+                                <i class="ti ti-brand-whatsapp ti-xs me-1"></i>
+                                {{ __('WhatsApp messages are sent via WAAPI.') }}
+                            </div>
+                        @elseif (filled(config('services.waapi.app_key')) || filled(config('services.waapi.api_key')))
+                            <div class="alert alert-warning mb-4">
+                                <i class="ti ti-alert-triangle ti-xs me-1"></i>
+                                {{ __('WAAPI is partially configured. Add WAAPI_AUTH_KEY to .env from your WAAPI dashboard.') }}
+                            </div>
+                        @endif
+
                         <form action="{{ route('admin.users.send-message.store') }}" method="POST">
                             @csrf
 

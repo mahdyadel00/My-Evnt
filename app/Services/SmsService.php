@@ -16,6 +16,16 @@ use Twilio\Exceptions\RestException;
  */
 class SmsService
 {
+    public function __construct(
+        private readonly ?WaapiWhatsAppService $waapiWhatsAppService = null
+    ) {
+    }
+
+    private function waapi(): WaapiWhatsAppService
+    {
+        return $this->waapiWhatsAppService ?? new WaapiWhatsAppService();
+    }
+
     /**
      * Send SMS invitation for an event
      *
@@ -541,7 +551,21 @@ class SmsService
             // For SMS: Use SMS Misr
             return $this->sendCustomViaSmsMisr($phoneNumber, $message);
         } else {
-            // For WhatsApp: Use Twilio
+            // WhatsApp: WAAPI PRO first, then Twilio, then WhatsApp Egypt
+            $waapiResult = null;
+
+            if ($this->waapi()->isConfigured()) {
+                $waapiResult = $this->waapi()->sendText($phoneNumber, $message);
+
+                if ($waapiResult['success']) {
+                    return $waapiResult;
+                }
+
+                Log::warning('WAAPI WhatsApp failed, trying Twilio fallback', [
+                    'error' => $waapiResult['message'] ?? 'Unknown error',
+                ]);
+            }
+
             $twilioSid = config('services.twilio.sid');
             $twilioToken = config('services.twilio.token');
             $twilioResult = null;
@@ -571,7 +595,14 @@ class SmsService
                 
                 return [
                     'success' => false,
-                    'message' => 'Sending failed via both methods. Twilio: ' . ($twilioResult['message'] ?? 'Not configured') . ' | WhatsApp Egypt: ' . ($whatsappResult['message'] ?? 'Unknown error')
+                    'message' => 'Sending failed. WAAPI: ' . ($waapiResult['message'] ?? 'Not configured') . ' | Twilio: ' . ($twilioResult['message'] ?? 'Not configured') . ' | WhatsApp Egypt: ' . ($whatsappResult['message'] ?? 'Unknown error')
+                ];
+            }
+
+            if (is_array($waapiResult)) {
+                return [
+                    'success' => false,
+                    'message' => 'WAAPI send failed: ' . ($waapiResult['message'] ?? 'Unknown error'),
                 ];
             }
 
@@ -584,7 +615,7 @@ class SmsService
             
             return [
                 'success' => false,
-                'message' => 'No service configured. Please add Twilio or WhatsApp Egypt credentials in .env file'
+                'message' => 'No WhatsApp service configured. Add WAAPI_APP_KEY + WAAPI_AUTH_KEY or Twilio credentials in .env'
             ];
         }
     }
