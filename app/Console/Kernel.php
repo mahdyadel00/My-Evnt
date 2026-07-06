@@ -8,12 +8,14 @@ use App\Jobs\SendEventReminderEmail;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use App\Console\Commands\ProcessOutboundMessagesCommand;
 use App\Console\Commands\SendReminderEmails;
 class Kernel extends ConsoleKernel
 {
 
     protected $commands = [
         SendReminderEmails::class,
+        ProcessOutboundMessagesCommand::class,
     ];
     /**
      * Define the application's command schedule.
@@ -51,8 +53,11 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('reminder:email')->dailyAt('12:11');
 
-    }
+        $schedule->command('outbound:process')
+            ->everyMinute()
+            ->withoutOverlapping();
 
+    }
 
     /**
      * Register the commands for the application.

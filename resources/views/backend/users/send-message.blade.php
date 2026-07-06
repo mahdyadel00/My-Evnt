@@ -47,7 +47,9 @@
                         @if (filled(config('services.waapi.auth_key')))
                             <div class="alert alert-success mb-4">
                                 <i class="ti ti-brand-whatsapp ti-xs me-1"></i>
-                                {{ __('WhatsApp messages are sent via WAAPI.') }}
+                                {{ __('WhatsApp messages are queued and sent gradually via WAAPI (:batch per minute).', [
+                                    'batch' => config('services.waapi.throttle.batch_size', 5),
+                                ]) }}
                             </div>
                         @elseif (filled(config('services.waapi.app_key')) || filled(config('services.waapi.api_key')))
                             <div class="alert alert-warning mb-4">

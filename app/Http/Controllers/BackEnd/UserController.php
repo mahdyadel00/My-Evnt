@@ -11,6 +11,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\Role;
+use App\Services\Messaging\OutboundMessageQueueService;
 use App\Services\SmsService;
 use App\Exports\UserExport;
 use App\Mail\UserEmail;
@@ -300,8 +301,11 @@ class UserController extends Controller
     /**
      * Send messages to selected users.
      */
-    public function sendMessage(Request $request, SmsService $smsService)
-    {
+    public function sendMessage(
+        Request $request,
+        SmsService $smsService,
+        OutboundMessageQueueService $outboundQueue
+    ) {
         $request->validate([
             'user_ids'          => ['required', 'array', 'min:1'],
             'user_ids.*'        => ['required', 'integer', 'exists:users,id'],
@@ -322,6 +326,36 @@ class UserController extends Controller
                 return redirect()->back()
                     ->withInput()
                     ->with('error', __('No users with phone numbers found'));
+            }
+
+            if ($type === 'whatsapp') {
+                $queued = $outboundQueue->enqueueBulk($users, $message, 'whatsapp', 'admin_users');
+
+                if ($queued['queued'] === 0) {
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', __('No messages could be queued.'))
+                        ->with('send_errors', collect($queued['failures'])->map(
+                            fn (array $f) => "{$f['label']}: {$f['message']}"
+                        )->all());
+                }
+
+                $batchSize = (int) config('services.waapi.throttle.batch_size', 5);
+                $successMessage = __(':count WhatsApp message(s) queued. They will be sent gradually (:batch per minute) to avoid WAAPI blocks.', [
+                    'count' => $queued['queued'],
+                    'batch' => $batchSize,
+                ]);
+
+                if ($queued['skipped'] > 0) {
+                    return redirect()->route('admin.users.index')
+                        ->with('warning', $successMessage.' '.__(':skipped user(s) skipped.', ['skipped' => $queued['skipped']]))
+                        ->with('send_errors', collect($queued['failures'])->map(
+                            fn (array $f) => "{$f['label']}: {$f['message']}"
+                        )->all());
+                }
+
+                return redirect()->route('admin.users.index')
+                    ->with('success', $successMessage);
             }
 
             $successCount = 0;

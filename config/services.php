@@ -88,6 +88,13 @@ return [
         'api_key' => env('WAAPI_API_KEY'),
         'app_key' => env('WAAPI_APP_KEY', env('WAAPI_API_KEY')),
         'auth_key' => env('WAAPI_AUTH_KEY'),
+        'throttle' => [
+            'batch_size' => (int) env('WAAPI_BATCH_SIZE', 5),
+            'max_per_hour' => (int) env('WAAPI_MAX_PER_HOUR', 50),
+            'cooldown_minutes' => (int) env('WAAPI_COOLDOWN_MINUTES', 15),
+            'delay_between_seconds' => (int) env('WAAPI_DELAY_BETWEEN_SECONDS', 3),
+            'max_attempts' => (int) env('WAAPI_MAX_ATTEMPTS', 5),
+        ],
     ],
 
 ];

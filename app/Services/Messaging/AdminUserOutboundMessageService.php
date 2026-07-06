@@ -10,12 +10,13 @@ use App\Services\SmsService;
 use Illuminate\Support\Facades\Log;
 
 /**
- * Sends a one-off message from the admin panel to a user's phone via SMS (SMS Misr) or WhatsApp (Twilio / fallbacks).
+ * Sends a one-off message from the admin panel to a user's phone via SMS (SMS Misr) or WhatsApp (WAAPI / fallbacks).
  */
 class AdminUserOutboundMessageService
 {
     public function __construct(
-        private readonly SmsService $smsService
+        private readonly SmsService $smsService,
+        private readonly OutboundMessageQueueService $outboundQueue
     ) {
     }
 
@@ -24,23 +25,44 @@ class AdminUserOutboundMessageService
      *
      * @param iterable<int, User> $users
      *
-     * @return array{sent: int, failed: int, failures: list<array{user_id: int, label: string, message: string}>}
+     * @return array{
+     *     sent: int,
+     *     failed: int,
+     *     failures: list<array{user_id: int, label: string, message: string}>,
+     *     is_queued?: bool,
+     *     queued?: int,
+     *     batch_id?: string
+     * }
      */
     public function sendBulk(iterable $users, string $message, OutboundMessageChannel $channel): array
     {
         $body = $this->normalizeMessageBody($message);
+
+        if ($channel === OutboundMessageChannel::Whatsapp) {
+            $result = $this->outboundQueue->enqueueBulk($users, $body, $channel->value, 'admin_settings');
+
+            return [
+                'is_queued' => true,
+                'queued' => $result['queued'],
+                'sent' => 0,
+                'failed' => $result['skipped'],
+                'failures' => $result['failures'],
+                'batch_id' => $result['batch_id'],
+            ];
+        }
+
         $sent = 0;
         $failures = [];
 
         foreach ($users as $user) {
-            $result = $this->sendToUser($user, $body, $channel, false);
-            if ($result['success'] ?? false) {
+            $sendResult = $this->sendToUser($user, $body, $channel, false);
+            if ($sendResult['success'] ?? false) {
                 $sent++;
             } else {
                 $failures[] = [
                     'user_id' => $user->id,
-                    'label' => trim($user->first_name . ' ' . $user->last_name) ?: (string) $user->id,
-                    'message' => (string) ($result['message'] ?? __('Unknown error')),
+                    'label' => trim($user->first_name.' '.$user->last_name) ?: (string) $user->id,
+                    'message' => (string) ($sendResult['message'] ?? __('Unknown error')),
                 ];
             }
         }
@@ -80,7 +102,7 @@ class AdminUserOutboundMessageService
             $channel->toSmsServiceType()
         );
 
-        if (!($result['success'] ?? false)) {
+        if (! ($result['success'] ?? false)) {
             Log::channel('error')->error('AdminUserOutboundMessageService: send failed', [
                 'user_id' => $user->id,
                 'channel' => $channel->value,
