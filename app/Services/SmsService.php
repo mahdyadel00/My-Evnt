@@ -615,7 +615,7 @@ class SmsService
             
             return [
                 'success' => false,
-                'message' => 'No WhatsApp service configured. Add WAAPI_APP_KEY + WAAPI_AUTH_KEY or Twilio credentials in .env'
+                'message' => 'No WhatsApp service configured. Add WAAPI_AUTH_KEY or Twilio credentials in .env'
             ];
         }
     }

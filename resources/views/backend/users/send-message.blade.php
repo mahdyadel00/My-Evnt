@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                        @if (filled(config('services.waapi.app_key')) && filled(config('services.waapi.auth_key')))
+                        @if (filled(config('services.waapi.auth_key')))
                             <div class="alert alert-success mb-4">
                                 <i class="ti ti-brand-whatsapp ti-xs me-1"></i>
                                 {{ __('WhatsApp messages are sent via WAAPI.') }}

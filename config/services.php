@@ -83,7 +83,7 @@ return [
     ],
 
     'waapi' => [
-        'api_url' => env('WAAPI_API_URL', 'https://waapi.octopusteam.net/api/create-message'),
+        'api_url' => env('WAAPI_API_URL', 'https://waapi.octopusteam.net/api'),
         /** @deprecated Use WAAPI_APP_KEY — kept for older .env files */
         'api_key' => env('WAAPI_API_KEY'),
         'app_key' => env('WAAPI_APP_KEY', env('WAAPI_API_KEY')),
