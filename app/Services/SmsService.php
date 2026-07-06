@@ -110,7 +110,7 @@ class SmsService
             $message = $this->buildInvitationMessage($event, true);
 
             // Format phone number
-            $to = '+2' . preg_replace('/[^0-9]/', '', $phoneNumber);
+            $to = PhoneNormalizer::toE164($phoneNumber);
 
             // Send text message first
             $postData = [
@@ -524,17 +524,7 @@ class SmsService
      */
     private function formatPhoneNumber(string $phoneNumber): string
     {
-        // Remove any non-numeric characters
-        $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
-
-        // If it doesn't start with country code, add +2 for Egypt
-        if (!str_starts_with($phoneNumber, '2')) {
-            $phoneNumber = '+2' . $phoneNumber;
-        } else {
-            $phoneNumber = '+' . $phoneNumber;
-        }
-
-        return $phoneNumber;
+        return PhoneNormalizer::toE164($phoneNumber);
     }
 
     /**
@@ -729,7 +719,7 @@ class SmsService
                 ];
             }
 
-            $to = '+2' . preg_replace('/[^0-9]/', '', $phoneNumber);
+            $to = PhoneNormalizer::toE164($phoneNumber);
 
             $postData = [
                 'appkey' => $appKey,

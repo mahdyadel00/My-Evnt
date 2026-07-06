@@ -8,6 +8,7 @@ use App\Enums\OutboundMessageChannel;
 use App\Enums\OutboundMessageStatus;
 use App\Models\OutboundMessage;
 use App\Models\User;
+use App\Services\PhoneNormalizer;
 use App\Services\WaapiWhatsAppService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
@@ -34,7 +35,8 @@ class OutboundMessageQueueService
         $failures = [];
 
         foreach ($users as $user) {
-            $phone = trim((string) $user->phone);
+            $rawPhone = trim((string) $user->phone);
+            $phone = PhoneNormalizer::toE164($rawPhone);
 
             if ($phone === '') {
                 $failures[] = [
@@ -152,6 +154,13 @@ class OutboundMessageQueueService
         }
 
         if ($failed > 0) {
+            if ($dispatch['auth_error'] ?? false) {
+                return [
+                    'type' => 'error',
+                    'text' => __('WAAPI_AUTH_KEY is invalid on this server. Copy the Auth Key from your WAAPI dashboard into production .env, then run: php artisan optimize:clear'),
+                ];
+            }
+
             return [
                 'type' => 'error',
                 'text' => __('WhatsApp send failed for :count message(s). Check storage/logs/laravel.log', [
@@ -199,7 +208,7 @@ class OutboundMessageQueueService
             ->limit($batchSize)
             ->get();
 
-        $stats = ['sent' => 0, 'failed' => 0, 'paused' => 0, 'skipped' => false];
+        $stats = ['sent' => 0, 'failed' => 0, 'paused' => 0, 'skipped' => false, 'auth_error' => false];
 
         foreach ($messages as $outboundMessage) {
             if ($this->hourlyLimitReached()) {
@@ -259,6 +268,11 @@ class OutboundMessageQueueService
                 'id' => $outboundMessage->id,
                 'error' => $errorMessage,
             ]);
+
+            if ($this->isAuthError($result)) {
+                $stats['auth_error'] = true;
+                break;
+            }
         }
 
         return $stats;
@@ -277,6 +291,17 @@ class OutboundMessageQueueService
             || str_contains($message, 'paused')
             || str_contains($message, 'rate limit')
             || str_contains($message, 'hard_block');
+    }
+
+    /**
+     * @param  array{success?: bool, message?: string, http_code?: int}  $result
+     */
+    private function isAuthError(array $result): bool
+    {
+        $httpCode = (int) ($result['http_code'] ?? 0);
+        $message = strtolower((string) ($result['message'] ?? ''));
+
+        return $httpCode === 401 || str_contains($message, 'invalid authkey');
     }
 
     private function hourlyLimitReached(): bool

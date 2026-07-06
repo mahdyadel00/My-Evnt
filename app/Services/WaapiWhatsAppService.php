@@ -69,20 +69,7 @@ class WaapiWhatsAppService
      */
     public function formatPhone(string $phoneNumber): string
     {
-        $digits = preg_replace('/[^0-9]/', '', $phoneNumber) ?? '';
-        if ($digits === '') {
-            return '';
-        }
-
-        if (str_starts_with($digits, '0')) {
-            $digits = substr($digits, 1);
-        }
-
-        if (! str_starts_with($digits, '20') && strlen($digits) <= 11) {
-            $digits = '20'.$digits;
-        }
-
-        return $digits;
+        return PhoneNormalizer::toInternationalDigits($phoneNumber);
     }
 
     /**
@@ -225,6 +212,8 @@ class WaapiWhatsAppService
             $errorMessage = $body['message'];
         } elseif (isset($body['errors']) && is_array($body['errors'])) {
             $errorMessage = implode(', ', $body['errors']);
+        } elseif (isset($body['attempts'][0]['message']) && is_string($body['attempts'][0]['message'])) {
+            $errorMessage = $body['attempts'][0]['message'];
         }
 
         Log::error('WAAPI send failed', [
