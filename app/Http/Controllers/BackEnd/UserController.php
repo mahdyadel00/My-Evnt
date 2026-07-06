@@ -329,7 +329,7 @@ class UserController extends Controller
             }
 
             if ($type === 'whatsapp') {
-                $queued = $outboundQueue->enqueueBulk($users, $message, 'whatsapp', 'admin_users');
+                $queued = $outboundQueue->enqueueAndProcessBulk($users, $message, 'whatsapp', 'admin_users');
 
                 if ($queued['queued'] === 0) {
                     return redirect()->back()
@@ -340,22 +340,17 @@ class UserController extends Controller
                         )->all());
                 }
 
-                $batchSize = (int) config('services.waapi.throttle.batch_size', 5);
-                $successMessage = __(':count WhatsApp message(s) queued. They will be sent gradually (:batch per minute) to avoid WAAPI blocks.', [
-                    'count' => $queued['queued'],
-                    'batch' => $batchSize,
-                ]);
+                $flash = $outboundQueue->buildFlashMessage($queued);
 
                 if ($queued['skipped'] > 0) {
-                    return redirect()->route('admin.users.index')
-                        ->with('warning', $successMessage.' '.__(':skipped user(s) skipped.', ['skipped' => $queued['skipped']]))
-                        ->with('send_errors', collect($queued['failures'])->map(
-                            fn (array $f) => "{$f['label']}: {$f['message']}"
-                        )->all());
+                    $flash['text'] .= ' '.__(':skipped user(s) skipped.', ['skipped' => $queued['skipped']]);
                 }
 
                 return redirect()->route('admin.users.index')
-                    ->with('success', $successMessage);
+                    ->with($flash['type'], $flash['text'])
+                    ->with('send_errors', $queued['skipped'] > 0
+                        ? collect($queued['failures'])->map(fn (array $f) => "{$f['label']}: {$f['message']}")->all()
+                        : []);
             }
 
             $successCount = 0;

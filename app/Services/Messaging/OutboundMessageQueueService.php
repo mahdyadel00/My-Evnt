@@ -76,6 +76,100 @@ class OutboundMessageQueueService
     }
 
     /**
+     * Queue messages then immediately process the first throttled batch (no cron wait).
+     *
+     * @param  Collection<int, User>|iterable<int, User>  $users
+     * @return array{
+     *     batch_id: string,
+     *     queued: int,
+     *     skipped: int,
+     *     failures: list<array{user_id: int, label: string, message: string}>,
+     *     dispatch: array{sent: int, failed: int, paused: int, skipped: bool, reason?: string}
+     * }
+     */
+    public function enqueueAndProcessBulk(iterable $users, string $message, string $channel, string $source = 'admin_users'): array
+    {
+        $result = $this->enqueueBulk($users, $message, $channel, $source);
+
+        $result['dispatch'] = $result['queued'] > 0
+            ? $this->processPendingBatch()
+            : ['sent' => 0, 'failed' => 0, 'paused' => 0, 'skipped' => false];
+
+        return $result;
+    }
+
+    /**
+     * Build a user-facing flash message from queue + first dispatch results.
+     *
+     * @param  array{queued: int, skipped: int, dispatch: array{sent: int, failed: int, paused: int, skipped: bool, reason?: string}}  $result
+     */
+    public function buildFlashMessage(array $result): array
+    {
+        $dispatch = $result['dispatch'];
+        $batchSize = $this->batchSize();
+        $sent = (int) ($dispatch['sent'] ?? 0);
+        $failed = (int) ($dispatch['failed'] ?? 0);
+        $paused = (int) ($dispatch['paused'] ?? 0);
+        $remaining = max(0, (int) $result['queued'] - $sent - $failed);
+
+        if ($sent > 0 && $remaining === 0 && $failed === 0 && $paused === 0) {
+            return [
+                'type' => 'success',
+                'text' => __(':sent WhatsApp message(s) sent successfully.', ['sent' => $sent]),
+            ];
+        }
+
+        if ($sent > 0 && $remaining > 0) {
+            return [
+                'type' => 'success',
+                'text' => __(':sent sent now, :remaining queued (:batch per minute).', [
+                    'sent' => $sent,
+                    'remaining' => $remaining,
+                    'batch' => $batchSize,
+                ]),
+            ];
+        }
+
+        if ($paused > 0) {
+            $cooldown = $this->cooldownMinutes();
+
+            return [
+                'type' => 'warning',
+                'text' => __('WAAPI temporarily blocked sending. :count message(s) paused — retry in ~:minutes min or unblock the device in WAAPI dashboard.', [
+                    'count' => (int) $result['queued'],
+                    'minutes' => $cooldown,
+                ]),
+            ];
+        }
+
+        if (($dispatch['skipped'] ?? false) && ($dispatch['reason'] ?? '') === 'hourly_limit') {
+            return [
+                'type' => 'warning',
+                'text' => __(':count message(s) queued. Hourly WAAPI limit reached — cron will continue later.', [
+                    'count' => (int) $result['queued'],
+                ]),
+            ];
+        }
+
+        if ($failed > 0) {
+            return [
+                'type' => 'error',
+                'text' => __('WhatsApp send failed for :count message(s). Check storage/logs/laravel.log', [
+                    'count' => $failed,
+                ]),
+            ];
+        }
+
+        return [
+            'type' => 'success',
+            'text' => __(':count WhatsApp message(s) queued (:batch per minute).', [
+                'count' => (int) $result['queued'],
+                'batch' => $batchSize,
+            ]),
+        ];
+    }
+
+    /**
      * Process a throttled batch of pending WhatsApp messages (called by cron).
      *
      * @return array{sent: int, failed: int, paused: int, skipped: bool, reason?: string}

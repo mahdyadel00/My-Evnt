@@ -39,15 +39,18 @@ class AdminUserOutboundMessageService
         $body = $this->normalizeMessageBody($message);
 
         if ($channel === OutboundMessageChannel::Whatsapp) {
-            $result = $this->outboundQueue->enqueueBulk($users, $body, $channel->value, 'admin_settings');
+            $result = $this->outboundQueue->enqueueAndProcessBulk($users, $body, $channel->value, 'admin_settings');
+            $flash = $this->outboundQueue->buildFlashMessage($result);
 
             return [
                 'is_queued' => true,
                 'queued' => $result['queued'],
-                'sent' => 0,
-                'failed' => $result['skipped'],
+                'sent' => $result['dispatch']['sent'] ?? 0,
+                'failed' => $result['skipped'] + ($result['dispatch']['failed'] ?? 0),
                 'failures' => $result['failures'],
                 'batch_id' => $result['batch_id'],
+                'flash_type' => $flash['type'],
+                'flash_message' => $flash['text'],
             ];
         }
 

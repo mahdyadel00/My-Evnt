@@ -216,15 +216,13 @@ class SettingController extends Controller
             $label = $channel === OutboundMessageChannel::Sms ? __('SMS') : __('WhatsApp');
 
             if ($summary['is_queued'] ?? false) {
-                $batchSize = (int) config('services.waapi.throttle.batch_size', 5);
-                $alertType = $summary['failed'] > 0 ? 'warning' : 'success';
-                $userMessage = __(':channel: :count message(s) queued. They will be sent gradually (:batch per minute).', [
+                $alertType = $summary['flash_type'] ?? 'success';
+                $userMessage = $summary['flash_message'] ?? __(':channel: :count message(s) queued.', [
                     'channel' => $label,
                     'count' => $summary['queued'] ?? 0,
-                    'batch' => $batchSize,
                 ]);
 
-                if ($summary['failed'] > 0) {
+                if ($summary['failed'] > 0 && ! empty($summary['failures'])) {
                     $userMessage .= ' '.__(':skipped skipped.', ['skipped' => $summary['failed']]);
                 }
 
