@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
+use App\Models\VisitorSession;
+use App\Services\LocationService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\VisitorSession;
-use App\Services\LocationService;
+use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
 
 class TrackVisitor
@@ -59,13 +62,13 @@ class TrackVisitor
                 'user_id'       => Auth::id(),
                 'event_id'      => $request->route('uuid'),
                 'ip_address'    => $ip,
-                'user_agent'    => $request->userAgent(),
-                'device'        => $agent->device(),
-                'browser'       => $agent->browser(),
-                'os'            => $agent->platform(),
-                'country'       => $country,
-                'city'          => $city,
-                'referrer'      => $request->headers->get('referer'),
+                'user_agent'    => Str::limit((string) $request->userAgent(), 255, ''),
+                'device'        => Str::limit((string) ($agent->device() ?: ''), 255, ''),
+                'browser'       => Str::limit((string) ($agent->browser() ?: ''), 255, ''),
+                'os'            => Str::limit((string) ($agent->platform() ?: ''), 255, ''),
+                'country'       => Str::limit((string) ($country ?? ''), 255, ''),
+                'city'          => Str::limit((string) ($city ?? ''), 255, ''),
+                'referrer'      => Str::limit((string) $request->headers->get('referer'), 255, ''),
                 'last_activity' => now(),
             ]
         );
