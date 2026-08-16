@@ -23,6 +23,28 @@
 @endphp
 
 @php
+    $most_popular_event_category = App\Models\EventCategory::whereHas('events', function ($query) {
+        $query->where('view_count', '>', 0);
+    })
+        ->where('parent_id', null)
+        ->take(4)
+        ->get();
+    $footer_event_category = App\Models\EventCategory::orderBy('id', 'desc')->take(4)->get();
+    $more_event_category = App\Models\EventCategory::orderBy('id', 'asc')
+        ->where('parent_id', null)
+        ->skip(3)
+        ->take(10)
+        ->get();
+    $event_category = App\Models\EventCategory::where('is_parent', true)->take(9)->get();
+    $cities = App\Models\City::where('is_available', true)
+    ->whereHas('events', function ($query) {
+        $query->where('is_active', true);
+    })
+    ->get();
+    $socialGallery = App\Models\SocialGallery::first();
+@endphp
+
+@php
     // Generate SEO meta tags
     $seoService = app(\App\Services\SeoService::class);
     

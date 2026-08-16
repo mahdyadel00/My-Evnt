@@ -41,7 +41,7 @@ return [
     'facebook' => [
         'client_id' => '945800103975894',
         'client_secret' => 'c4f5186f2b2e2216d585bef79cda1f97',
-        'redirect' => 'https://myevnt.ai/auth/facebook/callback',
+        'redirect' => 'https://myevnt.co/auth/facebook/callback',
     ],
 
     'paymob' => [

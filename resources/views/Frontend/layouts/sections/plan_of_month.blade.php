@@ -1,82 +1,98 @@
-<section class="New-card-event-results-section">
+<section class="New-card-event-results-section js-exclusive-slider">
     <div class="New-card-event-results-container">
         <div class="header">
             <h2 class="title">Plan Your Month</h2>
             <p class="subtitle">Make every month unforgettable with handpicked events .</p>
         </div>
-        <!-- Cards Container with Navigation -->
-        <div class="New-card-event-cards-container">
-            <div class="New-card-event-cards-grid">
-                <!-- Event Card 1 -->
-                @foreach ($plan_month as $event)
-                            <div class="New-card-event-card">
-                                <a href="{{ url('event/' . $event->uuid) }}">
-                                    <img src="{{ asset('storage/' . $event->media->first()->path) }}" alt="{{ $event->name }}"
-                                        class="New-card-event-card-image" />
-                                </a>
-                                @if(auth()->check())
-                                    @php
-                                        $event->is_favourite = auth()->user()->favourites->pluck('event_id')->toArray();
-                                    @endphp
-                                    <a href="#" class="heart-icon" data-event-id="{{ $event->id }}">
-                                        <i
-                                            class="fa-{{ in_array($event->id, $event->is_favourite) ? 'solid' : 'regular' }} fa-heart"></i>
-                                    </a>
+
+        <div class="events-container-exclusive">
+            @foreach ($plan_month as $plan_month_event)
+                <div class="event-card-exclusive">
+                    @php
+                        $isFreeTicket = $plan_month_event->tickets->isNotEmpty() && $plan_month_event->tickets->first()->price == 0;
+                        $surveyType = $plan_month_event->survey ?? 0;
+                    @endphp
+                    @if($isFreeTicket && $surveyType == 2)
+                        <a href="{{ route('checkout_survey', $plan_month_event->eventDates->first()->id) }}"
+                            class="event-image-exclusive">
+                            @foreach ($plan_month_event->media as $media)
+                                @if ($media->name == 'exclusive_image')
+                                    <img src="{{ asset('storage/' . $media->path) }}" alt="{{ $plan_month_event->name }}" />
                                 @endif
-                                <div class="New-card-event-card-content">
-                                    <div class="New-card-event-card-header">
-                                        <h3 class="New-card-event-card-title">
-                                            {{ str($event->name)->limit(25) }}
-                                        </h3>
-                                        <div class="New-card-event-card-category">
-                                            {{ $event->category?->name }}
-                                        </div>
-                                    </div>
+                            @endforeach
+                        </a>
+                    @else
+                        <a href="{{ url('event/' . $plan_month_event->uuid) }}" class="event-image-exclusive">
+                            @foreach ($plan_month_event->media as $media)
+                                @if ($media->name == 'exclusive_image')
+                                    <img src="{{ asset('storage/' . $media->path) }}" alt="{{ $plan_month_event->name }}" />
+                                @endif
+                            @endforeach
+                        </a>
+                    @endif
 
-                                    <p class="New-card-event-card-description line-clamp-3">
-                                        {{ $event->summary }}
-                                    </p>
-
-                                    <div class="New-card-event-card-details">
-                                        @if($event->format == 0)
-                                        <div class="New-card-event-card-detail">
-                                            <span class="New-card-event-card-detail-icon"><i class="fa-thin fa-map-marker-alt"></i></span>
-                                            <span class="New-card-event-card-detail-value">{{ $event->city?->name }}</span>
-                                        </div>
-                                        @endif
-                                        <div class="New-card-event-card-detail">
-                                            <span class="New-card-event-card-detail-icon"><i class="fa-thin fa-calendar-alt"></i></span>
-                                            <span class="New-card-event-card-detail-value">
-                                                {{ $event->eventDates->isNotEmpty() && $event->eventDates->first()->start_date
-                    ? \Carbon\Carbon::parse(
-                        $event->eventDates->first()->start_date . ' ' . \Carbon\Carbon::parse($event->eventDates->first()->start_time)->format('H:i:s')
-                    )->format('D, M d , g:i A')
-                    : (\Carbon\Carbon::parse(
-                        $event->start_date . ' ' . \Carbon\Carbon::parse($event->start_time)->format('H:i:s')
-                    )->format('D, M d , g:i A') ?? 'N/A') }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="New-card-event-card-footer">
-                                    <div class="New-card-event-card-price">
-                                        <span class="New-card-event-card-price-amount">
-                                            {{ $event->tickets->isNotEmpty() && $event->tickets->first()->price == 0 ? 'Free' : ($event->tickets->isNotEmpty() ? number_format($event->tickets->first()->price, 0) : number_format($event->tickets->first()?->price, 0)) }}
-                                        </span>
-                                        <span class="New-card-event-card-price-currency">
-                                            {{ $event->tickets->isNotEmpty() ? $event->tickets->first()->price == 0 ? '' : $event->currency->code : '' }}
-                                        </span>
-                                    </div>
-                                    <a href="{{ url('event/' . $event->uuid) }}" class="New-card-event-details-btn">View Details</a>
-                                </div>
+                    <div class="event-content-exclusive">
+                        <div>
+                            <h3 class="event-title-exclusive">
+                                {{ $plan_month_event->name }}
+                            </h3>
+                            <p class="event-description-exclusive">
+                                {{ Str::limit($plan_month_event->summary, 150, '...') }}
+                            </p>
+                            <div class="event-location-exclusive">
+                                <span class="me-1"><i class="fa-thin fa-map-marker-alt"></i></span>
+                                {{ $plan_month_event->area ?? 'online' }}
                             </div>
+                            <div class="event-organizer-exclusive">
+                                <span class="me-1"><i class="fa-thin fa-calendar-alt"></i></span>
+                                {{ $plan_month_event->eventDates->isNotEmpty() && $plan_month_event->eventDates->first()->start_date
+                                    ? \Carbon\Carbon::parse($plan_month_event->eventDates->first()->start_date)->format('d-m-Y')
+                                    : \Carbon\Carbon::parse($plan_month_event->start_date)->format('d-m-Y') ?? 'N/A' }}
+                            </div>
+                            <div class="event-organizer-exclusive">
+                                <span class="me-1"><i class="fa-thin fa-tag"></i></span>
+                                {{ $plan_month_event->category?->name }}
+                            </div>
+                            <div class="event-organizer-exclusive">
+                                <span class="me-1"><i class="fa-thin fa-user"></i></span>
+                                {{ $plan_month_event->company?->company_name ?? ($plan_month_event->organized_by ?? '') }}
+                            </div>
+                        </div>
+
+                        <div class="event-meta-exclusive">
+                            <div class="event-actions-exclusive">
+                                <span class="event-price-exclusive">
+                                    <span><i class="fa-thin fa-ticket"></i></span>
+                                    {{ $plan_month_event->tickets->isNotEmpty() && $plan_month_event->tickets->first()->price == 0
+                                        ? 'Free'
+                                        : ($plan_month_event->tickets->isNotEmpty()
+                                            ? number_format($plan_month_event->tickets->first()->price, 0)
+                                            : number_format($plan_month_event->tickets->first()?->price, 0)) }}
+                                    {{ $plan_month_event->tickets->isNotEmpty()
+                                        ? ($plan_month_event->tickets->first()->price == 0 ? '' : $plan_month_event->currency->code)
+                                        : '' }}
+                                </span>
+                                <a href="{{ url('event/' . $plan_month_event->uuid) }}"
+                                    class="event-view-details-exclusive">
+                                    <i class="fa-light fa-eye"></i> View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        @if($plan_month->count() > 1)
+            <div class="slider-dots-exclusive">
+                @foreach($plan_month as $index => $event)
+                    <button type="button"
+                        class="slider-dot-exclusive {{ $index === 0 ? 'active' : '' }}"
+                        data-slide="{{ $index }}"
+                        aria-label="Go to event {{ $index + 1 }}">
+                    </button>
                 @endforeach
             </div>
-            <div class="button-card-event">
-                <a href="{{ route('plan_of_month') }}" class="New-card-event-details-btn">
-                    <i class="fas fa-arrow-right"></i> Explore More</a>
-            </div>
-        </div>
+        @endif
     </div>
 </section>

@@ -241,7 +241,7 @@ return [
     */
 
     'support_phone' => env('SUPPORT_PHONE', '+201234567890'),
-    'support_email' => env('SUPPORT_EMAIL', 'support@myevnt.ai'),
+    'support_email' => env('SUPPORT_EMAIL', 'support@myevnt.co'),
     'company_name' => env('COMPANY_NAME', 'MyEvnt'),
 
 ];

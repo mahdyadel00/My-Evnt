@@ -105,7 +105,7 @@ webinar-landing-page/
 
 4. **Update Booking Link**:
    - Modify the booking URL in `index.html` (line 52)
-   - Currently links to `https://myevnt.ai/`
+   - Currently links to `https://myevnt.co/`
 
 ## 🎨 Design Features
 
@@ -221,7 +221,7 @@ The page is ready for analytics integration:
 
 For technical support or customization requests:
 
-- **Website**: [MyEvent.ai](https://myevnt.ai/)
+- **Website**: [MyEvent.ai](https://myevnt.co/)
 - **Email**: Contact through the booking platform
 - **Documentation**: This README file
 

@@ -1,5 +1,5 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://myevnt.ai/sitemap.xml
+Sitemap: https://myevnt.co/sitemap.xml
 

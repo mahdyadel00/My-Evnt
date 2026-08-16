@@ -203,113 +203,74 @@
         });
 
 
-        // ============== Exclusive Events Section ==============  //
-        // سلايدر بسيط للكروت الثابتة مع dots وتأثيرات انتقال جميلة
-        const cards = document.querySelectorAll(".event-card-exclusive");
-        const dots = document.querySelectorAll(".slider-dot-exclusive");
-        let current = 0;
-        let isAnimating = false;
+        // ============== Exclusive / Plan of Month sliders (independent per section) ==============
+        document.querySelectorAll('.js-exclusive-slider').forEach(function (sliderRoot) {
+            const cards = sliderRoot.querySelectorAll('.event-card-exclusive');
+            const dots = sliderRoot.querySelectorAll('.slider-dot-exclusive');
 
-        function showCard(idx) {
-            if (isAnimating) return;
-            isAnimating = true;
-
-            // إخفاء الكارت الحالي مع تأثير fade out
-            cards.forEach((card, i) => {
-                if (i !== idx && card.style.display === "flex") {
-                    card.style.opacity = "0";
-                    card.style.transform = "translateX(-30px)";
-                    setTimeout(() => {
-                        card.style.display = "none";
-                    }, 400);
-                }
-            });
-
-            // إظهار الكارت الجديد مع تأثير fade in
-            setTimeout(() => {
-                const targetCard = cards[idx];
-                targetCard.style.display = "flex";
-                targetCard.style.opacity = "0";
-                targetCard.style.transform = "translateX(30px)";
-
-                setTimeout(() => {
-                    targetCard.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
-                    targetCard.style.opacity = "1";
-                    targetCard.style.transform = "translateX(0)";
-                    isAnimating = false;
-                }, 50);
-            }, 400);
-
-            // تحديث النقاط النشطة مع تأثير
-            dots.forEach((dot, i) => {
-                dot.classList.remove("active");
-                if (i === idx) {
-                    setTimeout(() => {
-                        dot.classList.add("active");
-                    }, 200);
-                }
-            });
-        }
-
-        // إضافة حدث النقر على النقاط
-        dots.forEach((dot, index) => {
-            dot.onclick = function () {
-                if (current !== index) {
-                    current = index;
-                    showCard(current);
-                }
-            };
-
-            // تأثير ripple عند الضغط
-            dot.addEventListener('mousedown', function (e) {
-                const ripple = document.createElement('span');
-                ripple.style.position = 'absolute';
-                ripple.style.width = '20px';
-                ripple.style.height = '20px';
-                ripple.style.borderRadius = '50%';
-                ripple.style.background = 'rgba(237, 115, 38, 0.6)';
-                ripple.style.transform = 'scale(0)';
-                ripple.style.animation = 'rippleEffect 0.6s ease-out';
-                ripple.style.pointerEvents = 'none';
-                this.style.position = 'relative';
-                this.appendChild(ripple);
-
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
-
-        // Auto-play slider (اختياري)
-        let autoPlayInterval;
-        function startAutoPlay() {
-            autoPlayInterval = setInterval(() => {
-                current = (current + 1) % cards.length;
-                showCard(current);
-            }, 5000); // كل 5 ثواني
-        }
-
-        function stopAutoPlay() {
-            clearInterval(autoPlayInterval);
-        }
-
-        // إيقاف auto-play عند التفاعل مع النقاط
-        dots.forEach(dot => {
-            dot.addEventListener('click', stopAutoPlay);
-        });
-
-        // إظهار أول كارت عند التحميل
-        cards.forEach((card, i) => {
-            card.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
-            if (i === 0) {
-                card.style.display = "flex";
-                card.style.opacity = "1";
-                card.style.transform = "translateX(0)";
-            } else {
-                card.style.display = "none";
+            if (cards.length === 0) {
+                return;
             }
-        });
 
-        // تشغيل auto-play
-        // startAutoPlay(); // قم بإزالة التعليق لتفعيل التشغيل التلقائي
+            let current = 0;
+            let isAnimating = false;
+
+            function showCard(idx) {
+                if (isAnimating || idx < 0 || idx >= cards.length) {
+                    return;
+                }
+
+                isAnimating = true;
+
+                cards.forEach(function (card, i) {
+                    if (i !== idx && card.style.display === 'flex') {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateX(-30px)';
+                        setTimeout(function () {
+                            card.style.display = 'none';
+                        }, 400);
+                    }
+                });
+
+                setTimeout(function () {
+                    const targetCard = cards[idx];
+                    targetCard.style.display = 'flex';
+                    targetCard.style.opacity = '0';
+                    targetCard.style.transform = 'translateX(30px)';
+
+                    setTimeout(function () {
+                        targetCard.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                        targetCard.style.opacity = '1';
+                        targetCard.style.transform = 'translateX(0)';
+                        isAnimating = false;
+                    }, 50);
+                }, 400);
+
+                dots.forEach(function (dot, i) {
+                    dot.classList.toggle('active', i === idx);
+                });
+            }
+
+            dots.forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    if (current !== index) {
+                        current = index;
+                        showCard(current);
+                    }
+                });
+            });
+
+            cards.forEach(function (card, i) {
+                card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                if (i === 0) {
+                    card.style.display = 'flex';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
 
         // <!-- counter section -->
 
