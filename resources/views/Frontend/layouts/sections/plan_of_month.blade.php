@@ -18,13 +18,6 @@
                                     <img src="{{ asset('storage/' . $media->path) }}" alt="{{ $plan_month_event->name }}" />
                                 @endforeach
                             </a>
-                        @else
-                            <a href="{{ url('event/' . $plan_month_event->uuid) }}" class="event-image-exclusive">
-                                @foreach ($plan_month_event->media as $media)
-
-                                    <img src="{{ asset('storage/' . $media->path) }}" alt="{{ $plan_month_event->name }}" />
-                                @endforeach
-                            </a>
                         @endif
 
                         <div class="event-content-exclusive">
