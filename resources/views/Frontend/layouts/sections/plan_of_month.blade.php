@@ -14,9 +14,8 @@
                         @if($isFreeTicket)
                             <a href="{{ route('checkout_survey', $plan_month_event->eventDates->first()->id) }}"
                                 class="event-image-exclusive">
-                                @foreach ($plan_month_event->media as $media)
-                                    <img src="{{ asset('storage/' . $media->path) }}" alt="{{ $plan_month_event->name }}" />
-                                @endforeach
+                                
+                                    <img src="{{ asset('storage/' . $plan_month_event->media->first()->path) }}" alt="{{ $plan_month_event->name }}" />
                             </a>
                         @endif
 
